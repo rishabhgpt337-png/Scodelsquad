@@ -1,9 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
+import AuthModal from "@/components/auth/AuthModal";
 
 export default function LandingHero() {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const router = useRouter();
   return (
     <section className="relative w-full h-screen min-h-[600px] overflow-hidden bg-[#0a1628]">
       {/* Background with slow zoom animation */}
@@ -38,12 +43,17 @@ export default function LandingHero() {
         </div>
         <div className="flex items-center gap-5">
           <button
-            aria-label="Search"
-            className="w-8 h-8 rounded-full bg-white/95 flex items-center justify-center text-slate-700 hover:bg-white transition-colors"
+            onClick={() => setShowAuthModal(true)}
+            className="text-[10px] font-bold uppercase tracking-wider hover:text-amber-400 transition-colors"
           >
-            <MagnifyingGlass size={16} weight="bold" />
+            Log In
           </button>
-          <span className="text-[10px] font-bold uppercase tracking-wider">Hello, Explorer</span>
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="bg-amber-400 hover:bg-amber-500 text-slate-900 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors"
+          >
+            Sign Up
+          </button>
         </div>
       </nav>
 
@@ -72,7 +82,10 @@ export default function LandingHero() {
           Varanasi, one of the oldest living cities on Earth, is where spirituality meets the sacred Ganges. Explore
           ancient ghats, boat rides at dawn, street food trails, and hidden temples built for unforgettable journeys.
         </p>
-        <button className="inline-flex items-center gap-5 bg-[#1976d2] hover:bg-[#2186e0] text-white font-bold text-sm px-5 py-[14px] rounded-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-all hover:translate-y-[-2px]">
+        <button
+          onClick={() => router.push("/trip-planner")}
+          className="inline-flex items-center gap-5 bg-[#1976d2] hover:bg-[#2186e0] text-white font-bold text-sm px-5 py-[14px] rounded-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-all hover:translate-y-[-2px]"
+        >
           Explore Route
           <span className="text-lg">→</span>
         </button>
@@ -166,6 +179,9 @@ export default function LandingHero() {
       >
         TRAVEL / INDIA
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </section>
   );
 }
