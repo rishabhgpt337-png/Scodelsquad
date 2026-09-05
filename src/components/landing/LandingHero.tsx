@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import AuthModal from "@/components/auth/AuthModal";
+import RaahiLogo from "@/components/common/RaahiLogo";
 
 export default function LandingHero() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -25,12 +26,9 @@ export default function LandingHero() {
       </motion.div>
 
       {/* Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-8 h-20">
-        <div className="text-2xl font-extrabold tracking-tight flex items-center gap-2">
-          <span className="text-3xl">🧭</span>
-          <span>Raahi</span>
-        </div>
-        <div className="hidden md:flex items-center gap-10 text-[10px] font-semibold uppercase tracking-wider">
+      <nav className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-10 h-20">
+        <RaahiLogo size="sm" />
+        <div className="hidden md:flex items-center gap-10 text-[11px] font-bold uppercase tracking-wider">
           <a href="#destinations" className="opacity-90 hover:opacity-100 transition-opacity">
             Destinations
           </a>

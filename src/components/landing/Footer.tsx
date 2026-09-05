@@ -1,6 +1,7 @@
 "use client";
 
-import { Compass, Heart, GithubLogo, TwitterLogo, LinkedinLogo } from "@phosphor-icons/react";
+import { Heart, GithubLogo, TwitterLogo, LinkedinLogo } from "@phosphor-icons/react";
+import RaahiLogo from "@/components/common/RaahiLogo";
 
 export default function Footer() {
   return (
@@ -8,9 +9,8 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
         {/* Brand */}
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 text-white font-extrabold text-2xl mb-4">
-            <span className="text-3xl">🧭</span>
-            <span>Raahi</span>
+          <div className="mb-4">
+            <RaahiLogo size="md" />
           </div>
           <p className="text-sm text-white/60 max-w-sm mb-6 leading-relaxed">
             India's dignified smart travel companion. Re-imagining tourism through hyper-local AI context, authentic artisan economies, and unified digital monument access.
