@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Calendar, Users, CurrencyInr, Sparkle, ArrowRight, CheckCircle } from "@phosphor-icons/react";
+import { DESTINATION_DETAILS } from "@/lib/destinations";
 
 interface TripPlanningFlowProps {
   destination: { name: string; state: string };
@@ -14,31 +15,6 @@ export const BUDGET_RANGES = [
   { id: "premium", label: "Premium Experience", range: "₹35,000 - ₹50,000", desc: "Boutique luxury resorts, private boat & dining" },
   { id: "bespoke", label: "Bespoke / Custom", range: "Flexible", desc: "Customized to your exact vision without constraints" },
 ];
-
-export const MOCK_ACTIVITIES_BY_DEST: Record<string, string[]> = {
-  Varanasi: [
-    "Sunrise Boat Ride at Assi Ghat",
-    "Evening Ganga Aarti (Dashashwamedh)",
-    "Kashi Vishwanath Corridor Walk",
-    "Godowlia Street Food & Malaiyo Trail",
-    "Bunkar Colony Handloom Silk Tour",
-    "Sarnath Buddhist Stupas & Museum",
-  ],
-  Jaipur: [
-    "Amber Fort Heritage Morning Tour",
-    "Hawa Mahal & Old City Street Bazaar",
-    "Chokhi Dhani Cultural Dinner",
-    "Nahargarh Fort Sunset Viewpoint",
-    "Jantar Mantar Astronomical Walk",
-  ],
-  default: [
-    "Historic Walking Tour",
-    "Iconic Local Street Food Trail",
-    "Scenic Viewpoint & Sunset Spot",
-    "Artisan & Handloom Craft Market",
-    "Cultural Monument & Temple Visit",
-  ],
-};
 
 export default function TripPlanningFlow({ destination, onComplete }: TripPlanningFlowProps) {
   const [arrivalDate, setArrivalDate] = useState<string>("2026-10-28");
@@ -54,7 +30,8 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
     return d.toISOString().split("T")[0];
   };
 
-  const activities = MOCK_ACTIVITIES_BY_DEST[destination.name] || MOCK_ACTIVITIES_BY_DEST.default;
+  const destinationData = DESTINATION_DETAILS[destination.name] || DESTINATION_DETAILS.default;
+  const activities = destinationData.activities;
 
   const toggleActivity = (act: string) => {
     setSelectedActivities((prev) =>

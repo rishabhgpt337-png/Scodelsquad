@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Clock, MapPin, Coffee, Camera, Sun, Moon, NavigationArrow, Calendar, Users, CurrencyInr } from "@phosphor-icons/react";
+import { DESTINATION_DETAILS } from "@/lib/destinations";
 
 interface ItineraryDay {
   day: number;
@@ -36,11 +37,16 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
   const [activeDay, setActiveDay] = useState<number>(1);
   const [viewMode, setViewMode] = useState<"timeline" | "map">("timeline");
 
-  // Generate sample itinerary based on destination and activities
+  // Get destination-specific data or use default
+  const destData = DESTINATION_DETAILS[tripData.destination] || DESTINATION_DETAILS.default;
+
+  // Generate dynamic itinerary based on selected destination and activities
   const generateItinerary = (): ItineraryDay[] => {
     const days: ItineraryDay[] = [];
-    const themeMap = ["Cultural Immersion", "Heritage Exploration", "Local Experiences", "Relax & Reflect"];
-    const iconMap = [<Sun size={16} />, <Coffee size={16} />, <Camera size={16} />, <MapPin size={16} />];
+    const themes = destData.themes.length > 0 ? destData.themes : ["Cultural Exploration", "Heritage Discovery", "Local Experiences"];
+    const morningSpots = destData.morningSpots;
+    const foodSpots = destData.foodSpots;
+    const landmarks = destData.landmarks;
 
     const baseDate = new Date(tripData.arrivalDate);
 
@@ -50,32 +56,32 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
       days.push({
         day: i + 1,
-        title: `Day ${i + 1}: ${themeMap[i % themeMap.length]}`,
+        title: `Day ${i + 1}: ${themes[i % themes.length]}`,
         date: currentDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }),
-        theme: themeMap[i % themeMap.length],
+        theme: themes[i % themes.length],
         timeSlots: [
           {
             time: "06:00",
             activity: "Sunrise Experience",
             icon: <Sun size={16} weight="fill" className="text-orange-400" />,
             duration: "2h",
-            location: i === 0 ? "Assi Ghat" : i === 1 ? "Dashashwamedh Ghat" : "Local Riverbank",
-            description: "Boat ride with chai, watching the city wake up"
+            location: morningSpots[i % morningSpots.length],
+            description: "Start your day with an unforgettable sunrise at this iconic spot"
           },
           {
             time: "08:30",
             activity: "Breakfast & Local Delicacies",
             icon: <Coffee size={16} weight="fill" className="text-amber-400" />,
             duration: "1.5h",
-            location: i === 0 ? "Blue Lassi Shop" : i === 1 ? "Kachori Gali" : "Heritage Cafe",
-            description: "Authentic local breakfast with a food guide"
+            location: foodSpots[0],
+            description: "Authentic local breakfast with traditional flavors"
           },
           {
             time: "10:00",
             activity: tripData.selectedActivities[i % tripData.selectedActivities.length] || "Heritage Walking Tour",
             icon: <MapPin size={16} weight="fill" className="text-emerald-400" />,
             duration: "3h",
-            location: "Main Heritage Zone",
+            location: landmarks[0],
             description: "Guided exploration of key landmarks with historical context"
           },
           {
@@ -83,31 +89,31 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
             activity: "Lunch Break & Relax",
             icon: <Coffee size={16} weight="fill" className="text-amber-400" />,
             duration: "2h",
-            location: i === 0 ? "Traditional Thali House" : i === 1 ? "Rooftop Restaurant" : "Street Food Trail",
+            location: foodSpots[1] || foodSpots[0],
             description: "Local cuisine tasting with free time"
           },
           {
             time: "15:30",
-            activity: i === 0 ? "Silk & Handloom Tour" : i === 1 ? "Photography Session" : "Cultural Workshop",
+            activity: i === 0 ? "Local Artisan Tour" : "Cultural Workshop",
             icon: <Camera size={16} weight="fill" className="text-purple-400" />,
             duration: "2.5h",
-            location: i === 0 ? "Bunkar Colony" : i === 1 ? "Hidden Photo Spots" : "Artisan Center",
+            location: "Local Artisan Quarter",
             description: "Interactive experience with local craftspeople"
           },
           {
             time: "18:30",
-            activity: "Evening Rituals & Aarti",
+            activity: i % 2 === 0 ? "Sunset Viewpoint" : "Evening Rituals",
             icon: <Moon size={16} weight="fill" className="text-blue-400" />,
             duration: "2h",
-            location: "Main Ghat",
-            description: "Evening ceremonies and cultural performances"
+            location: morningSpots[(i + 1) % morningSpots.length] || "Main Square",
+            description: "Evening experiences and stunning views"
           },
           {
             time: "20:30",
             activity: "Dinner & Local Recommendations",
             icon: <Coffee size={16} weight="fill" className="text-amber-400" />,
             duration: "2h",
-            location: "Curated Restaurant List",
+            location: foodSpots[2] || foodSpots[0],
             description: "Based on your preferences and budget"
           }
         ]
