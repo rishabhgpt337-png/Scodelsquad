@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* === RAAHI DESIGN TOKENS === */
+  --color-surface:       #0a1628;
+  --color-surface-mid:   #0f2137;
+  --color-surface-card:  rgba(255,255,255,0.06);
+  --color-border:        rgba(255,255,255,0.12);
+  --color-accent:        #e8a45a;
+  --color-accent-soft:   rgba(232,164,90,0.18);
+  --color-text-primary:  #f5f0e8;
+  --color-text-muted:    rgba(245,240,232,0.55);
+
+  --font-display: "Cabinet Grotesk", "DM Sans", system-ui, sans-serif;
+  --font-body:    "DM Sans", system-ui, sans-serif;
+
+  --radius-card: 16px;
+  --radius-btn:  10px;
+
+  --shadow-card: 0 24px 64px rgba(0,0,0,0.42);
+  --shadow-glow: 0 0 40px rgba(232,164,90,0.15);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  min-height: 100%;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* === NO EMOJIS, NO INTER, NO AI-PURPLE === */
+/* Accent is warm amber/terracotta - not generic blue */
+
+::selection {
+  background: var(--color-accent);
+  color: #0a1628;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
