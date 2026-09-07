@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import AuthModal from "@/components/auth/AuthModal";
 import RaahiLogo from "@/components/common/RaahiLogo";
+import LocationBadge from "@/components/location/LocationBadge";
 
 const HERO_DESTINATIONS = [
   {
@@ -50,7 +51,8 @@ export default function LandingHero() {
             About
           </a>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4">
+          <LocationBadge className="hidden sm:inline-flex" />
           <button
             onClick={() => setShowAuthModal(true)}
             className="hidden md:block text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 hover:text-white transition-colors"
