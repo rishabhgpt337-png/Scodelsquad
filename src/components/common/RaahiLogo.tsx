@@ -32,7 +32,7 @@ export default function RaahiLogo({
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-[0_4px_16px_rgba(245,158,11,0.35)] transition-transform duration-300 hover:scale-105"
+          className="transition-transform duration-300 hover:scale-105"
         >
           <defs>
             {/* Ambient Background Gradient */}
@@ -53,12 +53,6 @@ export default function RaahiLogo({
               <stop offset="0%" stopColor="#FB923C" />
               <stop offset="100%" stopColor="#DC2626" />
             </linearGradient>
-
-            {/* Subtle Outer Glow Filter */}
-            <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
 
           {/* Outer Rounded Shield / Frame */}
@@ -113,7 +107,6 @@ export default function RaahiLogo({
           <path
             d="M50 20 L58 46 L50 40 L42 46 Z"
             fill="url(#raahi-gold)"
-            filter="url(#gold-glow)"
           />
 
           {/* Southern Compass Shadow Needle */}
@@ -139,17 +132,17 @@ export default function RaahiLogo({
       {/* Bespoke Wordmark */}
       {showText && (
         <div className="flex flex-col justify-center leading-none">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <span
-              className={`font-black tracking-tight ${currentSize.text} bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 bg-clip-text text-transparent drop-shadow-sm`}
-              style={{ fontFamily: "var(--font-display, system-ui)" }}
+              className={`font-bold tracking-tight ${currentSize.text} text-white`}
+              style={{ fontFamily: "var(--font-dm-sans, system-ui)" }}
             >
               Raahi
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse mb-2 shadow-[0_0_8px_#F59E0B]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mb-2" />
           </div>
           <span
-            className={`font-bold uppercase text-white/50 ${currentSize.sub}`}
+            className={`font-semibold uppercase text-white/50 ${currentSize.sub}`}
             style={{ letterSpacing: "0.28em" }}
           >
             Bharat Explorer

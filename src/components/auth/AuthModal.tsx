@@ -22,14 +22,11 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     e.preventDefault();
     setIsLoading(true);
 
-    // TODO: Connect to Supabase Auth. Simulating network request
     setTimeout(() => {
-      console.log("Auth submitted:", { mode, email, password, name });
       setIsLoading(false);
       onClose();
-      // Redirect to main app flow
       router.push("/trip-planner");
-    }, 800);
+    }, 600);
   };
 
   const handleGuestLogin = () => {
@@ -38,7 +35,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       setIsLoading(false);
       onClose();
       router.push("/trip-planner");
-    }, 600);
+    }, 400);
   };
 
   return (
@@ -51,31 +48,38 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/80 z-50"
           />
 
-          {/* Modal */}
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-slate-900 border border-white/10 rounded-3xl shadow-2xl z-50 overflow-hidden"
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.2 }}
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-slate-900 border border-white/[0.08] rounded-2xl shadow-xl z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-slate-800/50 p-6 relative border-b border-white/5">
+            <div className="bg-slate-950/80 p-6 relative border-b border-white/[0.08]">
               <button
                 onClick={onClose}
-                className="absolute right-5 top-5 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                className="absolute right-5 top-5 w-7 h-7 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] flex items-center justify-center text-white/50 hover:text-white transition-colors"
               >
-                <X size={18} weight="bold" />
+                <X size={15} weight="bold" />
               </button>
-              <h2 className="text-2xl font-bold text-white mb-2">
-                {mode === "login" ? "Welcome Back" : "Join Raahi"}
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-400">
+                  Raahi Identity
+                </span>
+              </div>
+              <h2 className="text-xl font-bold text-white mb-1.5 tracking-tight">
+                {mode === "login" ? "Sign In to Raahi" : "Create Traveler Account"}
               </h2>
-              <p className="text-sm text-white/50">
+              <p className="text-xs text-white/50">
                 {mode === "login"
-                  ? "Sign in to access your saved itineraries and live radar."
-                  : "Create an account to build personalized Bharat itineraries."}
+                  ? "Access your verified itinerary library and live radar telemetry."
+                  : "Generate and store personalized Bharat tourism master plans."}
               </p>
             </div>
 
@@ -83,17 +87,20 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               {mode === "signup" && (
                 <div>
+                  <label className="text-[11px] font-semibold text-white/60 uppercase tracking-wider block mb-1.5">
+                    Full Name
+                  </label>
                   <div className="relative">
                     <User
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                      size={16}
+                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40"
                     />
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Full Name"
-                      className="w-full bg-slate-950/50 border border-white/10 text-white rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-amber-400 focus:bg-slate-800 transition-colors"
+                      placeholder="e.g. Aditi Sharma"
+                      className="w-full bg-slate-950 border border-white/[0.1] text-white rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-amber-400 transition-colors"
                       required={mode === "signup"}
                     />
                   </div>
@@ -101,34 +108,40 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               )}
 
               <div>
+                <label className="text-[11px] font-semibold text-white/60 uppercase tracking-wider block mb-1.5">
+                  Official Email
+                </label>
                 <div className="relative">
                   <EnvelopeSimple
-                    size={18}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                    size={16}
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40"
                   />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email Address"
-                    className="w-full bg-slate-950/50 border border-white/10 text-white rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-amber-400 focus:bg-slate-800 transition-colors"
+                    placeholder="name@example.com"
+                    className="w-full bg-slate-950 border border-white/[0.1] text-white rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-amber-400 transition-colors"
                     required
                   />
                 </div>
               </div>
 
               <div>
+                <label className="text-[11px] font-semibold text-white/60 uppercase tracking-wider block mb-1.5">
+                  Password
+                </label>
                 <div className="relative">
                   <LockSimple
-                    size={18}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40"
+                    size={16}
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40"
                   />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    className="w-full bg-slate-950/50 border border-white/10 text-white rounded-xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-amber-400 focus:bg-slate-800 transition-colors"
+                    placeholder="••••••••"
+                    className="w-full bg-slate-950 border border-white/[0.1] text-white rounded-xl pl-10 pr-4 py-3 text-xs focus:outline-none focus:border-amber-400 transition-colors"
                     required
                   />
                 </div>
@@ -137,28 +150,28 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold py-3.5 rounded-xl transition-all mt-2 flex items-center justify-center gap-2"
+                className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-xl transition-colors mt-2 flex items-center justify-center gap-2 text-xs"
               >
                 {isLoading ? (
-                  <Spinner size={18} className="animate-spin" />
+                  <Spinner size={16} className="animate-spin" />
                 ) : (
-                  mode === "login" ? "Sign In" : "Create Account"
+                  mode === "login" ? "Sign In Securely" : "Create Account"
                 )}
               </button>
 
-              <div className="relative flex py-4 items-center">
-                <div className="flex-grow border-t border-white/10"></div>
-                <span className="shrink-0 mx-4 text-white/30 text-xs">OR</span>
-                <div className="flex-grow border-t border-white/10"></div>
+              <div className="relative flex py-2 items-center">
+                <div className="flex-grow border-t border-white/[0.08]"></div>
+                <span className="shrink-0 mx-3 text-white/30 text-[10px] uppercase font-bold tracking-widest">or</span>
+                <div className="flex-grow border-t border-white/[0.08]"></div>
               </div>
 
               <button
                 type="button"
                 onClick={handleGuestLogin}
                 disabled={isLoading}
-                className="w-full bg-white/5 hover:bg-white/10 text-white font-semibold py-3.5 rounded-xl transition-all flex items-center justify-center border border-white/10 text-sm"
+                className="w-full bg-slate-950 hover:bg-slate-800 text-white/80 hover:text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center border border-white/[0.08] text-xs"
               >
-                Continue as Guest
+                Continue as Verified Guest
               </button>
 
               <div className="text-center pt-2">

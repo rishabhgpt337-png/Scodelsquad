@@ -10,13 +10,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Raahi — Travel Smarter, Explore Deeper",
+  title: "Raahi | Ministry of Tourism - Smart India Hackathon",
   description:
-    "Raahi is your AI-powered travel companion for India. Personalized itineraries, local experiences, and real-time guidance — all in one place.",
-  keywords: ["travel india", "itinerary planner", "AI travel", "local experiences", "SIH"],
+    "India's official AI-powered heritage and travel ecosystem. Verified master itineraries, local artisan networks, and connected digital tourist passes.",
+  keywords: ["ministry of tourism", "smart india hackathon", "travel india", "itinerary planner", "AI travel", "local experiences"],
   openGraph: {
-    title: "Raahi — Travel Smarter, Explore Deeper",
-    description: "Your AI travel companion for India.",
+    title: "Raahi | Ministry of Tourism India",
+    description: "India's official AI-powered heritage and travel ecosystem.",
     type: "website",
   },
 };
@@ -26,7 +26,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={dmSans.variable}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased font-sans bg-slate-950 text-white">{children}</body>
     </html>
   );
 }
