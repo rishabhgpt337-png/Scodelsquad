@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyA-mock-key-mock-key-mock-key",
@@ -15,4 +16,16 @@ const firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConf
 
 export const auth = getAuth(firebaseApp);
 export const googleProvider = new GoogleAuthProvider();
+export const db = getFirestore(firebaseApp);
+
+export async function signInWithGoogle() {
+  const { signInWithPopup } = await import("firebase/auth");
+  return signInWithPopup(auth, googleProvider);
+}
+
+export async function signOutUser() {
+  const { signOut } = await import("firebase/auth");
+  return signOut(auth);
+}
+
 export default firebaseApp;

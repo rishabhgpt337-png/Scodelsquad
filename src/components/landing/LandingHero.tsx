@@ -30,6 +30,10 @@ export default function LandingHero() {
             <a href="#features" className="hover:text-white transition-colors duration-300">Features</a>
             <a href="#impact" className="hover:text-white transition-colors duration-300">Impact</a>
             <a href="#technology" className="hover:text-white transition-colors duration-300">Technology</a>
+            <a href="/assistant" className="text-amber-400 hover:text-amber-300 transition-colors duration-300 flex items-center gap-1.5 font-semibold">
+              <Sparkle weight="fill" size={13} className="text-amber-400" />
+              <span>AI Concierge</span>
+            </a>
           </div>
 
           <div className="flex items-center gap-4">
@@ -76,6 +80,14 @@ export default function LandingHero() {
             className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_40px_rgba(255,255,255,0.2)]"
           >
             Launch Builder <Sparkle weight="fill" size={16} />
+          </button>
+
+          <button
+            onClick={() => router.push("/assistant")}
+            className="w-full sm:w-auto px-7 py-4 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-white font-medium text-sm transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-xl"
+          >
+            <span>Ask AI Concierge</span>
+            <ArrowRight size={16} />
           </button>
         </motion.div>
 
