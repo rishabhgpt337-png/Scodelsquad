@@ -41,23 +41,6 @@ export default function LandingHero() {
       {/* Hero Content Main Stage */}
       <div className="relative z-10 flex-1 flex flex-col items-center pt-24 md:pt-32 px-6 text-center">
 
-        {/* Launch Pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 group cursor-pointer hover:bg-white/[0.05] transition-colors"
-        >
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-          </span>
-          <span className="text-[11px] font-medium text-white/80 tracking-wide">
-            Raahi Intelligence Engine v2.0 Live
-          </span>
-          <ArrowRight size={12} className="text-white/40 group-hover:text-white/80 transition-colors ml-1" />
-        </motion.div>
-
         {/* Huge SaaS Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
