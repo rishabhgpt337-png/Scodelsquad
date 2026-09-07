@@ -2,7 +2,7 @@
 
 ## 1. Project Goal & Identity
 * **Website Name:** Raahi
-* **Domain Context:** Ministry of Tourism (SIH 2024-25 targeted)
+* **Domain Context:** Ministry of Tourism travel platform
 * **Design Philosophy:** 
   * Eradicated generic templates and standard "AI aesthetic tropes".
   * Refocused the visual identity into a high-end, authoritative digital platform engineered for genuine cultural immersion, avoiding cheap "tourist trap" aesthetics.

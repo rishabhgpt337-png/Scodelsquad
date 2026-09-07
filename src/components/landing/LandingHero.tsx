@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import AuthModal from "@/components/auth/AuthModal";
 import RaahiLogo from "@/components/common/RaahiLogo";
 import LocationBadge from "@/components/location/LocationBadge";
+import UserNav from "@/components/auth/UserNav";
 
 const HERO_DESTINATIONS = [
   {
@@ -20,7 +19,6 @@ const HERO_DESTINATIONS = [
 ];
 
 export default function LandingHero() {
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const router = useRouter();
   const dest = HERO_DESTINATIONS[0];
 
@@ -53,18 +51,7 @@ export default function LandingHero() {
         </div>
         <div className="flex items-center gap-4">
           <LocationBadge className="hidden sm:inline-flex" />
-          <button
-            onClick={() => setShowAuthModal(true)}
-            className="hidden md:block text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 hover:text-white transition-colors"
-          >
-            Log In
-          </button>
-          <button
-            onClick={() => setShowAuthModal(true)}
-            className="border border-white/25 hover:bg-white hover:text-slate-900 text-white text-[11px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-full transition-all duration-200"
-          >
-            Sign Up
-          </button>
+          <UserNav />
         </div>
       </nav>
 
@@ -80,7 +67,7 @@ export default function LandingHero() {
           <div className="flex items-center gap-3 mb-6">
             <span className="w-8 h-[1.5px] bg-amber-400/60" />
             <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-amber-400/90">
-              Smart India Hackathon 2024–25
+              Ministry of Tourism • Digital Portal
             </span>
           </div>
 
@@ -136,9 +123,6 @@ export default function LandingHero() {
           </div>
         </div>
       </div>
-
-      {/* Auth Modal */}
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </section>
   );
 }

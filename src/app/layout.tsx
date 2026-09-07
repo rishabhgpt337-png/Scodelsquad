@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -10,10 +11,10 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Raahi | Ministry of Tourism - Smart India Hackathon",
+  title: "Raahi | Ministry of Tourism Travel Platform",
   description:
     "India's official AI-powered heritage and travel ecosystem. Verified master itineraries, local artisan networks, and connected digital tourist passes.",
-  keywords: ["ministry of tourism", "smart india hackathon", "travel india", "itinerary planner", "AI travel", "local experiences"],
+  keywords: ["ministry of tourism", "travel india", "itinerary planner", "AI travel", "local experiences"],
   openGraph: {
     title: "Raahi | Ministry of Tourism India",
     description: "India's official AI-powered heritage and travel ecosystem.",
@@ -26,7 +27,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={dmSans.variable}>
-      <body className="antialiased font-sans bg-slate-950 text-white">{children}</body>
+      <body className="antialiased font-sans bg-slate-950 text-white">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

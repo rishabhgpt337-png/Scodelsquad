@@ -31,7 +31,7 @@ export default function Footer() {
               India's dignified smart travel companion. Re-imagining tourism through hyper-local AI context, authentic artisan economies, and unified digital monument access.
             </p>
             <div className="text-[11px] font-semibold text-amber-400/70 uppercase tracking-[0.2em]">
-              Smart India Hackathon 2024–25
+              Ministry of Tourism • Digital Initiative
             </div>
           </div>
 
