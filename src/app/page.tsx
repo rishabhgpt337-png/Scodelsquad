@@ -1,5 +1,4 @@
 import LandingHero from "@/components/landing/LandingHero";
-import DestinationsSection from "@/components/landing/DestinationsSection";
 import VendorImpactSection from "@/components/landing/VendorImpactSection";
 import SmartRadar from "@/components/landing/SmartRadar";
 import Footer from "@/components/landing/Footer";
@@ -9,9 +8,6 @@ export default function HomePage() {
     <main className="min-h-screen bg-slate-950 text-white flex flex-col">
       {/* 1. Cinematic Hero */}
       <LandingHero />
-
-      {/* 4. Top Curated Circuits */}
-      <DestinationsSection />
 
       {/* 5. Direct Vendor / Artisan Impact */}
       <VendorImpactSection />
