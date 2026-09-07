@@ -127,7 +127,7 @@ export default function LandingHero() {
 
             {/* Center HUD Element */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
-              <div className="w-16 h-16 rounded-full border border-white/20 bg-black flex items-center justify-center shadow-[0_0_50px_rgba(251,191,36,0.15)] relative">
+              <div className="px-6 h-16 rounded-full border border-white/20 bg-black flex items-center justify-center shadow-[0_0_50px_rgba(251,191,36,0.15)] relative">
                 <div className="absolute inset-0 rounded-full border border-amber-500/30 animate-[spin_4s_linear_infinite]" />
                 <RaahiLogo size="sm" />
               </div>
