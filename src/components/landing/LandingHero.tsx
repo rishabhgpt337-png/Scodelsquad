@@ -2,163 +2,167 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import { MagnifyingGlass, MapPin, CalendarBlank, Users, Sparkle, ArrowRight } from "@phosphor-icons/react";
+import { motion } from "motion/react";
+import { Sparkle, ArrowRight, Mouse, CheckCircle, MapPin, GlobeHemisphereWest } from "@phosphor-icons/react";
 import RaahiLogo from "@/components/common/RaahiLogo";
-import LocationBadge from "@/components/location/LocationBadge";
 import UserNav from "@/components/auth/UserNav";
-import { POPULAR_DESTINATIONS } from "@/lib/destinations";
-
-const TRENDING_CIRCUITS = [
-  { name: "Varanasi Ghats", emoji: "🪔" },
-  { name: "Jaipur Palaces", emoji: "🏰" },
-  { name: "Leh Ladakh", emoji: "🏔️" },
-  { name: "Kerala Backwaters", emoji: "🌴" },
-  { name: "Hampi Ruins", emoji: "🏛️" },
-  { name: "Amritsar Heritage", emoji: "🙏" },
-];
 
 export default function LandingHero() {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const filteredDestinations = POPULAR_DESTINATIONS.filter((d) =>
-    d.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
-    <section className="relative w-full min-h-[90dvh] flex flex-col bg-slate-950">
-      {/* Background with Ambient gradient */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-900/20 via-slate-950 to-slate-950" />
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2400&q=90')] bg-cover bg-center opacity-10" />
+    <section className="relative w-full min-h-screen flex flex-col bg-[#050505] overflow-hidden selection:bg-amber-500/30">
+      {/* Abstract Animated Glows & Mesh Gradients */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] mix-blend-screen" />
+        <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[120px] mix-blend-screen" />
       </div>
 
-      {/* Navigation */}
-      <nav className="relative z-30 flex items-center justify-between px-8 md:px-16 lg:px-20 h-24">
-        <RaahiLogo size="md" />
-        <div className="hidden md:flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60">
-          <a href="#destinations" className="hover:text-amber-400 transition-colors">Destinations</a>
-          <a href="/trip-planner" className="hover:text-amber-400 transition-colors">AI Trip Planner</a>
-          <a href="#about" className="hover:text-amber-400 transition-colors">Heritage</a>
-        </div>
-        <div className="flex items-center gap-4">
-          <LocationBadge className="hidden sm:inline-flex" />
-          <UserNav />
-        </div>
-      </nav>
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay z-0 pointer-events-none" />
 
-      {/* Main Content */}
-      <div className="relative z-20 flex-1 flex flex-col justify-center items-center px-8 text-center pb-20">
+      {/* Floating Nano-Nav */}
+      <div className="relative z-50 w-full px-6 pt-8 flex justify-center">
+        <nav className="w-full max-w-5xl bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-full h-16 flex items-center justify-between px-6 sm:px-8 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+          <RaahiLogo size="sm" />
+
+          <div className="hidden md:flex items-center gap-8 text-xs font-medium text-white/50">
+            <a href="#features" className="hover:text-white transition-colors duration-300">Features</a>
+            <a href="#impact" className="hover:text-white transition-colors duration-300">Impact</a>
+            <a href="#technology" className="hover:text-white transition-colors duration-300">Technology</a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <UserNav />
+          </div>
+        </nav>
+      </div>
+
+      {/* Hero Content Main Stage */}
+      <div className="relative z-10 flex-1 flex flex-col items-center pt-24 md:pt-32 px-6 text-center">
+
+        {/* Launch Pill */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl"
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 group cursor-pointer hover:bg-white/[0.05] transition-colors"
         >
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-3 mb-6 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/80">
-              Ministry of Tourism • Authentic Digital Bharat Portal
-            </span>
-          </div>
+          <span className="flex h-2 w-2 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          </span>
+          <span className="text-[11px] font-medium text-white/80 tracking-wide">
+            Raahi Intelligence Engine v2.0 Live
+          </span>
+          <ArrowRight size={12} className="text-white/40 group-hover:text-white/80 transition-colors ml-1" />
+        </motion.div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-[-0.03em] text-white mb-6 leading-[1.1]">
-            Explore India's <span className="text-amber-400">Heritage</span>.<br />
-            Plan With <span className="text-white/40 italic">Precision</span>.
-          </h1>
+        {/* Huge SaaS Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          className="text-5xl md:text-7xl lg:text-[84px] font-semibold text-white tracking-[-0.03em] leading-[1.05] max-w-5xl"
+        >
+          Architect The Perfect <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
+            Cultural Journey.
+          </span>
+        </motion.h1>
 
-          <p className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
-            AI-powered authentic itineraries, certified local artisans, and sacred heritage trails — curated without commercial middlemen.
-          </p>
+        {/* Sub-headline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+          className="mt-8 text-lg md:text-xl text-white/40 max-w-2xl font-light leading-relaxed"
+        >
+          An advanced intelligence layer mapping India's vast heritage. Generate hyper-personalized, artisan-verified itineraries with precision mapping and local insights.
+        </motion.p>
 
-          {/* Search Planner Widget */}
-          <div className="relative max-w-3xl mx-auto w-full">
-            <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 p-2 rounded-2xl md:rounded-full shadow-2xl flex flex-col md:flex-row items-center gap-2">
-              <div className="flex-1 w-full flex items-center px-4 gap-3">
-                <MapPin className="text-amber-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Where to? (e.g., Varanasi)"
-                  className="bg-transparent border-none outline-none text-white placeholder-white/30 text-sm w-full py-4"
-                  value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setShowSuggestions(true);
-                  }}
-                  onFocus={() => setShowSuggestions(true)}
-                />
+        {/* Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+          className="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
+        >
+          <button
+            onClick={() => router.push("/trip-planner")}
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+          >
+            Launch Builder <Sparkle weight="fill" size={16} />
+          </button>
+
+          <button
+            className="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent border border-white/[0.15] text-white font-medium text-sm hover:bg-white/[0.05] transition-all duration-300 flex items-center justify-center gap-2"
+          >
+            Explore Interactive Demo
+          </button>
+        </motion.div>
+
+        {/* Dashboard Mockup / Core Portal Visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          className="mt-20 relative w-full max-w-6xl mx-auto"
+        >
+          {/* Glassmorphic Board */}
+          <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden aspect-[16/9] md:aspect-[21/9] flex items-center justify-center group">
+            {/* Minimalist Tech UI representation */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700">
+              {/* Card 1 */}
+              <div className="flex flex-col gap-4 border border-white/5 bg-white/[0.01] rounded-2xl p-6">
+                <div className="h-10 w-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                  <MapPin size={20} className="text-amber-500" />
+                </div>
+                <div className="h-2 w-24 bg-white/10 rounded-full mt-2" />
+                <div className="h-2 w-full bg-white/5 rounded-full" />
+                <div className="h-2 w-2/3 bg-white/5 rounded-full" />
               </div>
 
-              <button
-                onClick={() => router.push("/trip-planner")}
-                className="w-full md:w-auto bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-8 py-4 rounded-xl md:rounded-full transition-all duration-200 flex items-center justify-center gap-2 shadow-lg"
-              >
-                Plan Journey
-                <ArrowRight size={16} />
-              </button>
+              {/* Card 2  - Primary */}
+              <div className="flex flex-col gap-4 border border-white/10 bg-white/[0.03] rounded-2xl p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 blur-3xl rounded-full" />
+                <div className="h-10 w-10 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
+                  <GlobeHemisphereWest size={20} className="text-indigo-400" />
+                </div>
+                <div className="h-2 w-32 bg-white/20 rounded-full mt-2" />
+                <div className="h-2 w-full bg-white/10 rounded-full" />
+                <div className="h-2 w-full bg-white/10 rounded-full" />
+                <div className="h-2 w-4/5 bg-white/10 rounded-full" />
+              </div>
+
+              {/* Card 3 */}
+              <div className="flex flex-col gap-4 border border-white/5 bg-white/[0.01] rounded-2xl p-6">
+                <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                  <Sparkle size={20} className="text-emerald-500" />
+                </div>
+                <div className="h-2 w-20 bg-white/10 rounded-full mt-2" />
+                <div className="h-2 w-full bg-white/5 rounded-full" />
+                <div className="h-2 w-1/2 bg-white/5 rounded-full" />
+              </div>
             </div>
 
-            {/* Suggestions Dropdown */}
-            <AnimatePresence>
-              {showSuggestions && searchQuery && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute w-full mt-2 bg-slate-900 border border-white/10 rounded-xl overflow-hidden z-50 shadow-2xl"
-                >
-                  {filteredDestinations.map((dest) => (
-                    <button
-                      key={dest.name}
-                      onClick={() => {
-                        setSearchQuery(dest.name);
-                        setShowSuggestions(false);
-                      }}
-                      className="w-full px-6 py-3 text-left text-white/80 hover:bg-white/5 transition-colors flex items-center justify-between"
-                    >
-                      {dest.name}
-                      <span className="text-[10px] text-white/30 uppercase">{dest.state}</span>
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Trending Pills */}
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30 pt-1">
-              Trending Circuits:
-            </span>
-            {TRENDING_CIRCUITS.map((circuit) => (
-              <button
-                key={circuit.name}
-                onClick={() => router.push(`/trip-planner?dest=${circuit.name}`)}
-                className="bg-white/5 hover:bg-white/10 text-white/70 text-[11px] px-4 py-1.5 rounded-full border border-white/5 transition-all"
-              >
-                {circuit.emoji} {circuit.name}
-              </button>
-            ))}
+            {/* Center HUD Element */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+              <div className="w-16 h-16 rounded-full border border-white/20 bg-black flex items-center justify-center shadow-[0_0_50px_rgba(251,191,36,0.15)] relative">
+                <div className="absolute inset-0 rounded-full border border-amber-500/30 animate-[spin_4s_linear_infinite]" />
+                <RaahiLogo size="sm" />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Footer Stats Bar */}
-      <div className="relative z-10 w-full border-t border-white/5 py-8 px-8 md:px-20 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {[
-          { label: "Verified Heritage Sites", val: "500+" },
-          { label: "Artisans & Weavers", val: "1.2k+" },
-          { label: "Community Impact", val: "100%" },
-          { label: "GPS Guided Trails", val: "Real-Time" },
-        ].map((stat) => (
-          <div key={stat.label} className="text-center md:text-left">
-            <div className="text-2xl font-bold text-white mb-1">{stat.val}</div>
-            <div className="text-[10px] uppercase tracking-widest text-white/40">{stat.label}</div>
-          </div>
-        ))}
+      {/* Scroll indicator */}
+      <div className="relative z-10 pb-8 flex flex-col justify-center items-center gap-2">
+        <Mouse size={20} className="text-white/20" />
+        <span className="text-[10px] uppercase font-semibold tracking-[0.2em] text-white/20">Scroll to explore</span>
       </div>
     </section>
   );

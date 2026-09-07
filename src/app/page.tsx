@@ -4,7 +4,7 @@ import Footer from "@/components/landing/Footer";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white flex flex-col">
+    <main className="min-h-screen bg-[#050505] text-white flex flex-col">
       {/* 1. Cinematic Hero */}
       <LandingHero />
 
