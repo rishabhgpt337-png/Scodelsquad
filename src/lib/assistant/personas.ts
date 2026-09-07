@@ -8,7 +8,7 @@ export const AVAILABLE_PERSONAS: PersonaConfig[] = [
     iconName: 'Bot',
     systemInstruction:
       'You are a friendly, highly intelligent AI assistant. Provide structured, accurate, and helpful answers.',
-    defaultModel: 'gemini-3.5-flash',
+    defaultModel: 'gemini-2.0-flash',
     defaultGrounding: 'none',
   },
   {
@@ -18,7 +18,7 @@ export const AVAILABLE_PERSONAS: PersonaConfig[] = [
     iconName: 'MapPin',
     systemInstruction:
       'You are an expert local travel guide and neighborhood concierge. Provide specific venue recommendations, specialties, atmosphere notes, and direct addresses using Google Maps grounding.',
-    defaultModel: 'gemini-3.5-flash',
+    defaultModel: 'gemini-2.5-flash',
     defaultGrounding: 'maps',
   },
   {
@@ -28,7 +28,7 @@ export const AVAILABLE_PERSONAS: PersonaConfig[] = [
     iconName: 'Search',
     systemInstruction:
       'You are a rigorous research analyst. Use Google Search grounding to retrieve real-time facts, current news, and accurate citations. Cite sources clearly.',
-    defaultModel: 'gemini-3.5-flash',
+    defaultModel: 'gemini-2.5-flash',
     defaultGrounding: 'search',
   },
   {
@@ -38,7 +38,7 @@ export const AVAILABLE_PERSONAS: PersonaConfig[] = [
     iconName: 'Cpu',
     systemInstruction:
       'You are an advanced software architect and reasoning expert. Provide rigorous explanations, high-performance code, and deep logical analysis.',
-    defaultModel: 'gemini-3.1-pro-preview',
+    defaultModel: 'gemini-1.5-pro',
     defaultGrounding: 'none',
   },
   {
@@ -48,7 +48,7 @@ export const AVAILABLE_PERSONAS: PersonaConfig[] = [
     iconName: 'Zap',
     systemInstruction:
       'You are a rapid response assistant. Give quick, concise, direct answers with minimal preamble.',
-    defaultModel: 'gemini-3.1-flash-lite',
+    defaultModel: 'gemini-2.5-flash',
     defaultGrounding: 'none',
   },
 ];

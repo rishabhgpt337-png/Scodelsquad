@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, model = 'gemini-3.5-flash', systemInstruction, grounding = 'none', location } = body;
+    const { messages, model = 'gemini-2.0-flash', systemInstruction, grounding = 'none', location } = body;
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -13,8 +13,8 @@ export async function POST(req: Request) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    // Enforce gemini-3.5-flash for Maps/Search Grounding per Google GenAI specifications
-    let activeModel = (grounding === 'maps' || grounding === 'search') ? 'gemini-3.5-flash' : model;
+    // Enforce gemini-2.0-flash for Maps/Search Grounding if needed (2.0 and 2.5 support it)
+    let activeModel = (grounding === 'maps' || grounding === 'search') ? 'gemini-2.5-flash' : model;
 
     const contents = messages.map((m: { role: string; text: string }) => ({
       role: m.role === 'assistant' || m.role === 'model' ? 'model' : 'user',
