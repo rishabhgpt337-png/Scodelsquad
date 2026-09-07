@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Calendar, Users, CurrencyInr, Sparkle, ArrowRight, CheckCircle, MapPin,
-  Clock, Heart, ShieldCheck, PaintBrush, Leaf, ForkKnife, Compass, Sparkle as SparkleIcon
+  Clock, Heart, ShieldCheck, PaintBrush, Leaf, ForkKnife, Compass, Sparkle as SparkleIcon,
+  Bed, Phone, Star, ArrowSquareOut
 } from "@phosphor-icons/react";
 import { Destination } from "@/context/DestinationContext";
+import { getCityCustomization, LocalizedStay } from "@/lib/cityPersonalization";
 
 interface Step {
   id: number;
@@ -21,7 +23,8 @@ const STEPS: Step[] = [
   { id: 5, title: "Artisans & Guilds", icon: <PaintBrush size={18} /> },
   { id: 6, title: "Culinary Trails", icon: <ForkKnife size={18} /> },
   { id: 7, title: "Activity Focus", icon: <MapPin size={18} /> },
-  { id: 8, title: "Safety & Passes", icon: <ShieldCheck size={18} /> },
+  { id: 8, title: "Heritage Stays", icon: <Bed size={18} /> },
+  { id: 9, title: "Safety & Passes", icon: <ShieldCheck size={18} /> },
 ];
 
 export const BUDGET_RANGES = [
@@ -36,32 +39,6 @@ const PERSONAS = [
   { id: "spiritual", title: "Spiritual Seeker", desc: "Sunrise ghat aartis, sacred temple darshans & meditation retreats" },
   { id: "culinary", title: "Gastronomic Explorer", desc: "Generational street eats, royal thalis & spice bazaar secret trails" },
   { id: "photography", title: "Visual Storyteller", desc: "Golden hour viewpoints, aerial vantage points & uncrowded corners" },
-];
-
-const ARTISAN_CRAFTS = [
-  "Zardozi & Silk Handloom Guilds",
-  "Handcrafted Terracotta & Pottery",
-  "Generational Brass & Metal Craft",
-  "Miniature Heritage Canvas Painting",
-  "Wood Carving & Stone Filigree",
-  "Natural Botanical Perfumes (Attar)",
-];
-
-const CULINARY_PREFS = [
-  "Strict Pure Vegetarian (Satvik)",
-  "Royal Mughlai & Nawabi Heritage",
-  "Traditional Local Sweets & Lassi Trails",
-  "Historic Street Food Legends (100+ Yrs)",
-  "Temple Prasad & Community Kitchens",
-];
-
-const ACTIVITIES_LIST = [
-  "Private Dawn Boat Procession",
-  "Offbeat Ghat & Old Lane Secret Walk",
-  "Master Artisan Loom Interactive Workshop",
-  "VIP Reserved Evening Aarti Pavilions",
-  "Fortification Rampart Sunset Viewpoint",
-  "Museum & Rare Manuscripts Private Tour",
 ];
 
 interface TripPlanningFlowProps {
@@ -83,10 +60,13 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
     selectedCrafts: [] as string[],
     selectedCulinary: [] as string[],
     selectedActivities: [] as string[],
+    selectedStay: null as string | null,
     includeFestivalAlerts: true,
     digitalPassRequested: true,
     safetyAssistance: true,
   });
+
+  const cityData = getCityCustomization(destination?.name || "");
 
   const toggleArrayItem = (key: 'selectedCrafts' | 'selectedCulinary' | 'selectedActivities', item: string) => {
     setFormData(prev => ({
@@ -120,15 +100,27 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         }),
       });
       const data = await response.json();
-      onComplete(data.itinerary || {
+
+      const payload = {
+        ...(data.itinerary || {}),
         destination: destination.name,
         state: destination.state || 'India',
         arrivalDate: formData.arrivalDate,
+        departureDate: (() => {
+          const d = new Date(formData.arrivalDate);
+          d.setDate(d.getDate() + formData.durationDays);
+          return d.toISOString().split('T')[0];
+        })(),
         durationDays: formData.durationDays,
         budgetRange: formData.budgetRange,
         groupSize: formData.groupSize,
         selectedActivities: formData.selectedActivities,
-      });
+        selectedCrafts: formData.selectedCrafts,
+        selectedCulinary: formData.selectedCulinary,
+        selectedStay: formData.selectedStay,
+      };
+
+      onComplete(payload);
     } catch (e) {
       console.error("Itinerary submission failed:", e);
       // Fallback
@@ -136,10 +128,18 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         destination: destination.name,
         state: destination.state || 'India',
         arrivalDate: formData.arrivalDate,
+        departureDate: (() => {
+          const d = new Date(formData.arrivalDate);
+          d.setDate(d.getDate() + formData.durationDays);
+          return d.toISOString().split('T')[0];
+        })(),
         durationDays: formData.durationDays,
         budgetRange: formData.budgetRange,
         groupSize: formData.groupSize,
         selectedActivities: formData.selectedActivities,
+        selectedCrafts: formData.selectedCrafts,
+        selectedCulinary: formData.selectedCulinary,
+        selectedStay: formData.selectedStay,
       });
     } finally {
       setLoading(false);
@@ -321,7 +321,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
             Select traditional craft workshops and artisan guilds to weave directly into your travel itinerary:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {ARTISAN_CRAFTS.map(craft => {
+            {cityData.crafts.map(craft => {
               const isSelected = formData.selectedCrafts.includes(craft);
               return (
                 <button
@@ -349,7 +349,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
             Choose generational culinary philosophies and dining experiences:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {CULINARY_PREFS.map(food => {
+            {cityData.culinary.map(food => {
               const isSelected = formData.selectedCulinary.includes(food);
               return (
                 <button
@@ -377,7 +377,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
             Select signature monument and cultural activities:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {ACTIVITIES_LIST.map(act => {
+            {cityData.activities.map(act => {
               const isSelected = formData.selectedActivities.includes(act);
               return (
                 <button
@@ -398,8 +398,117 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         </div>
       )}
 
-      {/* Step 8: Safety & Passes */}
+      {/* Step 8: Heritage Stays */}
       {step === 8 && (
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <p className="text-xs text-white/60">
+                Curated accommodations synchronized with local heritage zones & cultural hubs:
+              </p>
+              <p className="text-[11px] text-amber-400/80 mt-0.5">
+                • Real-time data from Google Places & local verified hosts (direct contact, zero middleman markup)
+              </p>
+            </div>
+            {formData.selectedStay && (
+              <button
+                onClick={() => setFormData(prev => ({ ...prev, selectedStay: null }))}
+                className="text-[11px] text-white/40 hover:text-white underline self-start sm:self-auto"
+              >
+                Clear Selection
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {cityData.recommendedStays.map((stay: LocalizedStay) => {
+              const isSelected = formData.selectedStay === stay.id;
+              return (
+                <div
+                  key={stay.id}
+                  onClick={() => setFormData(prev => ({ ...prev, selectedStay: isSelected ? null : stay.id }))}
+                  className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer relative ${
+                    isSelected
+                      ? "bg-amber-400/10 border-amber-400 text-white shadow-lg shadow-amber-400/5 ring-1 ring-amber-400/30"
+                      : "bg-slate-950/80 border-white/[0.08] text-white/80 hover:border-white/20 hover:bg-slate-950"
+                  }`}
+                >
+                  <div className="space-y-2.5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-400/15 text-amber-400 border border-amber-400/30">
+                            {stay.category}
+                          </span>
+                          <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold">
+                            <Star size={12} weight="fill" className="text-amber-400" />
+                            <span>{stay.rating.toFixed(1)}</span>
+                            <span className="text-white/40 font-normal">({stay.userRatingCount}+)</span>
+                          </div>
+                        </div>
+                        <h4 className="text-sm font-bold text-white tracking-tight">{stay.name}</h4>
+                      </div>
+
+                      <div className="flex-shrink-0">
+                        {isSelected ? (
+                          <div className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold">
+                            <CheckCircle size={18} weight="fill" />
+                          </div>
+                        ) : (
+                          <div className="w-6 h-6 rounded-full border border-white/20 hover:border-white/40" />
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-amber-200/90 font-medium italic">
+                      "{stay.tagline}"
+                    </p>
+
+                    <div className="flex items-start gap-1.5 text-xs text-white/50">
+                      <MapPin size={14} className="text-white/40 flex-shrink-0 mt-0.5" />
+                      <span className="line-clamp-2">{stay.address}</span>
+                    </div>
+
+                    {stay.contactNumber && (
+                      <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
+                        <Phone size={13} className="text-emerald-400 flex-shrink-0" />
+                        <span>{stay.contactNumber}</span>
+                      </div>
+                    )}
+
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {stay.highlights.map((h, i) => (
+                        <span key={i} className="text-[10px] bg-white/[0.05] text-white/70 px-2 py-0.5 rounded-md border border-white/[0.06]">
+                          {h}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                    <a
+                      href={stay.googleMapsUri}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={e => e.stopPropagation()}
+                      className="text-[11px] text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1 transition"
+                    >
+                      <ArrowSquareOut size={13} />
+                      View on Google Maps
+                    </a>
+                    <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">
+                      {isSelected ? "Selected Base" : "Click to select"}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Step 9: Safety & Passes */}
+      {step === 9 && (
         <div className="space-y-4">
           <div className="bg-slate-950 border border-white/[0.08] p-5 rounded-2xl space-y-4">
             <h4 className="text-sm font-bold text-white flex items-center gap-2">

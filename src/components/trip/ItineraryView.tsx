@@ -30,6 +30,7 @@ interface ItineraryViewProps {
     budgetRange: string;
     groupSize: number;
     selectedActivities: string[];
+    days?: any[];
   };
 }
 
@@ -40,7 +41,47 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
   const destData = DESTINATION_DETAILS[tripData.destination] || DESTINATION_DETAILS.default;
 
+  const getSlotIcon = (slot: any) => {
+    if (slot.icon && typeof slot.icon === 'object' && '$$typeof' in slot.icon) {
+      return slot.icon;
+    }
+    const time = slot.time || "";
+    const hour = parseInt(time.split(":")[0], 10) || 12;
+    const activity = (slot.activity || "").toLowerCase();
+    const category = (slot.category || "").toLowerCase();
+
+    if (activity.includes("breakfast") || activity.includes("lunch") || activity.includes("dinner") || activity.includes("food") || activity.includes("eat") || category.includes("culinary")) {
+      return <Coffee size={15} weight="bold" className="text-amber-400" />;
+    }
+    if (hour < 8 || activity.includes("sunrise") || category.includes("sunrise")) {
+      return <Sun size={15} weight="bold" className="text-amber-400" />;
+    }
+    if (hour >= 18 || activity.includes("sunset") || activity.includes("aarti") || activity.includes("night")) {
+      return <Moon size={15} weight="bold" className="text-blue-400" />;
+    }
+    if (activity.includes("craft") || activity.includes("workshop") || activity.includes("artisan") || activity.includes("photo")) {
+      return <Camera size={15} weight="bold" className="text-purple-400" />;
+    }
+    return <MapPin size={15} weight="bold" className="text-emerald-400" />;
+  };
+
   const generateItinerary = (): ItineraryDay[] => {
+    if (tripData.days && tripData.days.length > 0) {
+      return tripData.days.map((d: any, idx: number) => ({
+        day: d.day || idx + 1,
+        title: d.title || `Day ${idx + 1}: ${d.theme || "Cultural Discovery"}`,
+        date: d.date || (() => {
+          const dt = new Date(tripData.arrivalDate);
+          dt.setDate(dt.getDate() + idx);
+          return dt.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+        })(),
+        theme: d.theme || "Curated Experience",
+        timeSlots: (d.timeSlots || []).map((slot: any) => ({
+          ...slot,
+          icon: getSlotIcon(slot),
+        })),
+      }));
+    }
     const days: ItineraryDay[] = [];
     const themes = destData.themes.length > 0 ? destData.themes : ["Cultural Exploration", "Heritage Discovery", "Local Experiences"];
     const morningSpots = destData.morningSpots;
