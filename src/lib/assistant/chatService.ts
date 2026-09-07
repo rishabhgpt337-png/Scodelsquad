@@ -46,7 +46,7 @@ export function subscribeUserChats(
 export async function createChatSession(
   userId: string,
   title: string,
-  model: GeminiModelId = 'gemini-2.0-flash',
+  model: GeminiModelId = 'gemini-3.5-flash-lite',
   persona: string = 'general',
   groundingMode: GroundingMode = 'none'
 ): Promise<ChatSession> {

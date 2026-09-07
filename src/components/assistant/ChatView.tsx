@@ -109,27 +109,27 @@ export default function ChatView({
       title: 'Nearby Coffee & Workspaces',
       text: 'What are the top 3 cozy cafes with good Wi-Fi and quiet atmosphere nearby? Provide locations and highlights.',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-2.5-flash' as GeminiModelId,
+      model: 'gemini-3.5-flash-lite' as GeminiModelId,
       persona: 'local_guide',
     },
     {
       title: 'Current Tech Breakthroughs',
       text: 'What are the latest AI and technology headlines from this week? Ground with web sources and citations.',
       grounding: 'search' as GroundingMode,
-      model: 'gemini-2.5-flash' as GeminiModelId,
+      model: 'gemini-3.5-flash-lite' as GeminiModelId,
       persona: 'researcher',
     },
     {
       title: 'Complex Code Architecture',
       text: 'Analyze the trade-offs between CQRS and traditional CRUD for high-concurrency event-driven systems in TypeScript.',
       grounding: 'none' as GroundingMode,
-      model: 'gemini-1.5-pro' as GeminiModelId,
+      model: 'gemini-3.1-pro-preview' as GeminiModelId,
       persona: 'deep_thinker',
     },
   ];
 
   const currentGrounding = chat?.groundingMode || 'none';
-  const currentModel = chat?.model || 'gemini-2.0-flash';
+  const currentModel = chat?.model || 'gemini-3.5-flash-lite';
 
   return (
     <div id="chat-container" className="flex-1 flex flex-col h-full min-h-0 bg-white relative">
@@ -184,7 +184,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'search',
-                  model: 'gemini-2.5-flash',
+                  model: 'gemini-3.5-flash-lite',
                 })
               }
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all ${
@@ -192,7 +192,7 @@ export default function ChatView({
                   ? 'bg-sky-600 text-white font-medium shadow-2xs'
                   : 'text-stone-600 hover:text-sky-700'
               }`}
-              title="Google Search Grounding with gemini-2.5-flash"
+              title="Google Search Grounding with gemini-3.5-flash-lite"
             >
               <Globe className="w-3 h-3" />
               <span>Search</span>
@@ -204,7 +204,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'maps',
-                  model: 'gemini-2.5-flash',
+                  model: 'gemini-3.5-flash-lite',
                 })
               }
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all ${
@@ -212,7 +212,7 @@ export default function ChatView({
                   ? 'bg-emerald-600 text-white font-medium shadow-2xs'
                   : 'text-stone-600 hover:text-emerald-700'
               }`}
-              title="Google Maps Grounding with gemini-2.5-flash"
+              title="Google Maps Grounding with gemini-3.5-flash-lite"
             >
               <MapPin className="w-3 h-3" />
               <span>Maps</span>
@@ -229,16 +229,16 @@ export default function ChatView({
                   model: e.target.value as GeminiModelId,
                   // If switching while grounding is active
                   groundingMode:
-                    e.target.value !== 'gemini-2.5-flash' && e.target.value !== 'gemini-2.0-flash' && currentGrounding !== 'none'
+                    e.target.value !== 'gemini-3.5-flash-lite' && e.target.value !== 'gemini-3.5-flash-lite' && currentGrounding !== 'none'
                       ? 'none'
                       : currentGrounding,
                 })
               }
               className="appearance-none bg-white border border-stone-300 text-stone-800 py-1.5 pl-3 pr-8 rounded-lg font-mono text-[11px] shadow-2xs focus:outline-none focus:ring-1 focus:ring-stone-400 cursor-pointer"
             >
-              <option value="gemini-2.5-flash">gemini-2.5-flash (Fast &amp; Grounding)</option>
-              <option value="gemini-2.0-flash">gemini-2.0-flash (Balanced)</option>
-              <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Reasoning)</option>
+              <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Fast &amp; Grounding)</option>
+              <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Balanced)</option>
+              <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Reasoning)</option>
             </select>
             <ChevronDown className="w-3.5 h-3.5 text-stone-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>

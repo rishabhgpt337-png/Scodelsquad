@@ -53,6 +53,163 @@ export const POPULAR_DESTINATIONS = [
   { name: "Kolkata", state: "West Bengal", aliases: ["calcutta", "city of joy"] },
   { name: "Mumbai", state: "Maharashtra", aliases: ["bombay", "marine drive"] },
   { name: "Amritsar", state: "Punjab", aliases: ["golden temple city"] },
+  { name: "Hampi", state: "Karnataka", aliases: ["vijayanagara", "hampi ruins"] },
+  { name: "Mysuru", state: "Karnataka", aliases: ["mysore", "palace city"] },
+  { name: "Pushkar", state: "Rajasthan", aliases: ["pushkar lake", "brahma temple"] },
+];
+
+export interface FestivalInfo {
+  id: string;
+  name: string;
+  destination: string;
+  state: string;
+  month: string;
+  season: string;
+  dates2026: string;
+  description: string;
+  highlights: string[];
+  ritualTimings: string;
+  crowdLevel: "Moderate" | "High" | "Peak Cultural Surge";
+  insiderTip: string;
+  category: "Spiritual" | "Cultural" | "Music & Arts" | "Heritage" | "Harvest";
+}
+
+export const INDIAN_FESTIVALS: FestivalInfo[] = [
+  {
+    id: "dev-deepawali",
+    name: "Dev Deepawali",
+    destination: "Varanasi",
+    state: "Uttar Pradesh",
+    month: "November",
+    season: "Winter",
+    dates2026: "Nov 23 - Nov 25, 2026",
+    description: "The Festival of Gods where 1 million+ earthen diyas illuminate all 84 ghats along the sacred Ganges on Kartik Purnima.",
+    highlights: ["Maha Aarti at Dashashwamedh Ghat", "Illumination of 84 Ghats with 10L+ lamps", "Laser sound & light show at Chet Singh Ghat", "Boat processions on the Ganges"],
+    ritualTimings: "Diyas lit at 17:30, Maha Aarti at 18:30",
+    crowdLevel: "Peak Cultural Surge",
+    insiderTip: "Reserve a licensed hand-rowed heritage wooden boat 3 weeks in advance through Raahi certified boatmen guild.",
+    category: "Spiritual"
+  },
+  {
+    id: "pushkar-camel-fair",
+    name: "Pushkar Camel & Heritage Fair",
+    destination: "Pushkar",
+    state: "Rajasthan",
+    month: "November",
+    season: "Winter",
+    dates2026: "Nov 18 - Nov 26, 2026",
+    description: "One of the world's largest camel and livestock fairs featuring folk dances, desert glamping, and sacred lake dips.",
+    highlights: ["Camel decoration contests & races", "Matka phod & longest mustache contests", "Desert hot air ballooning", "Sacred Brahma Temple holy dip"],
+    ritualTimings: "Sunrise animal trading, Evening folk dance performances at Mela Ground",
+    crowdLevel: "Peak Cultural Surge",
+    insiderTip: "Stay in heritage luxury desert tent colonies on the northern dunes for quiet sunsets.",
+    category: "Heritage"
+  },
+  {
+    id: "durga-puja",
+    name: "Durga Puja & Carnival",
+    destination: "Kolkata",
+    state: "West Bengal",
+    month: "October",
+    season: "Autumn",
+    dates2026: "Oct 16 - Oct 21, 2026",
+    description: "UNESCO Intangible Cultural Heritage extravaganza transforming the entire metropolis into an open-air art gallery.",
+    highlights: ["Pandal hopping across 3000+ artistic theme installations", "Dhunuchi dance performances with traditional Dhak drums", "Sindoor Khela on Bijoya Dashami", "Red Road grand immersion carnival"],
+    ritualTimings: "Sandhi Puja midnight rituals, Maha Saptami morning prayers",
+    crowdLevel: "Peak Cultural Surge",
+    insiderTip: "Use Raahi VIP digital tourist pass for queue-free access to major heritage pandals between 1 AM and 6 AM.",
+    category: "Cultural"
+  },
+  {
+    id: "hemis-festival",
+    name: "Hemis Monastery Masked Festival",
+    destination: "Leh Ladakh",
+    state: "Ladakh",
+    month: "July",
+    season: "Summer",
+    dates2026: "Jul 4 - Jul 6, 2026",
+    description: "Vibrant Tibetan Buddhist cham masked dances celebrating the birth anniversary of Guru Padmasambhava in ancient courtyard.",
+    highlights: ["Sacred Cham mask dances with cymbals and horns", "Display of giant 2-story silk Thangka", "Traditional Ladakhi brass & copper craft stalls", "Butter sculpture exhibitions"],
+    ritualTimings: "Morning horn call at 09:00, dances continue until 16:30",
+    crowdLevel: "High",
+    insiderTip: "Arrive at Hemis courtyard before 08:30 AM to claim upper roof viewing seats with clear mountain backdrops.",
+    category: "Spiritual"
+  },
+  {
+    id: "hampi-utsav",
+    name: "Hampi Vijaya Utsav",
+    destination: "Hampi",
+    state: "Karnataka",
+    month: "November",
+    season: "Winter",
+    dates2026: "Nov 5 - Nov 8, 2026",
+    description: "Spectacular state festival illuminating the UNESCO ruins of the Vijayanagara Empire with classical music, dance, and fireworks.",
+    highlights: ["Illumination of Virupaksha Temple & Stone Chariot", "Carnatic classical maestros on open-air riverfront stages", "Jumbo Savari elephant procession", "Tungabhadra heritage coracle regatta"],
+    ritualTimings: "Evening stage performances start 18:00 onwards",
+    crowdLevel: "High",
+    insiderTip: "Climb Matanga Hill before sunset to watch the ruins light up in gold across the entire valley.",
+    category: "Music & Arts"
+  },
+  {
+    id: "hornbill-festival",
+    name: "Hornbill Festival",
+    destination: "Kohima",
+    state: "Nagaland",
+    month: "December",
+    season: "Winter",
+    dates2026: "Dec 1 - Dec 10, 2026",
+    description: "The Festival of Festivals gathering all 17 indigenous tribes of Nagaland at Kisama Heritage Village for war dances, music, and food.",
+    highlights: ["Tribal Morung architecture & warrior chants", "Naga chilli eating championship", "Hornbill International Rock Contest", "Indigenous archery & traditional wrestling"],
+    ritualTimings: "Tribal performances 10:00 - 15:30, Night carnival 17:00 onwards",
+    crowdLevel: "High",
+    insiderTip: "Taste bamboo shoot pork delicacies and organic Naga honey at the Angami and Ao Morungs.",
+    category: "Cultural"
+  },
+  {
+    id: "teej-jaipur",
+    name: "Teej & Royal Procession",
+    destination: "Jaipur",
+    state: "Rajasthan",
+    month: "August",
+    season: "Monsoon",
+    dates2026: "Aug 14 - Aug 16, 2026",
+    description: "Celebration of monsoon arrival with royal palanquin processions of Goddess Parvati through the Pink City old bazaars.",
+    highlights: ["Gold and silver palanquin procession from City Palace", "Kalbelia and Ghoomar folk dancers accompanying", "Traditional Ghewar sweet tasting", "Women in vibrant leheriya attire"],
+    ritualTimings: "Procession leaves City Palace Hindoli Darwaza at 16:30",
+    crowdLevel: "High",
+    insiderTip: "Pre-book rooftop seats along Tripoliya Bazaar through Raahi vendor partners for unobstructed photography.",
+    category: "Cultural"
+  },
+  {
+    id: "rann-utsav",
+    name: "Rann Utsav & White Desert Carnival",
+    destination: "Kutch",
+    state: "Gujarat",
+    month: "December",
+    season: "Winter",
+    dates2026: "Nov 15, 2026 - Feb 25, 2027",
+    description: "Breathtaking festival on the world's largest salt marsh under full moon night skies with Kutchi handicraft guilds.",
+    highlights: ["Full moon moonlight camel cart walks across salt desert", "Rogan art & Kutchi mirror embroidery workshops", "Sufi and Gujarati folk musicians around desert campfires", "Paramotoring over the white expanse"],
+    ritualTimings: "Full moon desert excursions 20:00 - 23:00",
+    crowdLevel: "Moderate",
+    insiderTip: "Target dates overlapping the Shukla Paksha full moon for magical bioluminescent-like crystal reflections.",
+    category: "Heritage"
+  },
+  {
+    id: "mysuru-dasara",
+    name: "Mysuru Dasara & Jumbo Savari",
+    destination: "Mysuru",
+    state: "Karnataka",
+    month: "October",
+    season: "Autumn",
+    dates2026: "Oct 12 - Oct 21, 2026",
+    description: "Royal 400-year-old state festival where Mysore Palace is illuminated with 100,000 light bulbs and decorated elephants carry the golden howdah.",
+    highlights: ["Mysore Palace illumination nightly", "Jumbo Savari grand elephant parade", "Torchlight parade at Bannimantap Ground", "Traditional wrestling (Kusti) tournaments"],
+    ritualTimings: "Palace illumination at 19:00, Jumbo Savari on Vijayadashami at 14:30",
+    crowdLevel: "Peak Cultural Surge",
+    insiderTip: "Book gold pass seats along the palace courtyard route to see the 750kg golden idol up close.",
+    category: "Heritage"
+  }
 ];
 
 // Comprehensive destination data with activities, locations, and itinerary details
