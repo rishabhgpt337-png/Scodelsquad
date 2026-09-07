@@ -1,6 +1,6 @@
 import LandingHero from "@/components/landing/LandingHero";
+import LiveMapSection from "@/components/landing/LiveMapSection";
 import VendorImpactSection from "@/components/landing/VendorImpactSection";
-import SmartRadar from "@/components/landing/SmartRadar";
 import Footer from "@/components/landing/Footer";
 
 export default function HomePage() {
@@ -9,10 +9,13 @@ export default function HomePage() {
       {/* 1. Cinematic Hero */}
       <LandingHero />
 
-      {/* 5. Direct Vendor / Artisan Impact */}
+      {/* 2. Live Map Section with Nearby Places */}
+      <LiveMapSection />
+
+      {/* 3. Direct Vendor / Artisan Impact */}
       <VendorImpactSection />
 
-      {/* 6. Footer */}
+      {/* 4. Footer */}
       <Footer />
     </main>
   );
