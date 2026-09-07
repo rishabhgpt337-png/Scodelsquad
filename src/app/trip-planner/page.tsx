@@ -23,15 +23,21 @@ export default function TripPlannerPage() {
   } | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-6 md:p-8 lg:p-12">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-950 px-8 py-16 md:px-16 lg:px-20 lg:py-24">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 tracking-tight">
-            Plan Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Raahi</span> Journey
+        <div className="mb-14">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-8 h-[1.5px] bg-amber-400/50" />
+            <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-amber-400/80">
+              Trip Architect
+            </span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 tracking-tight leading-[1.15]">
+            Plan Your <span className="text-amber-400">Raahi</span> Journey
           </h1>
-          <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto">
-            AI-powered travel planning that discovers India's hidden gems and crafts your perfect itinerary.
+          <p className="text-white/50 text-base max-w-2xl leading-relaxed">
+            Data-backed planning verified with local community elders, expert guides, and safety protocols to craft your perfect master itinerary.
           </p>
         </div>
 
@@ -39,7 +45,7 @@ export default function TripPlannerPage() {
           !selectedDestination ? (
             <DestinationSearch onSelect={setSelectedDestination} />
           ) : (
-            <div className="transition-all duration-500">
+            <div className="transition-all duration-300">
               <TripPlanningFlow
                 destination={selectedDestination}
                 onComplete={(data) => {
@@ -49,24 +55,24 @@ export default function TripPlannerPage() {
               />
               <button
                 onClick={() => setSelectedDestination(null)}
-                className="mt-6 text-center w-full text-white/60 hover:text-white text-sm transition-colors"
+                className="mt-8 text-sm text-white/50 hover:text-white transition-colors duration-200 uppercase tracking-widest font-semibold"
               >
-                ← Change destination
+                ← Back to Destinations
               </button>
             </div>
           )
         ) : (
-          <div className="animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <ItineraryView tripData={tripData} />
-            <div className="mt-8 text-center">
+            <div className="mt-10">
               <button
                 onClick={() => {
                   setTripData(null);
                   setSelectedDestination(null);
                 }}
-                className="text-white/70 hover:text-white text-sm font-medium px-6 py-2 rounded-lg hover:bg-white/10 transition-colors"
+                className="bg-slate-900 border border-white/[0.08] hover:border-white/[0.15] text-white/80 hover:text-white text-xs font-semibold px-6 py-3 rounded-lg transition-all duration-200"
               >
-                Start a New Trip
+                Draft Another Itinerary
               </button>
             </div>
           </div>
