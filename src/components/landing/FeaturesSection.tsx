@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { animate, stagger } from "animejs";
 import {
   Compass,
   Sparkle,
@@ -9,6 +10,8 @@ import {
   QrCode,
   HeartStraight,
 } from "@phosphor-icons/react";
+import SmartRadar from "./SmartRadar";
+import FeatureCard from "./FeatureCard";
 
 const FEATURES = [
   {
@@ -73,9 +76,63 @@ const FEATURES = [
   },
 ];
 
-import SmartRadar from "./SmartRadar";
-
 export default function FeaturesSection() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const radarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Entrance animation observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === headerRef.current) {
+              animate(headerRef.current?.children || [], {
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 800,
+                ease: "outQuint",
+                delay: stagger(100)
+              });
+              observer.unobserve(entry.target);
+            } 
+            else if (entry.target === gridRef.current) {
+              const cards = gridRef.current?.querySelectorAll('.feature-card');
+              if (cards && cards.length > 0) {
+                animate(cards, {
+                  translateY: [30, 0],
+                  opacity: [0, 1],
+                  scale: [0.97, 1],
+                  duration: 900,
+                  ease: "outElastic(1, .8)",
+                  delay: stagger(100)
+                });
+              }
+              observer.unobserve(entry.target);
+            }
+            else if (entry.target === radarRef.current) {
+              animate(radarRef.current, {
+                translateY: [40, 0],
+                opacity: [0, 1],
+                duration: 1000,
+                ease: "outExpo"
+              });
+              observer.unobserve(entry.target);
+            }
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (gridRef.current) observer.observe(gridRef.current);
+    if (radarRef.current) observer.observe(radarRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="features"
@@ -83,60 +140,34 @@ export default function FeaturesSection() {
     >
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="max-w-xl mb-20">
-          <div className="flex items-center gap-3 mb-4">
+        <div ref={headerRef} className="max-w-xl mb-20">
+          <div className="opacity-0 flex items-center gap-3 mb-4">
             <span className="w-8 h-[1.5px] bg-amber-400/50" />
             <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-amber-400/80">
               Platform Capabilities
             </span>
           </div>
-          <h2 className="text-3xl md:text-[2.75rem] font-bold text-white tracking-tight leading-[1.15] mb-5">
+          <h2 className="opacity-0 text-3xl md:text-[2.75rem] font-bold text-white tracking-tight leading-[1.15] mb-5">
             Why India Travels{" "}
             <span className="text-amber-400">With Raahi</span>
           </h2>
-          <p className="text-white/50 text-base leading-relaxed">
+          <p className="opacity-0 text-white/50 text-base leading-relaxed">
             Replacing fragmented apps, crowded tourist traps, and unreliable
             agents with a single intelligent travel ecosystem built for Bharat.
           </p>
         </div>
 
-        {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] rounded-2xl overflow-hidden mb-24">
-          {FEATURES.map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="bg-slate-950 p-8 flex flex-col group hover:bg-slate-900/80 transition-colors duration-300"
-              >
-                <div className={`w-10 h-10 rounded-lg ${feature.accentBg} border ${feature.accentBorder} flex items-center justify-center mb-5`}>
-                  <Icon size={20} weight="duotone" className={feature.accent} />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-amber-400 transition-colors duration-200">
-                  {feature.title}
-                </h3>
-                <div className="text-[11px] font-medium text-white/40 uppercase tracking-wider mb-3">
-                  {feature.tagline}
-                </div>
-                <p className="text-sm text-white/55 leading-relaxed mt-auto">
-                  {feature.description}
-                </p>
-              </motion.div>
-            );
-          })}
+        {/* Feature Cards Grid */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] rounded-2xl overflow-hidden mb-24">
+          {FEATURES.map((feature, idx) => (
+            <FeatureCard key={idx} feature={feature} index={idx} />
+          ))}
         </div>
 
         {/* Smart Radar Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="bg-slate-900/50 border border-white/[0.06] rounded-2xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-14"
+        <div
+          ref={radarRef}
+          className="opacity-0 bg-slate-900/50 border border-white/[0.06] rounded-2xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-14 translate-y-10"
         >
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-4">
@@ -172,7 +203,7 @@ export default function FeaturesSection() {
           <div className="w-full md:w-auto">
             <SmartRadar />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

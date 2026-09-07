@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useEffect, useRef } from "react";
+import { animate, stagger } from "animejs";
 import { Clock, MapPin, Coffee, Camera, Sun, Moon, NavigationArrow, Calendar, Users, CurrencyInr, DownloadSimple, Check } from "@phosphor-icons/react";
 import { DESTINATION_DETAILS } from "@/lib/destinations";
 
@@ -36,6 +36,7 @@ interface ItineraryViewProps {
 export default function ItineraryView({ tripData }: ItineraryViewProps) {
   const [activeDay, setActiveDay] = useState<number>(1);
   const [viewMode, setViewMode] = useState<"timeline" | "map">("timeline");
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const destData = DESTINATION_DETAILS[tripData.destination] || DESTINATION_DETAILS.default;
 
@@ -123,6 +124,21 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
   const itineraryDays = generateItinerary();
   const activeDayData = itineraryDays.find((day) => day.day === activeDay) || itineraryDays[0];
+
+  useEffect(() => {
+    if (viewMode === "timeline" && timelineRef.current) {
+      const items = timelineRef.current.querySelectorAll('.timeline-slot');
+      if (items.length > 0) {
+        animate(items, {
+          translateY: [25, 0],
+          opacity: [0, 1],
+          duration: 650,
+          ease: "outExpo",
+          delay: stagger(70)
+        });
+      }
+    }
+  }, [activeDay, viewMode]);
 
   const getBudgetDisplay = () => {
     const ranges: Record<string, string> = {
@@ -228,7 +244,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
         {/* Timeline View */}
         {viewMode === "timeline" && activeDayData && (
-          <div className="space-y-6">
+          <div ref={timelineRef} className="space-y-6">
             <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-6">
               <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/[0.08]">
                 <div>
@@ -245,7 +261,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
                 <div className="absolute left-[11px] top-2 bottom-2 w-[1.5px] bg-white/[0.1]" />
 
                 {activeDayData.timeSlots.map((slot, index) => (
-                  <div key={index} className="relative group">
+                  <div key={index} className="timeline-slot opacity-0 relative group">
                     <div className="absolute left-[-23px] top-1 w-6 h-6 rounded-full bg-slate-900 border border-white/[0.15] flex items-center justify-center">
                       {slot.icon}
                     </div>
