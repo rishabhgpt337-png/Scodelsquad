@@ -3,179 +3,136 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { MagnifyingGlass } from "@phosphor-icons/react";
 import AuthModal from "@/components/auth/AuthModal";
 import RaahiLogo from "@/components/common/RaahiLogo";
+
+const HERO_DESTINATIONS = [
+  {
+    name: "Varanasi",
+    state: "Uttar Pradesh",
+    tagline: "Where spirituality meets the sacred Ganges",
+    description:
+      "Experience one of the oldest living cities on Earth. Discover ancient ghats, sacred boat rides at dawn, and hidden artisan workshops — curated with precision for an unforgettable journey.",
+    image:
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2400&q=90",
+  },
+];
 
 export default function LandingHero() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const router = useRouter();
+  const dest = HERO_DESTINATIONS[0];
+
   return (
-    <section className="relative w-full h-screen min-h-[600px] overflow-hidden bg-[#0a1628]">
-      {/* Background with slow zoom animation */}
-      <motion.div
+    <section className="relative w-full min-h-[100dvh] overflow-hidden bg-[#0a1628]">
+      {/* Background Image */}
+      <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage:
-            'linear-gradient(90deg, rgba(10,22,40,0.75) 0%, rgba(10,22,40,0.35) 40%, rgba(10,22,40,0.15) 70%, rgba(10,22,40,0.45)), url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2400&q=90")',
+          backgroundImage: `url("${dest.image}")`,
         }}
-        animate={{ scale: [1.02, 1.08] }}
-        transition={{ duration: 18, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35" />
-      </motion.div>
+      />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/90 via-[#0a1628]/70 to-[#0a1628]/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-[#0a1628]/30" />
 
       {/* Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 md:px-10 h-20">
-        <RaahiLogo size="sm" />
-        <div className="hidden md:flex items-center gap-10 text-[11px] font-bold uppercase tracking-wider">
-          <a href="#destinations" className="opacity-90 hover:opacity-100 transition-opacity">
+      <nav className="relative z-20 flex items-center justify-between px-8 md:px-16 lg:px-20 h-20 md:h-24">
+        <RaahiLogo size="md" />
+        <div className="hidden md:flex items-center gap-12 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+          <a href="#destinations" className="hover:text-white transition-colors duration-200">
             Destinations
           </a>
-          <a href="#features" className="opacity-90 hover:opacity-100 transition-opacity">
+          <a href="#features" className="hover:text-white transition-colors duration-200">
             Features
           </a>
-          <a href="#about" className="opacity-90 hover:opacity-100 transition-opacity">
+          <a href="#about" className="hover:text-white transition-colors duration-200">
             About
           </a>
         </div>
         <div className="flex items-center gap-5">
           <button
             onClick={() => setShowAuthModal(true)}
-            className="text-[10px] font-bold uppercase tracking-wider hover:text-amber-400 transition-colors"
+            className="hidden md:block text-[11px] font-semibold uppercase tracking-[0.15em] text-white/80 hover:text-white transition-colors"
           >
             Log In
           </button>
           <button
             onClick={() => setShowAuthModal(true)}
-            className="bg-amber-400 hover:bg-amber-500 text-slate-900 text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors"
+            className="border border-white/25 hover:bg-white hover:text-slate-900 text-white text-[11px] font-semibold uppercase tracking-[0.15em] px-5 py-2.5 rounded-full transition-all duration-200"
           >
             Sign Up
           </button>
         </div>
       </nav>
 
-      {/* Left Timeline Decoration */}
-      <div className="absolute left-7 top-20 bottom-14 w-[1px] bg-white/30 z-10">
-        <div className="absolute left-[-3px] top-[8%] w-[7px] h-[7px] rounded-full bg-white shadow-[0_90px_0_rgba(255,255,255,0.8),0_180px_0_rgba(255,255,255,0.8),0_270px_0_rgba(255,255,255,0.8)]" />
-        <div className="absolute left-[-10px] bottom-[23%] w-5 h-5 rounded-full bg-white/90 flex items-center justify-center text-[#0a1628] text-[8px] font-bold">
-          04
-        </div>
-      </div>
-
       {/* Main Content */}
-      <motion.div
-        className="absolute left-[8%] top-[35%] z-10 max-w-[550px]"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
-      >
-        <div className="text-[9px] font-bold tracking-[4px] uppercase mb-1 text-white/90">
-          MOTION. ROUTES. DISCOVERY.
-        </div>
-        <h1 className="text-[clamp(64px,9vw,120px)] font-extrabold leading-[0.85] tracking-[-0.05em] mb-3">
-          VARANASI
-        </h1>
-        <p className="text-[10px] leading-relaxed text-white/90 max-w-[480px] mb-6">
-          Varanasi, one of the oldest living cities on Earth, is where spirituality meets the sacred Ganges. Explore
-          ancient ghats, boat rides at dawn, street food trails, and hidden temples built for unforgettable journeys.
-        </p>
-        <button
-          onClick={() => router.push("/trip-planner")}
-          className="inline-flex items-center gap-5 bg-[#1976d2] hover:bg-[#2186e0] text-white font-bold text-sm px-5 py-[14px] rounded-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-all hover:translate-y-[-2px]"
+      <div className="relative z-10 flex flex-col justify-center px-8 md:px-16 lg:px-20 pt-16 md:pt-24 pb-32 min-h-[calc(100dvh-6rem)]">
+        <motion.div
+          className="max-w-[620px]"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          Explore Route
-          <span className="text-lg">→</span>
-        </button>
-      </motion.div>
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-8 h-[1.5px] bg-amber-400/60" />
+            <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-amber-400/90">
+              Smart India Hackathon 2024–25
+            </span>
+          </div>
 
-      {/* Floating Destination Cards */}
-      <div className="absolute top-[22%] right-[-20px] z-10 flex gap-3.5">
-        {[
-          {
-            label: "Goa Beaches",
-            img: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=700&q=90",
-            delay: 0,
-            height: "250px",
-            marginTop: "0",
-          },
-          {
-            label: "Leh Ladakh",
-            img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=700&q=90",
-            delay: 0.2,
-            height: "220px",
-            marginTop: "20px",
-          },
-          {
-            label: "Kerala Backwaters",
-            img: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=700&q=90",
-            delay: 0.4,
-            height: "185px",
-            marginTop: "42px",
-          },
-        ].map((card, i) => (
-          <motion.article
-            key={i}
-            className="relative rounded-lg overflow-visible shadow-[0_22px_40px_rgba(0,0,0,0.4)]"
-            style={{ width: "160px", height: card.height, marginTop: card.marginTop }}
-            animate={{ y: [0, i % 2 === 0 ? -8 : 6, 0] }}
-            transition={{
-              duration: i === 1 ? 7 : 6.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: card.delay,
-            }}
-          >
-            <div className="absolute left-0 top-[-20px] text-[10px] font-bold text-white whitespace-nowrap z-10">
-              {card.label}
-            </div>
-            <div className="absolute left-0 top-[-8px] flex gap-[3px] z-10">
-              {[...Array(i === 0 ? 5 : i === 1 ? 4 : 3)].map((_, j) => (
-                <span key={j} className="w-[3px] h-[3px] rounded-full bg-white opacity-80" />
-              ))}
-            </div>
-            <img
-              src={card.img}
-              alt={card.label}
-              className="w-full h-full object-cover rounded-lg saturate-[0.92]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/35 rounded-lg" />
+          {/* Heading */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.92] tracking-[-0.025em] text-white mb-6">
+            {dest.name}
+          </h1>
+
+          {/* Subheading */}
+          <p className="text-base md:text-lg leading-relaxed text-white/65 max-w-[520px] mb-10 font-normal">
+            {dest.description}
+          </p>
+
+          {/* CTA */}
+          <div className="flex items-center gap-5">
             <button
-              aria-label="Save destination"
-              className="absolute right-3 top-3 w-8 h-8 rounded-full bg-white flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors z-10"
+              onClick={() => router.push("/trip-planner")}
+              className="inline-flex items-center gap-3 bg-white text-slate-900 font-semibold text-sm px-8 py-4 rounded-full hover:bg-amber-400 transition-colors duration-200"
             >
-              ♡
+              Explore Routes
+              <span className="text-base">→</span>
             </button>
-          </motion.article>
-        ))}
-      </div>
+            <button
+              onClick={() => {
+                const el = document.getElementById("features");
+                el?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70 hover:text-white transition-colors"
+            >
+              Learn More
+            </button>
+          </div>
+        </motion.div>
 
-      {/* Bottom Controls */}
-      <div className="absolute left-[8%] right-[3%] bottom-6 z-20 flex items-center justify-between text-[8px] uppercase tracking-wider font-semibold">
-        <span>01 / DESTINATION</span>
-        <div className="flex gap-2">
-          <button
-            aria-label="Previous"
-            className="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
-          >
-            ←
-          </button>
-          <button
-            aria-label="Next"
-            className="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
-          >
-            →
-          </button>
+        {/* Bottom indicator */}
+        <div className="absolute bottom-8 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 flex items-end justify-between z-20">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+            {dest.state}
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-[9px] uppercase tracking-widest text-white/30 font-medium">
+              Scroll
+            </span>
+            <motion.div
+              className="w-[1px] h-6 bg-white/30"
+              animate={{ scaleY: [1, 0.4, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              style={{ transformOrigin: "top" }}
+            />
+          </div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+            01 / 06
+          </div>
         </div>
-        <span>01&nbsp;&nbsp;&nbsp;09</span>
-      </div>
-
-      {/* Vertical Text */}
-      <div
-        className="absolute left-[2%] bottom-12 z-10 text-[8px] font-medium tracking-wider opacity-90"
-        style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-      >
-        TRAVEL / INDIA
       </div>
 
       {/* Auth Modal */}

@@ -1,57 +1,89 @@
 "use client";
 
-import { Heart, GithubLogo, TwitterLogo, LinkedinLogo } from "@phosphor-icons/react";
 import RaahiLogo from "@/components/common/RaahiLogo";
+
+const PLATFORM_LINKS = [
+  { label: "AI Trip Planner", href: "/trip-planner" },
+  { label: "Curated Circuits", href: "#destinations" },
+  { label: "Smart Radar", href: "#features" },
+  { label: "Digital Travel Pass", href: "#features" },
+  { label: "SOS Tourist Safety", href: "#features" },
+];
+
+const IMPACT_LINKS = [
+  { label: "Become a Guide", href: "#" },
+  { label: "Artisan Marketplace", href: "#" },
+  { label: "Homestay Onboarding", href: "#" },
+  { label: "Ministry of Tourism Guidelines", href: "#" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 border-t border-white/10 text-white/60 py-16 px-6 md:px-12">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-        {/* Brand */}
-        <div className="md:col-span-2">
-          <div className="mb-4">
-            <RaahiLogo size="md" />
+    <footer className="bg-slate-950 border-t border-white/[0.06] text-white/50">
+      <div className="max-w-6xl mx-auto px-8 md:px-16 lg:px-20 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="mb-5">
+              <RaahiLogo size="md" />
+            </div>
+            <p className="text-sm text-white/45 max-w-sm mb-5 leading-relaxed">
+              India's dignified smart travel companion. Re-imagining tourism through hyper-local AI context, authentic artisan economies, and unified digital monument access.
+            </p>
+            <div className="text-[11px] font-semibold text-amber-400/70 uppercase tracking-[0.2em]">
+              Smart India Hackathon 2024–25
+            </div>
           </div>
-          <p className="text-sm text-white/60 max-w-sm mb-6 leading-relaxed">
-            India's dignified smart travel companion. Re-imagining tourism through hyper-local AI context, authentic artisan economies, and unified digital monument access.
-          </p>
-          <div className="flex items-center gap-2 text-xs text-amber-400/90 font-medium">
-            <span>Built with precision for Smart India Hackathon</span>
+
+          {/* Platform */}
+          <div>
+            <h4 className="text-white/80 text-[10px] font-bold uppercase tracking-[0.25em] mb-5">
+              Platform
+            </h4>
+            <ul className="space-y-3">
+              {PLATFORM_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/45 hover:text-white/90 transition-colors duration-150"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Local Impact */}
+          <div>
+            <h4 className="text-white/80 text-[10px] font-bold uppercase tracking-[0.25em] mb-5">
+              Local Impact
+            </h4>
+            <ul className="space-y-3">
+              {IMPACT_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-white/45 hover:text-white/90 transition-colors duration-150"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div>
-          <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4">Platform</h4>
-          <ul className="space-y-2.5 text-sm">
-            <li><a href="/trip-planner" className="hover:text-amber-400 transition-colors">AI Trip Planner</a></li>
-            <li><a href="#destinations" className="hover:text-amber-400 transition-colors">Curated Circuits</a></li>
-            <li><a href="#features" className="hover:text-amber-400 transition-colors">Smart Radar</a></li>
-            <li><a href="#digital-pass" className="hover:text-amber-400 transition-colors">Digital Travel Pass</a></li>
-            <li><a href="#safety" className="hover:text-amber-400 transition-colors">SOS Tourist Safety</a></li>
-          </ul>
-        </div>
-
-        {/* Community & Partners */}
-        <div>
-          <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4">Local Impact</h4>
-          <ul className="space-y-2.5 text-sm">
-            <li><a href="#" className="hover:text-amber-400 transition-colors">Become a Guide</a></li>
-            <li><a href="#" className="hover:text-amber-400 transition-colors">Artisan Marketplace</a></li>
-            <li><a href="#" className="hover:text-amber-400 transition-colors">Homestay Onboarding</a></li>
-            <li><a href="#" className="hover:text-amber-400 transition-colors">Ministry of Tourism Guidelines</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
-        <div>
-          © {new Date().getFullYear()} Raahi Platform. All rights reserved.
-        </div>
-        <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          <a href="#" className="hover:text-white transition-colors">Security Architecture</a>
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/30">
+          <div>
+            © {new Date().getFullYear()} Raahi Platform. All rights reserved.
+          </div>
+          <div className="flex items-center gap-6">
+            <a href="#" className="hover:text-white/70 transition-colors duration-150">Privacy Policy</a>
+            <a href="#" className="hover:text-white/70 transition-colors duration-150">Terms of Service</a>
+            <a href="#" className="hover:text-white/70 transition-colors duration-150">Security Architecture</a>
+          </div>
         </div>
       </div>
     </footer>
