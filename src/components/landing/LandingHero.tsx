@@ -67,7 +67,7 @@ export default function LandingHero() {
         >
           Architect The Perfect <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
-            Cultural Journey.
+            Journey.
           </span>
         </motion.h1>
 
@@ -93,12 +93,6 @@ export default function LandingHero() {
             className="w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black font-semibold text-sm hover:scale-105 hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_40px_rgba(255,255,255,0.2)]"
           >
             Launch Builder <Sparkle weight="fill" size={16} />
-          </button>
-
-          <button
-            className="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent border border-white/[0.15] text-white font-medium text-sm hover:bg-white/[0.05] transition-all duration-300 flex items-center justify-center gap-2"
-          >
-            Explore Interactive Demo
           </button>
         </motion.div>
 
