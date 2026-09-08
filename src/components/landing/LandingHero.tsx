@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { Sparkle, ArrowRight, Mouse, CheckCircle, MapPin, GlobeHemisphereWest } from "@phosphor-icons/react";
+import { Sparkle, ArrowRight } from "@phosphor-icons/react";
 import RaahiLogo from "@/components/common/RaahiLogo";
 import UserNav from "@/components/auth/UserNav";
 
@@ -90,68 +89,6 @@ export default function LandingHero() {
             <ArrowRight size={16} />
           </button>
         </motion.div>
-
-        {/* Dashboard Mockup / Core Portal Visual */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="mt-20 relative w-full max-w-6xl mx-auto"
-        >
-          {/* Glassmorphic Board */}
-          <div className="relative rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl shadow-[0_0_100px_rgba(0,0,0,0.8)] overflow-hidden aspect-[16/9] md:aspect-[21/9] flex items-center justify-center group">
-            {/* Minimalist Tech UI representation */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-700">
-              {/* Card 1 */}
-              <div className="flex flex-col gap-4 border border-white/5 bg-white/[0.01] rounded-2xl p-6">
-                <div className="h-10 w-10 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
-                  <MapPin size={20} className="text-amber-500" />
-                </div>
-                <div className="h-2 w-24 bg-white/10 rounded-full mt-2" />
-                <div className="h-2 w-full bg-white/5 rounded-full" />
-                <div className="h-2 w-2/3 bg-white/5 rounded-full" />
-              </div>
-
-              {/* Card 2  - Primary */}
-              <div className="flex flex-col gap-4 border border-white/10 bg-white/[0.03] rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 blur-3xl rounded-full" />
-                <div className="h-10 w-10 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
-                  <GlobeHemisphereWest size={20} className="text-indigo-400" />
-                </div>
-                <div className="h-2 w-32 bg-white/20 rounded-full mt-2" />
-                <div className="h-2 w-full bg-white/10 rounded-full" />
-                <div className="h-2 w-full bg-white/10 rounded-full" />
-                <div className="h-2 w-4/5 bg-white/10 rounded-full" />
-              </div>
-
-              {/* Card 3 */}
-              <div className="flex flex-col gap-4 border border-white/5 bg-white/[0.01] rounded-2xl p-6">
-                <div className="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                  <Sparkle size={20} className="text-emerald-500" />
-                </div>
-                <div className="h-2 w-20 bg-white/10 rounded-full mt-2" />
-                <div className="h-2 w-full bg-white/5 rounded-full" />
-                <div className="h-2 w-1/2 bg-white/5 rounded-full" />
-              </div>
-            </div>
-
-            {/* Center HUD Element */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
-              <div className="px-6 h-16 rounded-full border border-white/20 bg-black flex items-center justify-center shadow-[0_0_50px_rgba(251,191,36,0.15)] relative">
-                <div className="absolute inset-0 rounded-full border border-amber-500/30 animate-[spin_4s_linear_infinite]" />
-                <RaahiLogo size="sm" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="relative z-10 pb-8 flex flex-col justify-center items-center gap-2">
-        <Mouse size={20} className="text-white/20" />
-        <span className="text-[10px] uppercase font-semibold tracking-[0.2em] text-white/20">Scroll to explore</span>
       </div>
     </section>
   );
