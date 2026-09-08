@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, model = 'gemini-1.5-flash', systemInstruction, grounding = 'none', location } = body;
+    const { messages, model = 'gemini-3.6-flash', systemInstruction, grounding = 'none', location } = body;
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -14,9 +14,9 @@ export async function POST(req: Request) {
     const ai = new GoogleGenAI({ apiKey });
 
     let activeModel = model;
-    const validModels = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+    const validModels = ['gemini-3.6-flash'];
     if (!validModels.includes(activeModel)) {
-      activeModel = 'gemini-1.5-flash';
+      activeModel = 'gemini-3.6-flash';
     }
 
     const contents = messages.map((m: { role: string; text: string }) => ({

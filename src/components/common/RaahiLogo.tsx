@@ -10,37 +10,29 @@ export default function RaahiLogo({
   size = "md",
   className = "",
 }: RaahiLogoProps) {
-  // Sophisticated SaaS typography scaling
+  // Sophisticated luxury resort typography scaling
   const sizeMap = {
-    sm: "text-xl tracking-[0.2em]",
-    md: "text-3xl tracking-[0.2em]",
-    lg: "text-5xl tracking-[0.2em]",
-    xl: "text-7xl tracking-[0.2em]",
-  };
-
-  const dotSizeMap = {
-    sm: "w-1.5 h-1.5 mb-1 ml-1",
-    md: "w-2 h-2 mb-2 ml-1.5",
-    lg: "w-3 h-3 mb-3 ml-2",
-    xl: "w-4 h-4 mb-4 ml-3",
+    sm: "text-2xl tracking-[0.05em]",
+    md: "text-4xl tracking-[0.05em]",
+    lg: "text-6xl tracking-[0.05em]",
+    xl: "text-8xl tracking-[0.05em]",
   };
 
   const currentTextSize = sizeMap[size];
-  const currentDotSize = dotSizeMap[size];
 
   return (
-    <div className={`inline-flex items-end select-none group ${className}`}>
-      {/* Sleek, bold, modern all-caps wordmark */}
+    <div className={`inline-flex flex-col items-center select-none group ${className}`}>
+      {/* Elegant Serif Logo */}
       <span
-        className={`font-black uppercase text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-neutral-400 drop-shadow-sm group-hover:from-white group-hover:to-white transition-all duration-500 ${currentTextSize}`}
-        style={{ fontFamily: "var(--font-dm-sans, system-ui, sans-serif)", lineHeight: "0.85" }}
+        className={`font-medium text-[#F3EDE3] transition-all duration-500 drop-shadow-sm ${currentTextSize}`}
+        style={{ fontFamily: "var(--font-playfair, serif)", lineHeight: "1" }}
       >
         RAAHI
       </span>
-      {/* Elegant accent dot for SaaS AI aesthetic */}
-      <span
-        className={`rounded-full bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.9)] ${currentDotSize}`}
-      />
+      {/* Minimal luxury subtitle if desired, or just dot. We'll stick to simple minimal dot representation or remove it. Let's use a subtle line under it for larger sizes, but original had a dot. We'll use a very subtle luxury dot. */}
+      {size !== 'sm' && (
+        <span className="w-1.5 h-1.5 rounded-full bg-[#C8B79F] mt-2 opacity-80" />
+      )}
     </div>
   );
 }

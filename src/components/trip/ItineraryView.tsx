@@ -59,18 +59,18 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
     const category = (slot.category || "").toLowerCase();
 
     if (activity.includes("breakfast") || activity.includes("lunch") || activity.includes("dinner") || activity.includes("food") || activity.includes("eat") || category.includes("culinary")) {
-      return <Coffee size={15} weight="bold" className="text-amber-400" />;
+      return <Coffee size={15} weight="bold" className="text-[#C8B79F]" />;
     }
     if (hour < 8 || activity.includes("sunrise") || category.includes("sunrise")) {
-      return <Sun size={15} weight="bold" className="text-amber-400" />;
+      return <Sun size={15} weight="bold" className="text-[#C8B79F]" />;
     }
     if (hour >= 18 || activity.includes("sunset") || activity.includes("aarti") || activity.includes("night")) {
-      return <Moon size={15} weight="bold" className="text-blue-400" />;
+      return <Moon size={15} weight="bold" className="text-[#C8B79F]" />;
     }
     if (activity.includes("craft") || activity.includes("workshop") || activity.includes("artisan") || activity.includes("photo")) {
-      return <Camera size={15} weight="bold" className="text-purple-400" />;
+      return <Camera size={15} weight="bold" className="text-[#C8B79F]" />;
     }
-    return <MapPin size={15} weight="bold" className="text-emerald-400" />;
+    return <MapPin size={15} weight="bold" className="text-[#C8B79F]" />;
   };
 
   const generateItinerary = (): ItineraryDay[] => {
@@ -111,7 +111,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "06:00",
             activity: "Sunrise Experience",
-            icon: <Sun size={15} weight="bold" className="text-amber-400" />,
+            icon: <Sun size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "2h",
             location: morningSpots[i % morningSpots.length],
             description: "Start your morning with verified local vantage points before peak crowds."
@@ -119,7 +119,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "08:30",
             activity: "Traditional Breakfast",
-            icon: <Coffee size={15} weight="bold" className="text-amber-400" />,
+            icon: <Coffee size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "1.5h",
             location: foodSpots[0],
             description: "Authentic local culinary spread endorsed by neighborhood vendors."
@@ -127,7 +127,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "10:00",
             activity: tripData.selectedActivities[i % (tripData.selectedActivities.length || 1)] || "Heritage Walking Tour",
-            icon: <MapPin size={15} weight="bold" className="text-emerald-400" />,
+            icon: <MapPin size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "3h",
             location: landmarks[0],
             description: "Curated historical access led by registered community guides."
@@ -135,7 +135,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "13:30",
             activity: "Regional Lunch & Midday Rest",
-            icon: <Coffee size={15} weight="bold" className="text-amber-400" />,
+            icon: <Coffee size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "2h",
             location: foodSpots[1] || foodSpots[0],
             description: "Culinary tasting paired with quiet cultural immersion."
@@ -143,7 +143,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "15:30",
             activity: i === 0 ? "Artisan Workshop & Guild Walk" : "Community Craft Visit",
-            icon: <Camera size={15} weight="bold" className="text-purple-400" />,
+            icon: <Camera size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "2.5h",
             location: "Local Artisan Quarter",
             description: "Direct encounter with verified traditional craftspeople."
@@ -151,7 +151,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "18:30",
             activity: i % 2 === 0 ? "Evening Aarti & Viewpoint" : "Sunset Heritage Gathering",
-            icon: <Moon size={15} weight="bold" className="text-blue-400" />,
+            icon: <Moon size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "2h",
             location: morningSpots[(i + 1) % morningSpots.length] || "Main Ghat",
             description: "Witness timeless ritual traditions with safe crowd-flow management."
@@ -159,7 +159,7 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
           {
             time: "20:30",
             activity: "Evening Dinner",
-            icon: <Coffee size={15} weight="bold" className="text-amber-400" />,
+            icon: <Coffee size={15} weight="bold" className="text-[#C8B79F]" />,
             duration: "1.5h",
             location: foodSpots[2] || foodSpots[0],
             description: "Traditional dinner menu curated for your selected budget tier."
@@ -179,11 +179,11 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
       const items = timelineRef.current.querySelectorAll('.timeline-slot');
       if (items.length > 0) {
         animate(items, {
-          translateY: [25, 0],
+          translateY: [20, 0],
           opacity: [0, 1],
-          duration: 650,
+          duration: 600,
           ease: "outExpo",
-          delay: stagger(70)
+          delay: stagger(60)
         });
       }
     }
@@ -200,92 +200,92 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
   };
 
   return (
-    <div className="w-full bg-slate-900 border border-white/[0.08] rounded-2xl overflow-hidden shadow-sm">
+    <div className="w-full bg-[#151310] border border-white/[0.08] rounded-xl overflow-hidden shadow-sm">
       {/* Header */}
-      <div className="p-8 border-b border-white/[0.08] bg-slate-950/50">
+      <div className="p-8 md:p-10 border-b border-white/[0.08] bg-[#0D0C0A]">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C8B79F]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#C8B79F]">
                 Verified Master Plan
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
-              Itinerary: <span className="text-amber-400">{tripData.destination}</span>
+            <h1 className="text-3xl md:text-4xl font-normal text-[#F3EDE3] mb-4 tracking-tight" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+              Itinerary: <span className="italic text-[#C8B79F]">{tripData.destination}</span>
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-xs text-white/50">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-[#A9A096]">
               <div className="flex items-center gap-1.5">
-                <MapPin size={14} className="text-amber-400" />
-                <span className="text-white/80 font-medium">{tripData.destination}, {tripData.state}</span>
+                <MapPin size={14} className="text-[#C8B79F]" />
+                <span className="text-[#F3EDE3] font-medium">{tripData.destination}, {tripData.state}</span>
               </div>
               <span className="text-white/20">•</span>
               <div className="flex items-center gap-1.5">
-                <Calendar size={14} className="text-white/40" />
+                <Calendar size={14} className="text-[#A9A096]" />
                 <span>{tripData.arrivalDate} → {tripData.departureDate} ({tripData.durationDays} Days)</span>
               </div>
               <span className="text-white/20">•</span>
               <div className="flex items-center gap-1.5">
-                <Users size={14} className="text-white/40" />
+                <Users size={14} className="text-[#A9A096]" />
                 <span>{tripData.groupSize} Traveler{tripData.groupSize > 1 ? "s" : ""}</span>
               </div>
               <span className="text-white/20">•</span>
               <div className="flex items-center gap-1.5">
-                <CurrencyInr size={14} className="text-amber-400" />
-                <span className="text-amber-400 font-semibold">{getBudgetDisplay()}</span>
+                <CurrencyInr size={14} className="text-[#C8B79F]" />
+                <span className="text-[#C8B79F] font-medium">{getBudgetDisplay()}</span>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-950 border border-white/[0.08] p-1 rounded-xl">
+          <div className="flex items-center gap-2 bg-[#0D0C0A] border border-white/[0.08] p-1 rounded-lg">
             <button
               onClick={() => setViewMode("timeline")}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              className={`px-4 py-2 rounded text-xs font-medium tracking-wider uppercase transition-colors ${
                 viewMode === "timeline"
-                  ? "bg-slate-800 text-white border border-white/[0.1]"
-                  : "text-white/50 hover:text-white"
+                  ? "bg-white/[0.08] text-[#F3EDE3]"
+                  : "text-[#A9A096] hover:text-[#F3EDE3]"
               }`}
             >
-              <Clock size={14} className="inline mr-1.5" />
+              <Clock size={13} className="inline mr-1.5" />
               Timeline
             </button>
             <button
               onClick={() => setViewMode("map")}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+              className={`px-4 py-2 rounded text-xs font-medium tracking-wider uppercase transition-colors ${
                 viewMode === "map"
-                  ? "bg-slate-800 text-white border border-white/[0.1]"
-                  : "text-white/50 hover:text-white"
+                  ? "bg-white/[0.08] text-[#F3EDE3]"
+                  : "text-[#A9A096] hover:text-[#F3EDE3]"
               }`}
             >
-              <MapPin size={14} className="inline mr-1.5" />
+              <MapPin size={13} className="inline mr-1.5" />
               Map Radar
             </button>
           </div>
         </div>
       </div>
 
-      <div className="p-8">
+      <div className="p-8 md:p-10">
         {/* Day Selector */}
-        <div className="mb-8">
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/40 mb-3">
+        <div className="mb-10">
+          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#A9A096] mb-4">
             Schedule Days
           </div>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-3">
             {itineraryDays.map((day) => (
               <button
                 key={day.day}
                 onClick={() => setActiveDay(day.day)}
-                className={`text-left px-4 py-3 rounded-xl border transition-all ${
+                className={`text-left px-5 py-3.5 rounded-lg border transition-all ${
                   activeDay === day.day
-                    ? "bg-slate-800 border-amber-400/80 text-white shadow-sm"
-                    : "bg-slate-950 border-white/[0.08] text-white/60 hover:border-white/20"
+                    ? "bg-white/[0.06] border-[#C8B79F] text-[#F3EDE3]"
+                    : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-bold text-xs text-white">Day {day.day}</span>
-                  <span className="text-[10px] text-amber-400 font-medium">{day.date}</span>
+                  <span className="font-medium text-xs text-[#F3EDE3]">Day {day.day}</span>
+                  <span className="text-[10px] text-[#C8B79F]">{day.date}</span>
                 </div>
-                <div className="text-[11px] text-white/40 truncate max-w-[140px]">{day.theme}</div>
+                <div className="text-[11px] text-[#A9A096] truncate max-w-[140px] font-light">{day.theme}</div>
               </button>
             ))}
           </div>
@@ -293,83 +293,86 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
         {/* Timeline View */}
         {viewMode === "timeline" && activeDayData && (
-          <div ref={timelineRef} className="space-y-6">
-            <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-6">
-              <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/[0.08]">
+          <div ref={timelineRef} className="space-y-8">
+            <div className="bg-[#0D0C0A] border border-white/[0.08] rounded-lg p-6 md:p-8">
+              <div className="flex items-center justify-between pb-6 mb-8 border-b border-white/[0.08]">
                 <div>
-                  <h3 className="text-lg font-bold text-white">{activeDayData.title}</h3>
-                  <p className="text-xs text-white/45 mt-0.5">{activeDayData.theme} • Curated Sequence</p>
+                  <h3 className="text-xl font-normal text-[#F3EDE3]" style={{ fontFamily: "var(--font-playfair, serif)" }}>{activeDayData.title}</h3>
+                  <p className="text-xs text-[#A9A096] mt-1 font-light">{activeDayData.theme} • Curated Sequence</p>
                 </div>
-                <span className="text-xs font-semibold px-3 py-1 rounded-md bg-amber-400/10 text-amber-400 border border-amber-400/20">
+                <span className="text-[11px] font-medium tracking-widest uppercase px-3 py-1 bg-white/[0.04] text-[#C8B79F] border border-white/[0.08] rounded">
                   {activeDayData.date}
                 </span>
               </div>
 
               {/* Timeline Items */}
               <div className="relative pl-6 space-y-6">
-                <div className="absolute left-[11px] top-2 bottom-2 w-[1.5px] bg-white/[0.1]" />
+                <div className="absolute left-[11px] top-2 bottom-2 w-[1px] bg-white/[0.08]" />
 
                 {activeDayData.timeSlots.map((slot, index) => (
                   <div key={index} className="timeline-slot opacity-0 relative group">
-                    <div className="absolute left-[-23px] top-1 w-6 h-6 rounded-full bg-slate-900 border border-white/[0.15] flex items-center justify-center">
+                    <div className="absolute left-[-23px] top-1 w-6 h-6 rounded-full bg-[#151310] border border-white/[0.12] flex items-center justify-center">
                       {slot.icon}
                     </div>
 
-                    <div className="bg-slate-900/60 border border-white/[0.06] rounded-xl p-4.5 hover:border-white/[0.12] transition-colors">
+                    <div className="bg-[#151310] border border-white/[0.06] rounded-lg p-5 hover:border-white/[0.15] transition-colors">
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                         <div className="flex items-center gap-3">
-                          <span className="text-xs font-bold font-mono text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-md border border-amber-400/20">
+                          <span className="text-xs font-mono text-[#C8B79F] bg-white/[0.03] px-2.5 py-1 rounded border border-white/[0.06]">
                             {slot.time}
                           </span>
-                          <h4 className="text-sm font-semibold text-white">{slot.activity}</h4>
+                          <h4 className="text-sm font-medium text-[#F3EDE3]">{slot.activity}</h4>
                         </div>
-                        <span className="text-[11px] text-white/40 font-mono">{slot.duration}</span>
+                        <span className="text-[11px] text-[#A9A096] font-mono">{slot.duration}</span>
                       </div>
 
-                      <div className="flex items-center gap-2 mb-2 text-xs text-emerald-400/90 font-medium">
+                      <div className="flex items-center gap-2 mb-3 text-xs text-[#C8B79F]">
                         <MapPin size={13} />
                         <span>{slot.location}</span>
                       </div>
 
-                      <p className="text-xs text-white/50 leading-relaxed mb-3">
+                      <p className="text-xs text-[#A9A096] leading-relaxed mb-4 font-light">
                         {slot.description}
                       </p>
 
-                      <div className="flex gap-2">
+                      <div className="flex gap-3">
                         <button
                           onClick={() => {
-                            let query = slot.location;
-                            if (slot.coordinates) {
-                              query = `${slot.coordinates.lat},${slot.coordinates.lng}`;
+                            let destinationQuery = slot.location || slot.activity;
+                            if (tripData.destination) {
+                              const cityContext = `${tripData.destination}, ${tripData.state || 'India'}`;
+                              if (!destinationQuery.toLowerCase().includes(tripData.destination.toLowerCase())) {
+                                destinationQuery = `${destinationQuery}, ${cityContext}`;
+                              }
                             }
-                            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+                            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destinationQuery)}`;
                             window.open(mapsUrl, '_blank');
                           }}
-                          className="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-medium py-1.5 px-3 rounded-lg border border-white/[0.08] flex items-center gap-1.5 transition-colors"
+                          className="text-[11px] uppercase tracking-wider bg-white/[0.04] hover:bg-white/[0.08] text-[#F3EDE3] font-medium py-2 px-3.5 rounded border border-white/[0.08] flex items-center gap-2 transition-colors"
                         >
-                          <NavigationArrow size={12} className="text-amber-400" />
+                          <NavigationArrow size={12} className="text-[#C8B79F]" />
                           Directions
                         </button>
                         <button
                           onClick={() => toggleTip(`${activeDayData.day}-${index}`)}
-                          className={`text-[11px] font-medium py-1.5 px-3 rounded-lg border transition-colors flex items-center gap-1.5 ${
+                          className={`text-[11px] uppercase tracking-wider font-medium py-2 px-3.5 rounded border transition-colors flex items-center gap-2 ${
                             expandedTips.includes(`${activeDayData.day}-${index}`)
-                              ? "bg-amber-400/20 text-amber-400 border-amber-400/30"
-                              : "bg-slate-950 hover:bg-slate-800 text-white/60 hover:text-white border-white/[0.08]"
+                              ? "bg-white/[0.08] text-[#C8B79F] border-[#C8B79F]"
+                              : "bg-[#0D0C0A] hover:bg-white/[0.04] text-[#A9A096] hover:text-[#F3EDE3] border-white/[0.08]"
                           }`}
                         >
-                          <Info size={12} weight="bold" className={expandedTips.includes(`${activeDayData.day}-${index}`) ? "text-amber-400" : ""} />
+                          <Info size={12} weight="bold" className={expandedTips.includes(`${activeDayData.day}-${index}`) ? "text-[#C8B79F]" : ""} />
                           {expandedTips.includes(`${activeDayData.day}-${index}`) ? "Hide Tip" : "Local Guide Tip"}
                         </button>
                       </div>
-                      
+
                       {expandedTips.includes(`${activeDayData.day}-${index}`) && slot.localGuideTip && (
-                        <div className="mt-4 bg-amber-400/10 border border-amber-400/20 rounded-xl p-3.5 transition-all">
+                        <div className="mt-4 bg-[#0D0C0A] border border-[#C8B79F]/30 rounded-lg p-4 transition-all">
                           <div className="flex items-center gap-2 mb-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                            <span className="text-amber-400 font-bold text-[10px] uppercase tracking-[0.15em]">Elder's Secret</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#C8B79F]" />
+                            <span className="text-[#C8B79F] font-bold text-[10px] uppercase tracking-[0.2em]">Elder's Secret</span>
                           </div>
-                          <p className="text-xs text-amber-100/90 leading-relaxed italic">
+                          <p className="text-xs text-[#F3EDE3]/90 leading-relaxed italic font-light">
                             "{slot.localGuideTip}"
                           </p>
                         </div>
@@ -382,50 +385,50 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
             {/* Recommendations Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-5">
-                <div className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-3">
+              <div className="bg-[#0D0C0A] border border-white/[0.08] rounded-lg p-6">
+                <div className="text-[10px] font-bold text-[#A9A096] uppercase tracking-[0.2em] mb-4">
                   Safety & Advisory
                 </div>
-                <ul className="space-y-2 text-xs text-white/60">
+                <ul className="space-y-3 text-xs text-[#A9A096] font-light">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-400 font-bold">•</span>
+                    <span className="text-[#C8B79F]">•</span>
                     Verified local boatmen associations active on ghats
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-400 font-bold">•</span>
+                    <span className="text-[#C8B79F]">•</span>
                     Official UPI QR acceptance enabled at heritage ticket gates
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-400 font-bold">•</span>
+                    <span className="text-[#C8B79F]">•</span>
                     24/7 Tourist Police Station within 800m
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-5">
-                <div className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-3">
+              <div className="bg-[#0D0C0A] border border-white/[0.08] rounded-lg p-6">
+                <div className="text-[10px] font-bold text-[#A9A096] uppercase tracking-[0.2em] mb-4">
                   Live Conditions
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs text-white/70">Clear Skies</span>
-                  <span className="text-lg font-bold text-white font-mono">27°C</span>
+                  <span className="text-xs text-[#F3EDE3]">Clear Skies</span>
+                  <span className="text-lg font-medium text-[#F3EDE3] font-mono">27°C</span>
                 </div>
-                <p className="text-[11px] text-white/40 leading-snug">
+                <p className="text-xs text-[#A9A096] leading-relaxed font-light">
                   Optimal humidity for morning heritage walks. Sunset view conditions verified favorable.
                 </p>
               </div>
 
-              <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-5">
-                <div className="text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] mb-3">
+              <div className="bg-[#0D0C0A] border border-white/[0.08] rounded-lg p-6">
+                <div className="text-[10px] font-bold text-[#A9A096] uppercase tracking-[0.2em] mb-4">
                   Digital Travel Pass
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 bg-slate-900 border border-white/[0.1] rounded-lg flex items-center justify-center text-[10px] font-mono text-emerald-400">
-                    QR-PASS
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white/[0.03] border border-white/[0.1] rounded flex items-center justify-center text-[10px] font-mono text-[#C8B79F]">
+                    PASS
                   </div>
                   <div>
-                    <span className="text-xs font-semibold text-white block">Raahi Monument Access</span>
-                    <span className="text-[11px] text-emerald-400 flex items-center gap-1 mt-0.5">
+                    <span className="text-xs font-medium text-[#F3EDE3] block">Raahi Monument Access</span>
+                    <span className="text-[11px] text-[#C8B79F] flex items-center gap-1 mt-1">
                       <Check size={12} weight="bold" /> Active & Verified
                     </span>
                   </div>
@@ -437,12 +440,12 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
         {/* Map View */}
         {viewMode === "map" && (
-          <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-6 md:p-8 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">Spatial Radar: {tripData.destination}</h3>
-            <p className="text-xs text-white/50 mb-6">
+          <div className="bg-[#0D0C0A] border border-white/[0.08] rounded-lg p-6 md:p-8 text-center">
+            <h3 className="text-xl font-normal text-[#F3EDE3] mb-2" style={{ fontFamily: "var(--font-playfair, serif)" }}>Spatial Radar: {tripData.destination}</h3>
+            <p className="text-xs text-[#A9A096] mb-6 font-light">
               Interactive local telemetry and mapped checkpoints via Google Maps.
             </p>
-            <div className="w-full h-[400px] bg-slate-900 border border-white/[0.08] rounded-xl flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
+            <div className="w-full h-[400px] bg-[#151310] border border-white/[0.08] rounded-lg flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
               {tripData.destination ? (
                 <iframe
                   title={`Map of ${tripData.destination}`}
@@ -457,8 +460,8 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
                 ></iframe>
               ) : (
                 <div className="p-6">
-                  <MapPin size={40} className="text-amber-400 mb-3 mx-auto" />
-                  <p className="text-white">Connecting to Map Services...</p>
+                  <MapPin size={32} className="text-[#C8B79F] mb-3 mx-auto" />
+                  <p className="text-[#F3EDE3] text-sm">Connecting to Map Services...</p>
                 </div>
               )}
             </div>
@@ -467,22 +470,22 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
       </div>
 
       {/* Action Footer */}
-      <div className="p-6 border-t border-white/[0.08] bg-slate-950/60 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="text-xs text-white/50">
-          Official master itinerary generated by <strong className="text-amber-400 font-semibold">Raahi Tourism Engine</strong>
+      <div className="p-6 md:p-8 border-t border-white/[0.08] bg-[#0D0C0A] flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="text-xs text-[#A9A096] font-light">
+          Official master itinerary generated by <strong className="text-[#F3EDE3] font-medium">Raahi Tourism Engine</strong>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => window.print()}
-            className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-xl border border-white/[0.08] flex items-center gap-2 transition-colors"
+            className="px-6 py-3 bg-white/[0.03] hover:bg-white/[0.08] text-[#F3EDE3] text-xs font-medium tracking-widest uppercase rounded border border-white/[0.08] flex items-center gap-2 transition-colors"
           >
-            <DownloadSimple size={15} />
-            Export Document
+            <DownloadSimple size={14} />
+            Export
           </button>
           <button
-            className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold rounded-xl transition-colors"
+            className="px-6 py-3 bg-[#F3EDE3] hover:bg-white text-[#0D0C0A] text-xs font-medium tracking-widest uppercase rounded transition-colors"
           >
-            Lock & Confirm Journey
+            Confirm Plan
           </button>
         </div>
       </div>

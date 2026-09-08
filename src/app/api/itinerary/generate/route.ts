@@ -101,7 +101,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
 }`;
 
         const response = await ai.models.generateContent({
-          model: 'gemini-1.5-flash',
+          model: 'gemini-3.6-flash',
           contents: [{ role: 'user', parts: [{ text: `Create an authentic, realistic ${durationDays}-day master itinerary for ${destination}, India with real landmarks, accurate coordinates (latitude/longitude for ${destination}), authentic artisan workshops, and real food spots. Return strictly JSON.` }] }],
           config: {
             systemInstruction,
@@ -113,7 +113,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
           const parsed = JSON.parse(response.text);
           return NextResponse.json({
             success: true,
-            source: 'gemini-1.5-flash',
+            source: 'gemini-3.6-flash',
             itinerary: parsed
           });
         }

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from 'react';
 import { MapPin, ExternalLink, Bookmark, Check, Globe, Star } from 'lucide-react';
@@ -52,15 +52,15 @@ export default function GroundingSources({
   };
 
   return (
-    <div id="grounding-sources-container" className="mt-4 pt-3 border-t border-stone-200/80 space-y-3">
+    <div id="grounding-sources-container" className="mt-4 pt-3 border-t border-white/[0.08] space-y-3">
       {/* Search Queries if available */}
       {metadata.webSearchQueries && metadata.webSearchQueries.length > 0 && (
-        <div className="flex flex-wrap items-center gap-1.5 text-xs text-stone-500">
-          <span className="font-medium text-stone-600">Grounded search:</span>
+        <div className="flex flex-wrap items-center gap-1.5 text-xs text-[#A9A096]">
+          <span className="font-medium text-[#C8B79F]">Grounded search:</span>
           {metadata.webSearchQueries.map((query, idx) => (
             <span
               key={idx}
-              className="bg-stone-100 text-stone-700 px-2 py-0.5 rounded-md font-mono text-[11px]"
+              className="bg-[#0D0C0A] border border-white/[0.08] text-[#F3EDE3] px-2 py-0.5 rounded font-mono text-[11px]"
             >
               &ldquo;{query}&rdquo;
             </span>
@@ -71,9 +71,9 @@ export default function GroundingSources({
       {/* Google Maps Places */}
       {mapChunks.length > 0 && (
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-800 mb-2">
-            <MapPin className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Google Maps Grounded Places</span>
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#C8B79F] mb-2 tracking-wide uppercase">
+            <MapPin className="w-3.5 h-3.5 text-[#C8B79F]" />
+            <span>Google Maps Grounded Locations</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {mapChunks.map((chunk, idx) => {
@@ -87,11 +87,11 @@ export default function GroundingSources({
                 <div
                   key={idx}
                   id={`maps-place-${idx}`}
-                  className="group relative flex flex-col justify-between p-3 rounded-xl bg-emerald-50/40 border border-emerald-200/80 hover:border-emerald-300 transition-all text-left shadow-2xs"
+                  className="group relative flex flex-col justify-between p-3.5 rounded-lg bg-[#0D0C0A] border border-white/[0.08] hover:border-[#C8B79F]/40 transition-all text-left"
                 >
                   <div>
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h4 className="text-xs font-semibold text-stone-900 group-hover:text-emerald-700 transition-colors line-clamp-1">
+                    <div className="flex items-start justify-between gap-2 mb-1.5">
+                      <h4 className="text-xs font-medium text-[#F3EDE3] group-hover:text-[#C8B79F] transition-colors line-clamp-1">
                         {title}
                       </h4>
                       {onSaveItem && (
@@ -99,10 +99,10 @@ export default function GroundingSources({
                           type="button"
                           onClick={() => handleSave('place', title, uri, snippet)}
                           disabled={isSaved || savingUri === uri}
-                          className={`p-1 rounded-md transition-colors ${
+                          className={`p-1 rounded transition-colors ${
                             isSaved
-                              ? 'text-emerald-600 bg-emerald-100'
-                              : 'text-stone-400 hover:text-emerald-700 hover:bg-emerald-100/60'
+                              ? 'text-[#C8B79F] bg-white/[0.08]'
+                              : 'text-[#A9A096] hover:text-[#F3EDE3] hover:bg-white/[0.04]'
                           }`}
                           title={isSaved ? 'Saved to bookmarks' : 'Save place'}
                         >
@@ -112,22 +112,22 @@ export default function GroundingSources({
                     </div>
 
                     {snippet && (
-                      <p className="text-[11px] text-stone-600 line-clamp-2 leading-relaxed mb-2 italic">
+                      <p className="text-[11px] text-[#A9A096] line-clamp-2 leading-relaxed mb-2 italic font-light">
                         &ldquo;{snippet}&rdquo;
                       </p>
                     )}
                   </div>
 
-                  <div className="mt-2 flex items-center justify-between pt-1 border-t border-emerald-200/50 text-[11px]">
-                    <span className="flex items-center gap-1 text-emerald-700 font-medium">
-                      <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                  <div className="mt-2 flex items-center justify-between pt-2 border-t border-white/[0.06] text-[11px]">
+                    <span className="flex items-center gap-1 text-[#C8B79F] font-medium text-[10px] uppercase tracking-wider">
+                      <Star className="w-3 h-3 text-[#C8B79F] fill-[#C8B79F]" />
                       Maps Place
                     </span>
                     <a
                       href={uri}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-emerald-700 hover:text-emerald-900 hover:underline font-medium"
+                      className="inline-flex items-center gap-1 text-[#C8B79F] hover:text-[#F3EDE3] font-medium transition-colors"
                     >
                       <span>View in Google Maps</span>
                       <ExternalLink className="w-3 h-3" />
@@ -143,8 +143,8 @@ export default function GroundingSources({
       {/* Google Search Web Sources */}
       {webChunks.length > 0 && (
         <div>
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-sky-800 mb-2">
-            <Globe className="w-3.5 h-3.5 text-sky-600" />
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-[#C8B79F] mb-2 tracking-wide uppercase">
+            <Globe className="w-3.5 h-3.5 text-[#C8B79F]" />
             <span>Google Search Sources &amp; Citations</span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -158,17 +158,17 @@ export default function GroundingSources({
                 <div
                   key={idx}
                   id={`web-source-${idx}`}
-                  className="inline-flex items-center gap-2 max-w-full text-xs bg-sky-50/70 border border-sky-200/80 rounded-lg px-2.5 py-1 text-stone-700 hover:border-sky-300 transition-colors"
+                  className="inline-flex items-center gap-2 max-w-full text-xs bg-[#0D0C0A] border border-white/[0.08] rounded-lg px-3 py-1.5 text-[#F3EDE3] hover:border-[#C8B79F]/40 transition-colors"
                 >
                   <a
                     href={uri}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="truncate max-w-[220px] sm:max-w-xs hover:text-sky-800 hover:underline font-medium flex items-center gap-1.5"
+                    className="truncate max-w-[220px] sm:max-w-xs text-[#C8B79F] hover:text-[#F3EDE3] font-medium flex items-center gap-1.5 transition-colors"
                     title={title}
                   >
-                    <span>{title}</span>
-                    <ExternalLink className="w-3 h-3 shrink-0 text-sky-600" />
+                    <span className="truncate">{title}</span>
+                    <ExternalLink className="w-3 h-3 shrink-0 text-[#C8B79F]" />
                   </a>
 
                   {onSaveItem && (
@@ -178,8 +178,8 @@ export default function GroundingSources({
                       disabled={isSaved || savingUri === uri}
                       className={`p-0.5 rounded transition-colors ${
                         isSaved
-                          ? 'text-sky-600'
-                          : 'text-stone-400 hover:text-sky-700'
+                          ? 'text-[#C8B79F]'
+                          : 'text-[#A9A096] hover:text-[#F3EDE3]'
                       }`}
                       title={isSaved ? 'Saved to bookmarks' : 'Save bookmark'}
                     >
@@ -195,4 +195,3 @@ export default function GroundingSources({
     </div>
   );
 }
-

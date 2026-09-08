@@ -35,11 +35,26 @@ import {
 } from '@/lib/assistant/localChatService';
 import Sidebar from './Sidebar';
 import ChatView from './ChatView';
-import { Sparkles, LogIn } from 'lucide-react';
+import { Sparkles, LogIn, X, MessageSquare } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function App() {
+  const pathname = usePathname();
+  const isFullScreen = pathname === '/assistant';
+  const [isOpen, setIsOpen] = useState(isFullScreen);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
+
+  useEffect(() => {
+    if (isFullScreen) setIsOpen(true);
+  }, [isFullScreen]);
+
+  // Window event listener for global triggers
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-assistant', handleOpen);
+    return () => window.removeEventListener('open-assistant', handleOpen);
+  }, []);
 
   const [chats, setChats] = useState<ChatSession[]>([]);
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
@@ -205,7 +220,7 @@ export default function App() {
   // Create new chat
   const handleNewChat = useCallback(
     async (
-      model: GeminiModelId = 'gemini-1.5-flash',
+      model: GeminiModelId = 'gemini-3.6-flash',
       persona: string = 'general',
       grounding: GroundingMode = 'none'
     ) => {
@@ -257,7 +272,7 @@ export default function App() {
   }) => {
     if (!activeChatId) {
       await handleNewChat(
-        updates.model || 'gemini-1.5-flash',
+        updates.model || 'gemini-3.6-flash',
         updates.persona || 'general',
         updates.groundingMode || 'none'
       );
@@ -335,7 +350,7 @@ export default function App() {
     // If no active chat, create one automatically
     if (!currentChat) {
       const initialTitle = text.slice(0, 36) + (text.length > 36 ? '...' : '');
-      currentChat = await handleNewChat('gemini-1.5-flash', 'general', 'none');
+      currentChat = await handleNewChat('gemini-3.6-flash', 'general', 'none');
       if (!currentChat) return;
       currentChat.title = initialTitle;
     } else if (messages.length === 0 && currentChat.title === 'New Chat') {
@@ -499,9 +514,8 @@ export default function App() {
 
   const savedUrls = new Set(savedItems.map((i) => i.uri));
 
-  return (
-    <div id="app-root" className="flex h-screen w-screen overflow-hidden bg-stone-100 font-sans">
-      {/* Sidebar navigation & history */}
+  const content = (
+    <>
       <Sidebar
         user={user}
         chats={chats}
@@ -517,38 +531,46 @@ export default function App() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      {/* Main Chat Interface */}
       <div className="flex-1 flex flex-col h-full min-h-0 relative">
-        {/* Guest Notification Banner */}
+        {!isFullScreen && (
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-3 right-3 z-50 p-1.5 rounded-lg bg-[#151310] border border-white/[0.1] text-[#A9A096] hover:text-[#F3EDE3] transition-colors md:hidden"
+            title="Close Concierge"
+          >
+            <X size={16} />
+          </button>
+        )}
+
         {!user && !dismissGuestBanner && (
           <div
             id="guest-auth-banner"
-            className="bg-amber-50/90 border-b border-amber-200/80 px-4 py-2 flex items-center justify-between text-xs text-amber-900 shrink-0"
+            className="bg-[#151310] border-b border-white/[0.08] px-5 py-2.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 text-xs text-[#A9A096] shrink-0"
           >
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-              <span>
-                <strong>Guest Mode:</strong> You can chat right away. Sign in with Google to sync all your chats and bookmarks to Firebase.
+            <div className="flex items-start sm:items-center gap-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#C8B79F] shrink-0 mt-0.5 sm:mt-0" />
+              <span className="leading-relaxed">
+                <strong className="text-[#F3EDE3] font-medium mr-1.5">Guest Mode:</strong>
+                Sign in with Google to sync chats across journeys.
               </span>
             </div>
-
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 w-full sm:w-auto mt-1 sm:mt-0">
               <button
                 type="button"
                 id="banner-signin-btn"
                 onClick={handleSignIn}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-stone-900 hover:bg-stone-800 text-white font-medium text-[11px] shadow-2xs transition-colors"
+                className="flex-1 sm:flex-none flex justify-center items-center gap-1.5 px-3 py-1.5 rounded bg-[#C8B79F] hover:bg-[#D4C5AF] text-[#0D0C0A] font-medium text-[11px] tracking-wider uppercase transition-colors"
               >
                 <LogIn className="w-3 h-3" />
-                <span>Sign in with Google</span>
+                <span>Sign in</span>
               </button>
               <button
                 type="button"
                 onClick={() => setDismissGuestBanner(true)}
-                className="text-amber-700 hover:text-amber-900 px-1 text-xs"
+                className="text-[#A9A096] hover:text-[#F3EDE3] p-1.5 text-xs transition-colors shrink-0"
                 title="Dismiss"
               >
-                ✕
+                <X size={14} />
               </button>
             </div>
           </div>
@@ -568,7 +590,41 @@ export default function App() {
           locationStatus={locationStatus}
         />
       </div>
-    </div>
+    </>
+  );
+
+  if (isFullScreen) {
+    return (
+      <div id="app-root" className="flex h-screen w-screen overflow-hidden bg-[#0D0C0A] font-sans text-[#F3EDE3]">
+        {content}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close AI Concierge" : "Open AI Concierge"}
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[9999] group flex items-center gap-2.5 px-[18px] py-3.5 bg-[#151310]/95 backdrop-blur-md hover:bg-[#1A1815] border border-[#C8B79F]/40 hover:border-[#C8B79F] rounded-full shadow-2xl transition-all duration-300 hover:scale-105"
+      >
+        <div className="w-6 h-6 flex items-center justify-center text-[#C8B79F] group-hover:text-[#F3EDE3] transition-colors relative">
+          {isOpen ? <X size={20} strokeWidth={2.5} /> : <Sparkles size={20} className="fill-[#C8B79F]" />}
+        </div>
+        <span className="text-[13px] font-semibold uppercase tracking-widest text-[#F3EDE3] mr-1">
+          {isOpen ? "Close" : "Concierge"}
+        </span>
+      </button>
+
+      {isOpen && (
+        <div
+          id="app-root"
+          className="fixed bottom-[84px] right-4 sm:right-6 z-[9999] w-[calc(100vw-32px)] sm:w-[480px] md:w-[720px] h-[calc(100vh-120px)] sm:h-[80vh] max-h-[720px] bg-[#0D0C0A] border border-white/[0.12] rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.9)] flex overflow-hidden font-sans text-[#F3EDE3] animate-in fade-in slide-in-from-bottom-5 duration-200"
+        >
+          {content}
+        </div>
+      )}
+    </>
   );
 }
 

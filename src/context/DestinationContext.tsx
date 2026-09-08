@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export interface Destination {
   id?: string;
@@ -19,16 +19,6 @@ const DestinationContext = createContext<DestinationContextType | undefined>(und
 
 export function DestinationProvider({ children }: { children: React.ReactNode }) {
   const [destination, setDestinationState] = useState<Destination | null>(null);
-
-  // Persistence to localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem("raahi_destination");
-    if (saved) {
-      try {
-        setDestinationState(JSON.parse(saved));
-      } catch (err) {}
-    }
-  }, []);
 
   const setDestination = (dest: Destination | null) => {
     setDestinationState(dest);

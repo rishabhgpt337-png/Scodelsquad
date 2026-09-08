@@ -142,33 +142,33 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
   };
 
   return (
-    <div className="w-full bg-slate-900/90 backdrop-blur-xl border border-white/[0.08] rounded-3xl p-6 md:p-10 space-y-10 shadow-2xl">
+    <div className="w-full bg-[#151310] border border-white/[0.08] rounded-xl p-8 md:p-12 space-y-12 shadow-sm">
       {/* Header */}
-      <div className="border-b border-white/[0.08] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="border-b border-white/[0.08] pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400">Step {step} of {STEPS.length}</span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8B79F]" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#C8B79F]">Step {step} of {STEPS.length}</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-            Architecting: <span className="text-amber-400">{destination.name}</span>
+          <h2 className="text-3xl md:text-4xl font-normal text-[#F3EDE3] tracking-tight" style={{ fontFamily: "var(--font-playfair, serif)" }}>
+            Architecting: <span className="italic text-[#C8B79F]">{destination.name}</span>
           </h2>
-          <p className="text-xs text-white/50 tracking-wide mt-1">
+          <p className="text-xs text-[#A9A096] tracking-wide mt-2 font-light">
             {STEPS[step - 1].title} — Tailoring your cultural journey with precision
           </p>
         </div>
 
         {/* Step Progress Indicators */}
-        <div className="flex gap-1.5 overflow-x-auto pb-2 md:pb-0">
+        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
           {STEPS.map(s => (
             <button
               key={s.id}
               onClick={() => setStep(s.id)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 step === s.id
-                  ? "w-8 bg-amber-400"
+                  ? "w-8 bg-[#C8B79F]"
                   : step > s.id
-                  ? "w-4 bg-emerald-500"
+                  ? "w-4 bg-white/40"
                   : "w-2.5 bg-white/10 hover:bg-white/20"
               }`}
               title={s.title}
@@ -179,31 +179,31 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
 
       {/* Step 1: Trip Essentials */}
       {step === 1 && (
-        <div className="space-y-8">
+        <div className="space-y-10">
           <div>
-            <label className="text-sm font-semibold text-white/90 mb-2 block">Planned Arrival Date</label>
+            <label className="text-xs font-medium uppercase tracking-widest text-[#A9A096] mb-3 block">Planned Arrival Date</label>
             <input
               type="date"
               value={formData.arrivalDate}
               onChange={e => setFormData({ ...formData, arrivalDate: e.target.value })}
-              className="w-full bg-slate-950 border border-white/[0.1] text-white text-sm rounded-xl px-4 py-3.5 focus:border-amber-400 outline-none transition"
+              className="w-full bg-[#0D0C0A] border border-white/[0.1] text-[#F3EDE3] text-sm rounded-lg px-4 py-3.5 focus:border-[#C8B79F] outline-none transition"
             />
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-white/90 mb-3 block">Expedition Duration (Days)</label>
-            <div className="grid grid-cols-5 gap-2.5">
+            <label className="text-xs font-medium uppercase tracking-widest text-[#A9A096] mb-4 block">Expedition Duration (Days)</label>
+            <div className="grid grid-cols-5 gap-3">
               {[2, 3, 5, 7, 10].map(d => (
                 <button
                   key={d}
                   onClick={() => setFormData({ ...formData, durationDays: d })}
-                  className={`py-3.5 rounded-xl text-xs font-bold transition flex flex-col items-center gap-1 ${
+                  className={`py-4 rounded-lg text-xs font-medium transition flex flex-col items-center gap-1 ${
                     formData.durationDays === d
-                      ? "bg-amber-400 text-slate-950 shadow-lg shadow-amber-400/20"
-                      : "bg-slate-950 border border-white/10 text-white/60 hover:border-white/20 hover:text-white"
+                      ? "bg-[#F3EDE3] text-[#0D0C0A]"
+                      : "bg-[#0D0C0A] border border-white/[0.08] text-[#A9A096] hover:border-white/20 hover:text-[#F3EDE3]"
                   }`}
                 >
-                  <span className="text-base font-extrabold">{d}</span>
+                  <span className="text-lg font-medium">{d}</span>
                   <span className="text-[10px] uppercase tracking-wider">Days</span>
                 </button>
               ))}
@@ -211,8 +211,8 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
           </div>
 
           <div>
-            <label className="text-sm font-semibold text-white/90 mb-3 block">Travel Party Composition</label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <label className="text-xs font-medium uppercase tracking-widest text-[#A9A096] mb-4 block">Travel Party Composition</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { id: "solo", label: "Solo Explorer", icon: "🧭" },
                 { id: "couple", label: "Couple / Duo", icon: "✨" },
@@ -222,14 +222,14 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                 <button
                   key={p.id}
                   onClick={() => setFormData({ ...formData, travelParty: p.id })}
-                  className={`p-4 rounded-xl border text-left transition ${
+                  className={`p-5 rounded-lg border text-left transition ${
                     formData.travelParty === p.id
-                      ? "bg-amber-400/10 border-amber-400 text-white"
-                      : "bg-slate-950 border-white/[0.08] text-white/60 hover:border-white/20"
+                      ? "bg-white/[0.05] border-[#C8B79F] text-[#F3EDE3]"
+                      : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                   }`}
                 >
-                  <span className="text-2xl block mb-2">{p.icon}</span>
-                  <span className="text-xs font-bold block text-white">{p.label}</span>
+                  <span className="text-2xl block mb-3">{p.icon}</span>
+                  <span className="text-xs font-medium uppercase tracking-wider block text-[#F3EDE3]">{p.label}</span>
                 </button>
               ))}
             </div>
@@ -239,45 +239,45 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
 
       {/* Step 2: Vibe & Budget */}
       {step === 2 && (
-        <div className="space-y-8">
+        <div className="space-y-10">
           <div>
-            <label className="text-sm font-semibold text-white/90 mb-3 block">Budget Tier</label>
+            <label className="text-xs font-medium uppercase tracking-widest text-[#A9A096] mb-4 block">Budget Tier</label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {BUDGET_RANGES.map((b) => (
                 <div
                   key={b.id}
                   onClick={() => setFormData({ ...formData, budgetRange: b.id })}
-                  className={`p-5 rounded-2xl border cursor-pointer transition ${
+                  className={`p-6 rounded-lg border cursor-pointer transition ${
                     formData.budgetRange === b.id
-                      ? "bg-amber-400/10 border-amber-400 shadow-lg shadow-amber-400/10"
-                      : "bg-slate-950 border-white/[0.08] hover:border-white/20"
+                      ? "bg-white/[0.04] border-[#C8B79F]"
+                      : "bg-[#0D0C0A] border-white/[0.08] hover:border-white/20"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-sm text-white">{b.label}</span>
-                    <span className="text-xs font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full">{b.range}</span>
+                    <span className="font-medium text-sm text-[#F3EDE3]">{b.label}</span>
+                    <span className="text-[11px] font-medium text-[#C8B79F] tracking-wide">{b.range}</span>
                   </div>
-                  <p className="text-xs text-white/50 leading-relaxed">{b.desc}</p>
+                  <p className="text-xs text-[#A9A096] leading-relaxed font-light">{b.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <div>
-             <label className="text-sm font-semibold text-white/90 mb-3 block">Persona & Vibe</label>
+             <label className="text-xs font-medium uppercase tracking-widest text-[#A9A096] mb-4 block">Persona & Vibe</label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {PERSONAS.map(p => (
                 <div
                   key={p.id}
                   onClick={() => setFormData({ ...formData, persona: p.id })}
-                  className={`p-5 rounded-2xl border cursor-pointer transition ${
+                  className={`p-6 rounded-lg border cursor-pointer transition ${
                     formData.persona === p.id
-                      ? "bg-indigo-500/10 border-indigo-400 shadow-lg shadow-indigo-500/10"
-                      : "bg-slate-950 border-white/[0.08] hover:border-white/20"
+                      ? "bg-white/[0.04] border-[#C8B79F]"
+                      : "bg-[#0D0C0A] border-white/[0.08] hover:border-white/20"
                   }`}
                 >
-                  <h4 className="font-bold text-sm text-white mb-1.5">{p.title}</h4>
-                  <p className="text-xs text-white/50 leading-relaxed">{p.desc}</p>
+                  <h4 className="font-medium text-sm text-[#F3EDE3] mb-2">{p.title}</h4>
+                  <p className="text-xs text-[#A9A096] leading-relaxed font-light">{p.desc}</p>
                 </div>
               ))}
             </div>
@@ -287,9 +287,9 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
 
       {/* Step 3: Experiences */}
       {step === 3 && (
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <h4 className="text-sm font-bold text-white">Artisan Guilds</h4>
+        <div className="space-y-8">
+          <div className="space-y-3">
+            <h4 className="text-xs font-medium uppercase tracking-widest text-[#A9A096]">Artisan Guilds</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {cityData.crafts.map(craft => {
                 const isSelected = formData.selectedCrafts.includes(craft);
@@ -297,21 +297,21 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   <button
                     key={craft}
                     onClick={() => toggleArrayItem('selectedCrafts', craft)}
-                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                    className={`p-4 rounded-lg border text-left flex items-center justify-between transition ${
                       isSelected
-                        ? "bg-amber-400/15 border-amber-400 text-white"
-                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                        ? "bg-white/[0.05] border-[#C8B79F] text-[#F3EDE3]"
+                        : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                     }`}
                   >
-                    <span className="text-[11px] font-semibold">{craft}</span>
+                    <span className="text-xs font-medium">{craft}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h4 className="text-sm font-bold text-white">Culinary Trails</h4>
+          <div className="space-y-3">
+            <h4 className="text-xs font-medium uppercase tracking-widest text-[#A9A096]">Culinary Trails</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {cityData.culinary.map(food => {
                 const isSelected = formData.selectedCulinary.includes(food);
@@ -319,21 +319,21 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   <button
                     key={food}
                     onClick={() => toggleArrayItem('selectedCulinary', food)}
-                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                    className={`p-4 rounded-lg border text-left flex items-center justify-between transition ${
                       isSelected
-                        ? "bg-amber-400/15 border-amber-400 text-white"
-                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                        ? "bg-white/[0.05] border-[#C8B79F] text-[#F3EDE3]"
+                        : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                     }`}
                   >
-                    <span className="text-[11px] font-semibold">{food}</span>
+                    <span className="text-xs font-medium">{food}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          <div className="space-y-2">
-            <h4 className="text-sm font-bold text-white">Activity Focus</h4>
+          <div className="space-y-3">
+            <h4 className="text-xs font-medium uppercase tracking-widest text-[#A9A096]">Activity Focus</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {cityData.activities.map(act => {
                 const isSelected = formData.selectedActivities.includes(act);
@@ -341,13 +341,13 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   <button
                     key={act}
                     onClick={() => toggleArrayItem('selectedActivities', act)}
-                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                    className={`p-4 rounded-lg border text-left flex items-center justify-between transition ${
                       isSelected
-                        ? "bg-emerald-500/15 border-emerald-400 text-white"
-                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                        ? "bg-white/[0.05] border-[#C8B79F] text-[#F3EDE3]"
+                        : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                     }`}
                   >
-                    <span className="text-[11px] font-semibold">{act}</span>
+                    <span className="text-xs font-medium">{act}</span>
                   </button>
                 );
               })}
@@ -358,9 +358,9 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
 
       {/* Step 4: Stays & Safety */}
       {step === 4 && (
-        <div className="space-y-8">
+        <div className="space-y-10">
           <div className="space-y-4">
-            <h4 className="text-sm font-bold text-white">Heritage Stays</h4>
+            <h4 className="text-xs font-medium uppercase tracking-widest text-[#A9A096]">Heritage Stays</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {cityData.recommendedStays.map((stay: LocalizedStay) => {
                 const isSelected = formData.selectedStay === stay.id;
@@ -368,50 +368,50 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   <div
                     key={stay.id}
                     onClick={() => setFormData(prev => ({ ...prev, selectedStay: isSelected ? null : stay.id }))}
-                    className={`p-5 rounded-2xl border text-left transition-all cursor-pointer ${
+                    className={`p-6 rounded-lg border text-left transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-amber-400/10 border-amber-400 text-white shadow-lg shadow-amber-400/5 ring-1 ring-amber-400/30"
-                        : "bg-slate-950/80 border-white/[0.08] text-white/80 hover:border-white/20"
+                        ? "bg-white/[0.05] border-[#C8B79F] text-[#F3EDE3]"
+                        : "bg-[#0D0C0A] border-white/[0.08] text-[#A9A096] hover:border-white/20"
                     }`}
                   >
-                     <h4 className="text-sm font-bold text-white mb-1 tracking-tight">{stay.name}</h4>
-                     <p className="text-[11px] text-amber-200/90 italic mb-2">"{stay.tagline}"</p>
+                     <h4 className="text-sm font-medium text-[#F3EDE3] mb-1.5 tracking-tight">{stay.name}</h4>
+                     <p className="text-xs text-[#C8B79F] italic font-light">"{stay.tagline}"</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          <div className="bg-slate-950 border border-white/[0.08] p-5 rounded-2xl space-y-4">
-            <h4 className="text-sm font-bold text-white flex items-center gap-2">
-              <ShieldCheck size={20} className="text-emerald-400" />
+          <div className="bg-[#0D0C0A] border border-white/[0.08] p-6 rounded-lg space-y-4">
+            <h4 className="text-xs font-medium uppercase tracking-widest text-[#F3EDE3] flex items-center gap-2">
+              <ShieldCheck size={18} className="text-[#C8B79F]" />
               Safety Protocols & Passes
             </h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+              <label className="flex items-center gap-3 text-xs text-[#A9A096] cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.digitalPassRequested}
                   onChange={e => setFormData({ ...formData, digitalPassRequested: e.target.checked })}
-                  className="rounded accent-emerald-500"
+                  className="rounded accent-[#C8B79F]"
                 />
                 Heritage QR Pass
               </label>
-              <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
+              <label className="flex items-center gap-3 text-xs text-[#A9A096] cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.includeFestivalAlerts}
                   onChange={e => setFormData({ ...formData, includeFestivalAlerts: e.target.checked })}
-                  className="rounded accent-emerald-500"
+                  className="rounded accent-[#C8B79F]"
                 />
                 Festival Alerts
               </label>
-              <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
+              <label className="flex items-center gap-3 text-xs text-[#A9A096] cursor-pointer">
                 <input
                   type="checkbox"
                   checked={formData.safetyAssistance}
                   onChange={e => setFormData({ ...formData, safetyAssistance: e.target.checked })}
-                  className="rounded accent-emerald-500"
+                  className="rounded accent-[#C8B79F]"
                 />
                 Tour Police Aid
               </label>
@@ -420,14 +420,13 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         </div>
       )}
 
-
       {/* Footer Navigation */}
-      <div className="flex justify-between items-center pt-6 border-t border-white/[0.08]">
+      <div className="flex justify-between items-center pt-8 border-t border-white/[0.08]">
         {step > 1 ? (
           <button
             onClick={() => setStep(step - 1)}
             disabled={loading}
-            className="text-white/60 hover:text-white text-xs font-bold transition px-4 py-2.5"
+            className="text-[#A9A096] hover:text-[#F3EDE3] text-xs font-medium tracking-widest uppercase transition"
           >
             ← Back
           </button>
@@ -438,7 +437,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         {step < STEPS.length ? (
           <button
             onClick={() => setStep(step + 1)}
-            className="ml-auto bg-white text-slate-950 font-bold px-6 py-3 rounded-xl hover:bg-white/90 text-xs transition shadow-lg"
+            className="ml-auto bg-[#F3EDE3] text-[#0D0C0A] font-medium px-8 py-3.5 rounded text-xs tracking-widest uppercase hover:bg-white transition"
           >
             Next Step →
           </button>
@@ -446,13 +445,13 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="ml-auto bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold px-8 py-3.5 rounded-xl hover:opacity-95 text-xs transition flex items-center gap-2 shadow-xl shadow-amber-400/20"
+            className="ml-auto bg-[#C8B79F] text-[#0D0C0A] font-medium px-8 py-3.5 rounded hover:bg-[#D4C5AF] text-xs tracking-widest uppercase transition flex items-center gap-2"
           >
             {loading ? (
               <>Generating Master Plan...</>
             ) : (
               <>
-                Generate Master Itinerary <ArrowRight size={16} weight="bold" />
+                Generate Master Itinerary <ArrowRight size={14} weight="bold" />
               </>
             )}
           </button>
