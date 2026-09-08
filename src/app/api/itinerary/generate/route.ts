@@ -58,6 +58,11 @@ Travel Style/Persona: ${travelPersona}, Pace: ${pace}
 Selected Preferences: ${selectedActivities.join(', ') || 'Authentic heritage, local culinary trails, artisanal crafts'}
 ${matchedFestivals.length > 0 ? `Relevant Local Festivals to weave in: ${matchedFestivals.map(f => f.name).join(', ')}` : ''}
 
+CRITICAL RULES FOR PLACES:
+- You MUST select ONLY real, physically existing, well-known or highly-rated landmarks, restaurants, cafes, and artisan workshops in ${destination}.
+- NO generic placeholders (e.g., do NOT output "Famous Temple", "Local Market", "Popular Cafe"). Give the EXACT name (e.g., "Kashi Vishwanath Temple", "Johari Bazaar", "Indian Coffee House").
+- The location field must contain the exact entity name so it can be searched directly on Google Maps.
+
 You MUST return a pure JSON object strictly conforming to this structure:
 {
   "destination": "${destination}",
@@ -102,7 +107,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
 
         const response = await ai.models.generateContent({
           model: 'gemini-3.6-flash',
-          contents: [{ role: 'user', parts: [{ text: `Create an authentic, realistic ${durationDays}-day master itinerary for ${destination}, India with real landmarks, accurate coordinates (latitude/longitude for ${destination}), authentic artisan workshops, and real food spots. Return strictly JSON.` }] }],
+          contents: [{ role: 'user', parts: [{ text: `Create an authentic, realistic ${durationDays}-day master itinerary for ${destination}, India with REAL, highly-rated landmarks, authentic artisan workshops, and specific existing food spots (NO generic names like "Famous Temple" or "Local Cafe"). Provide accurate coordinates (latitude/longitude) for each place. Every location MUST physically exist in ${destination}. Return strictly JSON.` }] }],
           config: {
             systemInstruction,
             responseMimeType: 'application/json'
