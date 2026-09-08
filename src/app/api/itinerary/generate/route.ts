@@ -86,7 +86,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
           "description": "2-sentence practical & immersive description with insider tips",
           "localGuideTip": "Secret tip from local elders or registered guides",
           "crowdLevel": "Low | Moderate | High",
-          "coordinates": { "lat": 25.3176, "lng": 82.9739 }
+          "coordinates": { "lat": 26.9124, "lng": 75.7873 }
         }
       ]
     }
@@ -101,8 +101,8 @@ You MUST return a pure JSON object strictly conforming to this structure:
 }`;
 
         const response = await ai.models.generateContent({
-          model: 'gemini-3.5-flash-lite',
-          contents: [{ role: 'user', parts: [{ text: `Create a comprehensive ${durationDays}-day master itinerary for ${destination}. Return strictly JSON.` }] }],
+          model: 'gemini-1.5-flash',
+          contents: [{ role: 'user', parts: [{ text: `Create an authentic, realistic ${durationDays}-day master itinerary for ${destination}, India with real landmarks, accurate coordinates (latitude/longitude for ${destination}), authentic artisan workshops, and real food spots. Return strictly JSON.` }] }],
           config: {
             systemInstruction,
             responseMimeType: 'application/json'
@@ -113,7 +113,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
           const parsed = JSON.parse(response.text);
           return NextResponse.json({
             success: true,
-            source: 'gemini-3.5-flash-lite',
+            source: 'gemini-1.5-flash',
             itinerary: parsed
           });
         }
@@ -125,6 +125,8 @@ You MUST return a pure JSON object strictly conforming to this structure:
     // Fallback: Verified Local Master Itinerary Engine
     const destDetails = DESTINATION_DETAILS[destination] || DESTINATION_DETAILS.default;
     const baseDate = new Date(arrivalDate || new Date().toISOString());
+    const baseLat = destDetails.coordinates?.lat || 20.5937;
+    const baseLng = destDetails.coordinates?.lng || 78.9629;
 
     const generatedDays = [];
     const themes = destDetails.themes.length > 0 ? destDetails.themes : ["Cultural Discovery", "Heritage Exploration", "Artisan Trails"];
@@ -150,44 +152,44 @@ You MUST return a pure JSON object strictly conforming to this structure:
             activity: `${morningSpot} Sunrise Experience`,
             category: 'Sunrise',
             duration: '2h',
-            location: morningSpot,
+            location: `${morningSpot}, ${destination}`,
             description: `Early morning exploration of ${morningSpot} before regular tourist rush. Capture timeless light reflections and peaceful atmospheres.`,
             localGuideTip: 'Reach 20 minutes before sunrise for quiet boat moorings and prime photographic angles.',
             crowdLevel: 'Low',
-            coordinates: { lat: 25.3176, lng: 82.9739 }
+            coordinates: { lat: Number((baseLat + 0.005).toFixed(4)), lng: Number((baseLng + 0.004).toFixed(4)) }
           },
           {
             time: '08:30',
             activity: `Traditional Regional Breakfast at ${foodSpot1}`,
             category: 'Culinary',
             duration: '1.5h',
-            location: foodSpot1,
+            location: `${foodSpot1}, ${destination}`,
             description: `Authentic breakfast tasting signature morning recipes prepared using generational heritage techniques.`,
             localGuideTip: 'Order the fresh clay-cup beverage along with warm regional bread rolls.',
             crowdLevel: 'Moderate',
-            coordinates: { lat: 25.318, lng: 82.974 }
+            coordinates: { lat: Number((baseLat + 0.002).toFixed(4)), lng: Number((baseLng + 0.001).toFixed(4)) }
           },
           {
             time: '10:30',
             activity: selectedActivities[i % (selectedActivities.length || 1)] || `${landmark} Guided Heritage Walk`,
             category: 'Monument',
             duration: '3h',
-            location: landmark,
+            location: `${landmark}, ${destination}`,
             description: `In-depth architectural exploration of ${landmark} accompanied by official Ministry-certified cultural commentators.`,
             localGuideTip: 'Use your Raahi digital QR pass to bypass the general queue at the main entrance gate.',
             crowdLevel: 'Moderate',
-            coordinates: { lat: 25.312, lng: 82.98 }
+            coordinates: { lat: Number((baseLat - 0.003).toFixed(4)), lng: Number((baseLng - 0.002).toFixed(4)) }
           },
           {
             time: '14:00',
             activity: `Regional Tasting Lunch at ${foodSpot2}`,
             category: 'Culinary',
             duration: '1.5h',
-            location: foodSpot2,
+            location: `${foodSpot2}, ${destination}`,
             description: `Midday feast showcasing multi-course local specialties paired with seasonal cooling refreshments.`,
             localGuideTip: 'Ask for the chef’s special seasonal platter prepared with locally sourced farm ingredients.',
             crowdLevel: 'Moderate',
-            coordinates: { lat: 25.315, lng: 82.975 }
+            coordinates: { lat: Number((baseLat - 0.001).toFixed(4)), lng: Number((baseLng + 0.003).toFixed(4)) }
           },
           {
             time: '16:00',
@@ -198,7 +200,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
             description: `Interactive demonstration with state-recognized master craftsmen. Observe intricate hand-weaving, pottery, or metal etching.`,
             localGuideTip: 'Support local artisans directly with zero intermediary commission through Raahi verified artisan QR.',
             crowdLevel: 'Low',
-            coordinates: { lat: 25.32, lng: 82.978 }
+            coordinates: { lat: Number((baseLat + 0.004).toFixed(4)), lng: Number((baseLng - 0.004).toFixed(4)) }
           },
           {
             time: '18:45',
@@ -209,18 +211,18 @@ You MUST return a pure JSON object strictly conforming to this structure:
             description: `Witness timeless ceremonial traditions, sacred oil lamp ceremonies, and dusk ambiance with dedicated crowd-safety perimeters.`,
             localGuideTip: 'Best viewpoint is located on the elevated heritage pavilions near the northern tower.',
             crowdLevel: 'High',
-            coordinates: { lat: 25.308, lng: 82.985 }
+            coordinates: { lat: Number((baseLat + 0.001).toFixed(4)), lng: Number((baseLng + 0.006).toFixed(4)) }
           },
           {
             time: '21:00',
             activity: 'Curated Heritage Dinner & Rest',
             category: 'Culinary',
             duration: '1.5h',
-            location: 'Courtyard Heritage Haveli',
+            location: `Courtyard Heritage Haveli, ${destination}`,
             description: `End your day with slow-cooked culinary delights in a restored royal courtyard serenaded by acoustic classical instrumentalists.`,
             localGuideTip: 'Reservations are synchronized automatically with your Raahi master itinerary booking.',
             crowdLevel: 'Low',
-            coordinates: { lat: 25.316, lng: 82.972 }
+            coordinates: { lat: Number((baseLat - 0.002).toFixed(4)), lng: Number((baseLng - 0.005).toFixed(4)) }
           }
         ]
       });

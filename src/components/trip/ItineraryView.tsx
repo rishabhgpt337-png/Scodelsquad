@@ -17,6 +17,9 @@ interface ItineraryDay {
     duration: string;
     location: string;
     description: string;
+    category?: string;
+    localGuideTip?: string;
+    coordinates?: { lat: number; lng: number };
   }[];
 }
 
@@ -328,7 +331,17 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
                       </p>
 
                       <div className="flex gap-2">
-                        <button className="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-medium py-1.5 px-3 rounded-lg border border-white/[0.08] flex items-center gap-1.5 transition-colors">
+                        <button
+                          onClick={() => {
+                            let query = slot.location;
+                            if (slot.coordinates) {
+                              query = `${slot.coordinates.lat},${slot.coordinates.lng}`;
+                            }
+                            const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+                            window.open(mapsUrl, '_blank');
+                          }}
+                          className="text-[11px] bg-slate-800 hover:bg-slate-700 text-white font-medium py-1.5 px-3 rounded-lg border border-white/[0.08] flex items-center gap-1.5 transition-colors"
+                        >
                           <NavigationArrow size={12} className="text-amber-400" />
                           Directions
                         </button>

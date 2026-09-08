@@ -109,21 +109,21 @@ export default function ChatView({
       title: 'Nearby Heritage Stays',
       text: 'What are the top boutique havelis and heritage homestays nearby? Provide locations and verified ratings.',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.5-flash-lite' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Monuments Near Me',
       text: 'List the most significant ASI-protected monuments and historical sites within 5 kilometers of my current location.',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.5-flash-lite' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Local Culinary Trails',
       text: 'What are the authentic local street food clusters or generational eateries near my current location?',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.5-flash-lite' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
   ] : [
@@ -131,7 +131,7 @@ export default function ChatView({
       title: 'Share Location for Local Tips',
       text: 'I want to discover heritage sites, cafes, and artisan markets around me. Can you help me once I share my location?',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.5-flash-lite' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'local_guide',
       action: 'detect_location'
     },
@@ -139,20 +139,20 @@ export default function ChatView({
       title: 'Explore Indian Heritage',
       text: 'What are the hidden architectural gems of Rajasthan that avoid the main tourist crowds?',
       grounding: 'search' as GroundingMode,
-      model: 'gemini-3.5-flash-lite' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Culinary Traditions',
       text: 'Explain the 5,000-year history of Ayurvedic spices in Indian cooking and recommend 3 must-try dishes.',
       grounding: 'none' as GroundingMode,
-      model: 'gemini-3.1-pro-preview' as GeminiModelId,
+      model: 'gemini-1.5-pro' as GeminiModelId,
       persona: 'deep_thinker',
     }
   ];
 
   const currentGrounding = chat?.groundingMode || 'none';
-  const currentModel = chat?.model || 'gemini-3.5-flash-lite';
+  const currentModel = chat?.model || 'gemini-1.5-flash';
 
   return (
     <div id="chat-container" className="flex-1 flex flex-col h-full min-h-0 bg-white relative">
@@ -207,7 +207,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'search',
-                  model: 'gemini-3.5-flash-lite',
+                  model: 'gemini-1.5-flash',
                 })
               }
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all ${
@@ -215,7 +215,7 @@ export default function ChatView({
                   ? 'bg-sky-600 text-white font-medium shadow-2xs'
                   : 'text-stone-600 hover:text-sky-700'
               }`}
-              title="Google Search Grounding with gemini-3.5-flash-lite"
+              title="Google Search Grounding with gemini-1.5-flash"
             >
               <Globe className="w-3 h-3" />
               <span>Search</span>
@@ -227,7 +227,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'maps',
-                  model: 'gemini-3.5-flash-lite',
+                  model: 'gemini-1.5-flash',
                 })
               }
               className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all ${
@@ -235,7 +235,7 @@ export default function ChatView({
                   ? 'bg-emerald-600 text-white font-medium shadow-2xs'
                   : 'text-stone-600 hover:text-emerald-700'
               }`}
-              title="Google Maps Grounding with gemini-3.5-flash-lite"
+              title="Google Maps Grounding with gemini-1.5-flash"
             >
               <MapPin className="w-3 h-3" />
               <span>Maps</span>
@@ -252,16 +252,16 @@ export default function ChatView({
                   model: e.target.value as GeminiModelId,
                   // If switching while grounding is active
                   groundingMode:
-                    e.target.value !== 'gemini-3.5-flash-lite' && currentGrounding !== 'none'
+                    e.target.value !== 'gemini-1.5-flash' && currentGrounding !== 'none'
                       ? 'none'
                       : currentGrounding,
                 })
               }
               className="appearance-none bg-white border border-stone-300 text-stone-800 py-1.5 pl-3 pr-8 rounded-lg font-mono text-[11px] shadow-2xs focus:outline-none focus:ring-1 focus:ring-stone-400 cursor-pointer"
             >
-              <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite (Fast &amp; Grounding)</option>
-              <option value="gemini-3.6-flash">gemini-3.6-flash (Balanced)</option>
-              <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview (Deep Reasoning)</option>
+              <option value="gemini-1.5-flash">gemini-1.5-flash (Fast &amp; Grounding)</option>
+              <option value="gemini-2.0-flash">gemini-2.0-flash (Balanced)</option>
+              <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Reasoning)</option>
             </select>
             <ChevronDown className="w-3.5 h-3.5 text-stone-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>

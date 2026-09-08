@@ -205,7 +205,7 @@ export default function App() {
   // Create new chat
   const handleNewChat = useCallback(
     async (
-      model: GeminiModelId = 'gemini-3.5-flash-lite',
+      model: GeminiModelId = 'gemini-1.5-flash',
       persona: string = 'general',
       grounding: GroundingMode = 'none'
     ) => {
@@ -257,7 +257,7 @@ export default function App() {
   }) => {
     if (!activeChatId) {
       await handleNewChat(
-        updates.model || 'gemini-3.5-flash-lite',
+        updates.model || 'gemini-1.5-flash',
         updates.persona || 'general',
         updates.groundingMode || 'none'
       );
@@ -335,7 +335,7 @@ export default function App() {
     // If no active chat, create one automatically
     if (!currentChat) {
       const initialTitle = text.slice(0, 36) + (text.length > 36 ? '...' : '');
-      currentChat = await handleNewChat('gemini-3.5-flash-lite', 'general', 'none');
+      currentChat = await handleNewChat('gemini-1.5-flash', 'general', 'none');
       if (!currentChat) return;
       currentChat.title = initialTitle;
     } else if (messages.length === 0 && currentChat.title === 'New Chat') {

@@ -16,15 +16,10 @@ interface Step {
 }
 
 const STEPS: Step[] = [
-  { id: 1, title: "Trip Params", icon: <Calendar size={18} /> },
-  { id: 2, title: "Party & Pace", icon: <Users size={18} /> },
-  { id: 3, title: "Budget Tier", icon: <CurrencyInr size={18} /> },
-  { id: 4, title: "Persona & Vibe", icon: <Sparkle size={18} /> },
-  { id: 5, title: "Artisans & Guilds", icon: <PaintBrush size={18} /> },
-  { id: 6, title: "Culinary Trails", icon: <ForkKnife size={18} /> },
-  { id: 7, title: "Activity Focus", icon: <MapPin size={18} /> },
-  { id: 8, title: "Heritage Stays", icon: <Bed size={18} /> },
-  { id: 9, title: "Safety & Passes", icon: <ShieldCheck size={18} /> },
+  { id: 1, title: "Trip Essentials", icon: <Calendar size={18} /> },
+  { id: 2, title: "Vibe & Budget", icon: <Sparkle size={18} /> },
+  { id: 3, title: "Experiences", icon: <MapPin size={18} /> },
+  { id: 4, title: "Stays & Safety", icon: <ShieldCheck size={18} /> },
 ];
 
 export const BUDGET_RANGES = [
@@ -182,9 +177,9 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
         </div>
       </div>
 
-      {/* Step 1: Trip Parameters */}
+      {/* Step 1: Trip Essentials */}
       {step === 1 && (
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
             <label className="text-sm font-semibold text-white/90 mb-2 block">Planned Arrival Date</label>
             <input
@@ -214,12 +209,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
               ))}
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Step 2: Party & Pace */}
-      {step === 2 && (
-        <div className="space-y-6">
           <div>
             <label className="text-sm font-semibold text-white/90 mb-3 block">Travel Party Composition</label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -244,278 +234,160 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
               ))}
             </div>
           </div>
+        </div>
+      )}
 
+      {/* Step 2: Vibe & Budget */}
+      {step === 2 && (
+        <div className="space-y-8">
           <div>
-            <label className="text-sm font-semibold text-white/90 mb-3 block">Travel Cadence / Pace</label>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { id: "relaxed", label: "Immersive & Relaxed", sub: "1-2 deep experiences/day" },
-                { id: "balanced", label: "Balanced Exploration", sub: "3-4 curated highlights/day" },
-                { id: "dense", label: "Intensive Master Trail", sub: "Dawn to dusk heritage circuit" },
-              ].map(p => (
-                <button
-                  key={p.id}
-                  onClick={() => setFormData({ ...formData, pace: p.id })}
-                  className={`p-4 rounded-xl border text-left transition ${
-                    formData.pace === p.id
-                      ? "bg-emerald-500/10 border-emerald-500 text-white"
-                      : "bg-slate-950 border-white/[0.08] text-white/60 hover:border-white/20"
+            <label className="text-sm font-semibold text-white/90 mb-3 block">Budget Tier</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {BUDGET_RANGES.map((b) => (
+                <div
+                  key={b.id}
+                  onClick={() => setFormData({ ...formData, budgetRange: b.id })}
+                  className={`p-5 rounded-2xl border cursor-pointer transition ${
+                    formData.budgetRange === b.id
+                      ? "bg-amber-400/10 border-amber-400 shadow-lg shadow-amber-400/10"
+                      : "bg-slate-950 border-white/[0.08] hover:border-white/20"
                   }`}
                 >
-                  <span className="text-xs font-bold block text-white mb-1">{p.label}</span>
-                  <span className="text-[10px] text-white/40 block leading-tight">{p.sub}</span>
-                </button>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-sm text-white">{b.label}</span>
+                    <span className="text-xs font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full">{b.range}</span>
+                  </div>
+                  <p className="text-xs text-white/50 leading-relaxed">{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+             <label className="text-sm font-semibold text-white/90 mb-3 block">Persona & Vibe</label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {PERSONAS.map(p => (
+                <div
+                  key={p.id}
+                  onClick={() => setFormData({ ...formData, persona: p.id })}
+                  className={`p-5 rounded-2xl border cursor-pointer transition ${
+                    formData.persona === p.id
+                      ? "bg-indigo-500/10 border-indigo-400 shadow-lg shadow-indigo-500/10"
+                      : "bg-slate-950 border-white/[0.08] hover:border-white/20"
+                  }`}
+                >
+                  <h4 className="font-bold text-sm text-white mb-1.5">{p.title}</h4>
+                  <p className="text-xs text-white/50 leading-relaxed">{p.desc}</p>
+                </div>
               ))}
             </div>
           </div>
         </div>
       )}
 
-      {/* Step 3: Budget Tier */}
+      {/* Step 3: Experiences */}
       {step === 3 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {BUDGET_RANGES.map((b) => (
-            <div
-              key={b.id}
-              onClick={() => setFormData({ ...formData, budgetRange: b.id })}
-              className={`p-5 rounded-2xl border cursor-pointer transition ${
-                formData.budgetRange === b.id
-                  ? "bg-amber-400/10 border-amber-400 shadow-lg shadow-amber-400/10"
-                  : "bg-slate-950 border-white/[0.08] hover:border-white/20"
-              }`}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-bold text-sm text-white">{b.label}</span>
-                <span className="text-xs font-semibold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full">{b.range}</span>
-              </div>
-              <p className="text-xs text-white/50 leading-relaxed">{b.desc}</p>
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <h4 className="text-sm font-bold text-white">Artisan Guilds</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {cityData.crafts.map(craft => {
+                const isSelected = formData.selectedCrafts.includes(craft);
+                return (
+                  <button
+                    key={craft}
+                    onClick={() => toggleArrayItem('selectedCrafts', craft)}
+                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                      isSelected
+                        ? "bg-amber-400/15 border-amber-400 text-white"
+                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                    }`}
+                  >
+                    <span className="text-[11px] font-semibold">{craft}</span>
+                  </button>
+                );
+              })}
             </div>
-          ))}
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-sm font-bold text-white">Culinary Trails</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {cityData.culinary.map(food => {
+                const isSelected = formData.selectedCulinary.includes(food);
+                return (
+                  <button
+                    key={food}
+                    onClick={() => toggleArrayItem('selectedCulinary', food)}
+                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                      isSelected
+                        ? "bg-amber-400/15 border-amber-400 text-white"
+                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                    }`}
+                  >
+                    <span className="text-[11px] font-semibold">{food}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h4 className="text-sm font-bold text-white">Activity Focus</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {cityData.activities.map(act => {
+                const isSelected = formData.selectedActivities.includes(act);
+                return (
+                  <button
+                    key={act}
+                    onClick={() => toggleArrayItem('selectedActivities', act)}
+                    className={`p-3 rounded-xl border text-left flex items-center justify-between transition ${
+                      isSelected
+                        ? "bg-emerald-500/15 border-emerald-400 text-white"
+                        : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
+                    }`}
+                  >
+                    <span className="text-[11px] font-semibold">{act}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Step 4: Persona & Vibe */}
+      {/* Step 4: Stays & Safety */}
       {step === 4 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {PERSONAS.map(p => (
-            <div
-              key={p.id}
-              onClick={() => setFormData({ ...formData, persona: p.id })}
-              className={`p-5 rounded-2xl border cursor-pointer transition ${
-                formData.persona === p.id
-                  ? "bg-indigo-500/10 border-indigo-400 shadow-lg shadow-indigo-500/10"
-                  : "bg-slate-950 border-white/[0.08] hover:border-white/20"
-              }`}
-            >
-              <h4 className="font-bold text-sm text-white mb-1.5">{p.title}</h4>
-              <p className="text-xs text-white/50 leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Step 5: Artisans & Guilds */}
-      {step === 5 && (
-        <div className="space-y-4">
-          <p className="text-xs text-white/60">
-            Select traditional craft workshops and artisan guilds to weave directly into your travel itinerary:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {cityData.crafts.map(craft => {
-              const isSelected = formData.selectedCrafts.includes(craft);
-              return (
-                <button
-                  key={craft}
-                  onClick={() => toggleArrayItem('selectedCrafts', craft)}
-                  className={`p-4 rounded-xl border text-left flex items-center justify-between transition ${
-                    isSelected
-                      ? "bg-amber-400/15 border-amber-400 text-white"
-                      : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
-                  }`}
-                >
-                  <span className="text-xs font-semibold">{craft}</span>
-                  {isSelected && <CheckCircle size={18} className="text-amber-400 flex-shrink-0" weight="fill" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Step 6: Culinary Trails */}
-      {step === 6 && (
-        <div className="space-y-4">
-          <p className="text-xs text-white/60">
-            Choose generational culinary philosophies and dining experiences:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {cityData.culinary.map(food => {
-              const isSelected = formData.selectedCulinary.includes(food);
-              return (
-                <button
-                  key={food}
-                  onClick={() => toggleArrayItem('selectedCulinary', food)}
-                  className={`p-4 rounded-xl border text-left flex items-center justify-between transition ${
-                    isSelected
-                      ? "bg-amber-400/15 border-amber-400 text-white"
-                      : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
-                  }`}
-                >
-                  <span className="text-xs font-semibold">{food}</span>
-                  {isSelected && <CheckCircle size={18} className="text-amber-400 flex-shrink-0" weight="fill" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Step 7: Activity Focus */}
-      {step === 7 && (
-        <div className="space-y-4">
-          <p className="text-xs text-white/60">
-            Select signature monument and cultural activities:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {cityData.activities.map(act => {
-              const isSelected = formData.selectedActivities.includes(act);
-              return (
-                <button
-                  key={act}
-                  onClick={() => toggleArrayItem('selectedActivities', act)}
-                  className={`p-4 rounded-xl border text-left flex items-center justify-between transition ${
-                    isSelected
-                      ? "bg-emerald-500/15 border-emerald-400 text-white"
-                      : "bg-slate-950 border-white/[0.08] text-white/70 hover:border-white/20"
-                  }`}
-                >
-                  <span className="text-xs font-semibold">{act}</span>
-                  {isSelected && <CheckCircle size={18} className="text-emerald-400 flex-shrink-0" weight="fill" />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Step 8: Heritage Stays */}
-      {step === 8 && (
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <p className="text-xs text-white/60">
-                Curated accommodations synchronized with local heritage zones & cultural hubs:
-              </p>
-              <p className="text-[11px] text-amber-400/80 mt-0.5">
-                • Real-time data from Google Places & local verified hosts (direct contact, zero middleman markup)
-              </p>
-            </div>
-            {formData.selectedStay && (
-              <button
-                onClick={() => setFormData(prev => ({ ...prev, selectedStay: null }))}
-                className="text-[11px] text-white/40 hover:text-white underline self-start sm:self-auto"
-              >
-                Clear Selection
-              </button>
-            )}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {cityData.recommendedStays.map((stay: LocalizedStay) => {
-              const isSelected = formData.selectedStay === stay.id;
-              return (
-                <div
-                  key={stay.id}
-                  onClick={() => setFormData(prev => ({ ...prev, selectedStay: isSelected ? null : stay.id }))}
-                  className={`p-5 rounded-2xl border text-left flex flex-col justify-between transition-all cursor-pointer relative ${
-                    isSelected
-                      ? "bg-amber-400/10 border-amber-400 text-white shadow-lg shadow-amber-400/5 ring-1 ring-amber-400/30"
-                      : "bg-slate-950/80 border-white/[0.08] text-white/80 hover:border-white/20 hover:bg-slate-950"
-                  }`}
-                >
-                  <div className="space-y-2.5">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-amber-400/15 text-amber-400 border border-amber-400/30">
-                            {stay.category}
-                          </span>
-                          <div className="flex items-center gap-1 text-[11px] text-amber-300 font-bold">
-                            <Star size={12} weight="fill" className="text-amber-400" />
-                            <span>{stay.rating.toFixed(1)}</span>
-                            <span className="text-white/40 font-normal">({stay.userRatingCount}+)</span>
-                          </div>
-                        </div>
-                        <h4 className="text-sm font-bold text-white tracking-tight">{stay.name}</h4>
-                      </div>
-
-                      <div className="flex-shrink-0">
-                        {isSelected ? (
-                          <div className="w-6 h-6 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-bold">
-                            <CheckCircle size={18} weight="fill" />
-                          </div>
-                        ) : (
-                          <div className="w-6 h-6 rounded-full border border-white/20 hover:border-white/40" />
-                        )}
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-amber-200/90 font-medium italic">
-                      "{stay.tagline}"
-                    </p>
-
-                    <div className="flex items-start gap-1.5 text-xs text-white/50">
-                      <MapPin size={14} className="text-white/40 flex-shrink-0 mt-0.5" />
-                      <span className="line-clamp-2">{stay.address}</span>
-                    </div>
-
-                    {stay.contactNumber && (
-                      <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
-                        <Phone size={13} className="text-emerald-400 flex-shrink-0" />
-                        <span>{stay.contactNumber}</span>
-                      </div>
-                    )}
-
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {stay.highlights.map((h, i) => (
-                        <span key={i} className="text-[10px] bg-white/[0.05] text-white/70 px-2 py-0.5 rounded-md border border-white/[0.06]">
-                          {h}
-                        </span>
-                      ))}
-                    </div>
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold text-white">Heritage Stays</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {cityData.recommendedStays.map((stay: LocalizedStay) => {
+                const isSelected = formData.selectedStay === stay.id;
+                return (
+                  <div
+                    key={stay.id}
+                    onClick={() => setFormData(prev => ({ ...prev, selectedStay: isSelected ? null : stay.id }))}
+                    className={`p-5 rounded-2xl border text-left transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-amber-400/10 border-amber-400 text-white shadow-lg shadow-amber-400/5 ring-1 ring-amber-400/30"
+                        : "bg-slate-950/80 border-white/[0.08] text-white/80 hover:border-white/20"
+                    }`}
+                  >
+                     <h4 className="text-sm font-bold text-white mb-1 tracking-tight">{stay.name}</h4>
+                     <p className="text-[11px] text-amber-200/90 italic mb-2">"{stay.tagline}"</p>
                   </div>
-
-                  <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                    <a
-                      href={stay.googleMapsUri}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={e => e.stopPropagation()}
-                      className="text-[11px] text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1 transition"
-                    >
-                      <ArrowSquareOut size={13} />
-                      View on Google Maps
-                    </a>
-                    <span className="text-[10px] text-white/40 uppercase tracking-wider font-semibold">
-                      {isSelected ? "Selected Base" : "Click to select"}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      )}
 
-      {/* Step 9: Safety & Passes */}
-      {step === 9 && (
-        <div className="space-y-4">
           <div className="bg-slate-950 border border-white/[0.08] p-5 rounded-2xl space-y-4">
             <h4 className="text-sm font-bold text-white flex items-center gap-2">
               <ShieldCheck size={20} className="text-emerald-400" />
-              Government Certified Safety Protocols
+              Safety Protocols & Passes
             </h4>
-            <div className="space-y-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
                 <input
                   type="checkbox"
@@ -523,7 +395,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   onChange={e => setFormData({ ...formData, digitalPassRequested: e.target.checked })}
                   className="rounded accent-emerald-500"
                 />
-                Include Raahi QR Digital Heritage Queue Pass
+                Heritage QR Pass
               </label>
               <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
                 <input
@@ -532,7 +404,7 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   onChange={e => setFormData({ ...formData, includeFestivalAlerts: e.target.checked })}
                   className="rounded accent-emerald-500"
                 />
-                Live Festival & Cultural Surge Alerts
+                Festival Alerts
               </label>
               <label className="flex items-center gap-3 text-xs text-white/80 cursor-pointer">
                 <input
@@ -541,12 +413,13 @@ export default function TripPlanningFlow({ destination, onComplete }: TripPlanni
                   onChange={e => setFormData({ ...formData, safetyAssistance: e.target.checked })}
                   className="rounded accent-emerald-500"
                 />
-                24/7 Verified Tourist Police & Geo-safety Tracking
+                Tour Police Aid
               </label>
             </div>
           </div>
         </div>
       )}
+
 
       {/* Footer Navigation */}
       <div className="flex justify-between items-center pt-6 border-t border-white/[0.08]">

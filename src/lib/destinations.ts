@@ -225,6 +225,7 @@ export const DESTINATION_DETAILS: Record<string, {
     evening: string[];
   };
   description: string;
+  coordinates: { lat: number; lng: number };
 }> = {
   "Varanasi": {
     activities: [
@@ -246,7 +247,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Lunch at Thandai Corner", "15:30 Handloom Workshop"],
       evening: ["18:30 Evening Aarti", "20:30 Dinner at Godowlia"],
     },
-    description: "The spiritual capital of India where the sacred Ganges meets ancient rituals and silk weaving traditions."
+    description: "The spiritual capital of India where the sacred Ganges meets ancient rituals and silk weaving traditions.",
+    coordinates: { lat: 25.3176, lng: 82.9739 }
   },
   "Jaipur": {
     activities: [
@@ -268,7 +270,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Lunch at Traditional Haveli", "15:00 Jewelry Workshop"],
       evening: ["18:00 Nahargarh Sunset", "20:00 Chokhi Dhani Dinner"],
     },
-    description: "The Pink City of Rajasthan with majestic hill forts, bustling bazaars, and royal dining experiences."
+    description: "The Pink City of Rajasthan with majestic hill forts, bustling bazaars, and royal dining experiences.",
+    coordinates: { lat: 26.9124, lng: 75.7873 }
   },
   "Goa": {
     activities: [
@@ -290,7 +293,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["14:00 Seafood Lunch", "16:00 Dolphin Cruise"],
       evening: ["18:30 Sunset at Fort", "20:30 Night Market"],
     },
-    description: "Tropical paradise with Portuguese heritage, pristine beaches, vibrant nightlife, and spicy seafood."
+    description: "Tropical paradise with Portuguese heritage, pristine beaches, vibrant nightlife, and spicy seafood.",
+    coordinates: { lat: 15.2993, lng: 74.124 }
   },
   "Leh Ladakh": {
     activities: [
@@ -312,7 +316,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Traditional Lunch", "15:00 Lake Photography"],
       evening: ["18:00 Sunset at Lake", "20:00 Stargazing Session"],
     },
-    description: "High-altitude wonderland with turquoise lakes, dramatic mountain passes, and ancient monasteries."
+    description: "High-altitude wonderland with turquoise lakes, dramatic mountain passes, and ancient monasteries.",
+    coordinates: { lat: 34.1526, lng: 77.577 }
   },
   "Leh": {
     activities: [
@@ -334,7 +339,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Traditional Lunch", "15:00 Lake Photography"],
       evening: ["18:00 Sunset at Lake", "20:00 Stargazing Session"],
     },
-    description: "High-altitude wonderland with turquoise lakes, dramatic mountain passes, and ancient monasteries."
+    description: "High-altitude wonderland with turquoise lakes, dramatic mountain passes, and ancient monasteries.",
+    coordinates: { lat: 34.1526, lng: 77.577 }
   },
   "Mumbai": {
     activities: [
@@ -356,7 +362,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Lunch at Leopold", "15:00 Dhobi Ghat Visit"],
       evening: ["18:00 Marine Drive Sunset", "20:30 Mohammad Ali Food Trail"],
     },
-    description: "The city of dreams with Bollywood glamour, colonial heritage, vibrant street food, and iconic coastal views."
+    description: "The city of dreams with Bollywood glamour, colonial heritage, vibrant street food, and iconic coastal views.",
+    coordinates: { lat: 19.076, lng: 72.8777 }
   },
   "Delhi": {
     activities: [
@@ -378,7 +385,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Lunch at Karim's", "15:00 Lodhi Gardens Walk"],
       evening: ["18:00 India Gate Visit", "20:00 Akshardham Show"],
     },
-    description: "India's capital blending Mughal grandeur, colonial elegance, political power, and chaotic street energy."
+    description: "India's capital blending Mughal grandeur, colonial elegance, political power, and chaotic street energy.",
+    coordinates: { lat: 28.6139, lng: 77.209 }
   },
   "Amritsar": {
     activities: [
@@ -400,7 +408,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:00 Kulcha Lunch", "15:00 Heritage Walk"],
       evening: ["16:30 Wagah Border Ceremony", "20:00 Gobindgarh Fort Show"],
     },
-    description: "Spiritual heart of Sikhism with the radiant Golden Temple, Wagah patriotism, and legendary Punjabi hospitality."
+    description: "Spiritual heart of Sikhism with the radiant Golden Temple, Wagah patriotism, and legendary Punjabi hospitality.",
+    coordinates: { lat: 31.634, lng: 74.8723 }
   },
   "Agra": {
     activities: [
@@ -422,7 +431,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Mughal Lunch", "15:00 Marble Workshop"],
       evening: ["17:30 Mehtab Bagh Sunset", "20:00 Kinari Bazaar Walk"],
     },
-    description: "Home to the iconic Taj Mahal, Mughal architectural splendor, and centuries-old marble inlay craftsmanship."
+    description: "Home to the iconic Taj Mahal, Mughal architectural splendor, and centuries-old marble inlay craftsmanship.",
+    coordinates: { lat: 27.1767, lng: 78.0081 }
   },
   "Kolkata": {
     activities: [
@@ -444,7 +454,8 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Bengali Thali Lunch", "15:00 College Street Walk"],
       evening: ["18:00 Prinsep Ghat Sunset", "20:00 Park Street Dinner"],
     },
-    description: "City of joy with colonial architecture, intellectual legacy, artistic soul, and irresistible Bengali sweets."
+    description: "City of joy with colonial architecture, intellectual legacy, artistic soul, and irresistible Bengali sweets.",
+    coordinates: { lat: 22.5726, lng: 88.3639 }
   },
   // Default fallback for unknown destinations
   "default": {
@@ -467,6 +478,7 @@ export const DESTINATION_DETAILS: Record<string, {
       afternoon: ["13:30 Traditional Lunch", "15:00 Artisan Visit"],
       evening: ["18:00 Sunset Views", "20:00 Cultural Dinner"],
     },
-    description: "Explore local culture, cuisine, and heritage with authentic experiences."
+    description: "Explore local culture, cuisine, and heritage with authentic experiences.",
+    coordinates: { lat: 20.5937, lng: 78.9629 }
   }
 };
