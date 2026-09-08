@@ -35,7 +35,7 @@ import {
 } from '@/lib/assistant/localChatService';
 import Sidebar from './Sidebar';
 import ChatView from './ChatView';
-import { Sparkles, LogIn, X, MessageSquare } from 'lucide-react';
+import { Sparkles, LogIn, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 export default function App() {

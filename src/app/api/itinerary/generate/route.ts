@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
-import { DESTINATION_DETAILS, INDIAN_FESTIVALS, FestivalInfo } from '@/lib/destinations';
+import { DESTINATION_DETAILS, INDIAN_FESTIVALS } from '@/lib/destinations';
 
 export interface TripGenerationRequest {
   destination: string;
