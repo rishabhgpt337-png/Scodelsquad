@@ -1,22 +1,29 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { messages, model = 'gemini-3.6-flash', systemInstruction, grounding = 'none', location } = body;
+    const { messages, model = 'gemini-1.5-flash', systemInstruction, grounding = 'none', location } = body;
 
     const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json({ error: 'GEMINI_API_KEY is not set' }, { status: 500 });
+
+    // Check if API Key is not set or invalid
+    if (!apiKey || apiKey.length < 10) {
+      console.warn("GEMINI_API_KEY is missing or invalid in environment variables. Providing fallback response.");
+      return NextResponse.json({
+        text: "Namaste! I am the Raahi Concierge. I can help you plan amazing itineraries across India. (Note: Live AI responses are currently operating in offline/demo mode, but you can still use our trip generation module in the Trip Planner!)",
+        model: 'raahi-fallback',
+        groundingMetadata: null,
+      });
     }
 
     const ai = new GoogleGenAI({ apiKey });
 
     let activeModel = model;
-    const validModels = ['gemini-3.6-flash'];
+    const validModels = ['gemini-1.5-flash'];
     if (!validModels.includes(activeModel)) {
-      activeModel = 'gemini-3.6-flash';
+      activeModel = 'gemini-1.5-flash';
     }
 
     const contents = messages.map((m: { role: string; text: string }) => ({
@@ -69,6 +76,11 @@ export async function POST(req: Request) {
     });
   } catch (error: any) {
     console.error("Chat generation failed:", error);
-    return NextResponse.json({ error: error.message || 'Generation failed' }, { status: 500 });
+    // Provide a graceful fallback response if the API key fails (e.g. invalid key, quota exceeded)
+    return NextResponse.json({
+      text: "Namaste! I am the Raahi Concierge. It looks like our AI connection is experiencing a temporary issue. I can still help you build an incredible trip using our verified database if you head over to the Trip Planner!",
+      model: 'raahi-fallback',
+      groundingMetadata: null,
+    });
   }
 }

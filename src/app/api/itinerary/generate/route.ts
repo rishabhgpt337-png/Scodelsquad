@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 import { DESTINATION_DETAILS, INDIAN_FESTIVALS } from '@/lib/destinations';
 
@@ -71,8 +71,8 @@ You MUST return a pure JSON object strictly conforming to this structure:
   "tripTitle": "Curated title for this expedition",
   "summary": "High level description of the journey (2-3 sentences)",
   "vibeKeywords": ["Spiritual", "Heritage", "Artisanal"],
-  "estimatedBudgetTotal": "Formatted currency estimate e.g. ₹28,500 - ₹34,000",
-  "weatherForecast": { "temp": "28°C", "condition": "Pleasant & Clear", "advisory": "Best light in early mornings" },
+  "estimatedBudgetTotal": "Formatted currency estimate e.g. â‚¹28,500 - â‚¹34,000",
+  "weatherForecast": { "temp": "28Â°C", "condition": "Pleasant & Clear", "advisory": "Best light in early mornings" },
   "safetyRating": "9.8/10 Ministry Certified Zone",
   "featuredFestival": null or { "name": "...", "date": "...", "highlight": "..." },
   "days": [
@@ -106,7 +106,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
 }`;
 
         const response = await ai.models.generateContent({
-          model: 'gemini-3.6-flash',
+          model: 'gemini-1.5-flash',
           contents: [{ role: 'user', parts: [{ text: `Create an authentic, realistic ${durationDays}-day master itinerary for ${destination}, India with REAL, highly-rated landmarks, authentic artisan workshops, and specific existing food spots (NO generic names like "Famous Temple" or "Local Cafe"). Provide accurate coordinates (latitude/longitude) for each place. Every location MUST physically exist in ${destination}. Return strictly JSON.` }] }],
           config: {
             systemInstruction,
@@ -118,7 +118,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
           const parsed = JSON.parse(response.text);
           return NextResponse.json({
             success: true,
-            source: 'gemini-3.6-flash',
+            source: 'gemini-1.5-flash',
             itinerary: parsed
           });
         }
@@ -192,7 +192,7 @@ You MUST return a pure JSON object strictly conforming to this structure:
             duration: '1.5h',
             location: `${foodSpot2}, ${destination}`,
             description: `Midday feast showcasing multi-course local specialties paired with seasonal cooling refreshments.`,
-            localGuideTip: 'Ask for the chef’s special seasonal platter prepared with locally sourced farm ingredients.',
+            localGuideTip: 'Ask for the chefâ€™s special seasonal platter prepared with locally sourced farm ingredients.',
             crowdLevel: 'Moderate',
             coordinates: { lat: Number((baseLat - 0.001).toFixed(4)), lng: Number((baseLng + 0.003).toFixed(4)) }
           },
@@ -240,8 +240,8 @@ You MUST return a pure JSON object strictly conforming to this structure:
       tripTitle: `The Timeless Grandeur of ${destination}`,
       summary: destDetails.description || `A masterfully designed ${durationDays}-day expedition immersing you in the sacred heritage, authentic cuisines, and living traditions of ${destination}.`,
       vibeKeywords: destDetails.themes || ["Sacred Heritage", "Artisan Guilds", "Culinary Trail"],
-      estimatedBudgetTotal: budgetRange === 'smart' ? '₹12,000 - ₹18,000' : budgetRange === 'premium' ? '₹38,000 - ₹52,000' : '₹22,000 - ₹34,000',
-      weatherForecast: { temp: '26°C', condition: 'Optimal Heritage Weather', advisory: 'Clear morning skies, cool breezy evenings' },
+      estimatedBudgetTotal: budgetRange === 'smart' ? 'â‚¹12,000 - â‚¹18,000' : budgetRange === 'premium' ? 'â‚¹38,000 - â‚¹52,000' : 'â‚¹22,000 - â‚¹34,000',
+      weatherForecast: { temp: '26Â°C', condition: 'Optimal Heritage Weather', advisory: 'Clear morning skies, cool breezy evenings' },
       safetyRating: '9.9/10 Ministry Certified Zone',
       featuredFestival: matchedFestivals[0] ? {
         name: matchedFestivals[0].name,

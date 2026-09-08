@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -107,21 +107,21 @@ export default function ChatView({
       title: 'Nearby Heritage Stays',
       text: 'What are the top boutique havelis and heritage homestays nearby? Provide locations and verified ratings.',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Monuments Near Me',
       text: 'List the most significant ASI-protected monuments and historical sites within 5 kilometers of my current location.',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Local Culinary Trails',
       text: 'What are the authentic local street food clusters or generational eateries near my current location?',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
   ] : [
@@ -129,7 +129,7 @@ export default function ChatView({
       title: 'Share Location for Local Tips',
       text: 'I want to discover heritage sites, cafes, and artisan markets around me. Can you help me once I share my location?',
       grounding: 'maps' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'local_guide',
       action: 'detect_location'
     },
@@ -137,20 +137,20 @@ export default function ChatView({
       title: 'Explore Indian Heritage',
       text: 'What are the hidden architectural gems of Rajasthan that avoid the main tourist crowds?',
       grounding: 'search' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'travel_architect',
     },
     {
       title: 'Culinary Traditions',
       text: 'Explain the 5,000-year history of Ayurvedic spices in Indian cooking and recommend 3 must-try dishes.',
       grounding: 'none' as GroundingMode,
-      model: 'gemini-3.6-flash' as GeminiModelId,
+      model: 'gemini-1.5-flash' as GeminiModelId,
       persona: 'deep_thinker',
     }
   ];
 
   const currentGrounding = chat?.groundingMode || 'none';
-  const currentModel = chat?.model || 'gemini-3.6-flash';
+  const currentModel = chat?.model || 'gemini-1.5-flash';
 
   return (
     <div id="chat-container" className="flex-1 flex flex-col h-full min-h-0 bg-[#0D0C0A] text-[#F3EDE3] relative">
@@ -175,7 +175,7 @@ export default function ChatView({
             </h2>
             <div className="flex items-center gap-2 text-[11px] text-[#A9A096]">
               <span className="font-medium text-[#C8B79F]">{activePersona.name}</span>
-              <span className="opacity-40">•</span>
+              <span className="opacity-40">â€¢</span>
               <span className="font-mono text-[10px] text-[#A9A096]">{currentModel}</span>
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'search',
-                  model: 'gemini-3.6-flash',
+                  model: 'gemini-1.5-flash',
                 })
               }
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] uppercase tracking-wider transition-all ${
@@ -225,7 +225,7 @@ export default function ChatView({
               onClick={() =>
                 onUpdateChatSettings({
                   groundingMode: 'maps',
-                  model: 'gemini-3.6-flash',
+                  model: 'gemini-1.5-flash',
                 })
               }
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] uppercase tracking-wider transition-all ${
@@ -253,7 +253,7 @@ export default function ChatView({
               }
               className="appearance-none bg-[#0D0C0A] border border-white/[0.08] text-[#F3EDE3] py-1.5 pl-3 pr-8 rounded-lg font-mono text-[11px] focus:outline-none focus:border-[#C8B79F] cursor-pointer"
             >
-              <option value="gemini-3.6-flash" className="bg-[#151310] text-[#F3EDE3]">gemini-3.6-flash</option>
+              <option value="gemini-1.5-flash" className="bg-[#151310] text-[#F3EDE3]">gemini-1.5-flash</option>
             </select>
             <ChevronDown className="w-3.5 h-3.5 text-[#A9A096] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
@@ -562,7 +562,7 @@ export default function ChatView({
             </div>
 
             <span className="text-[#A9A096]/60 text-[10px] uppercase tracking-wider hidden sm:inline font-light">
-              Shift + Enter for newline • Enter to send
+              Shift + Enter for newline â€¢ Enter to send
             </span>
           </div>
 

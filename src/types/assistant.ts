@@ -1,5 +1,5 @@
 ﻿export type GeminiModelId =
-  | 'gemini-3.6-flash';
+  | 'gemini-1.5-flash';
 
 export type GroundingMode = 'none' | 'maps' | 'search';
 
