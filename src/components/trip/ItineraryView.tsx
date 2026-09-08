@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { animate, stagger } from "animejs";
-import { Clock, MapPin, Coffee, Camera, Sun, Moon, NavigationArrow, Calendar, Users, CurrencyInr, DownloadSimple, Check } from "@phosphor-icons/react";
+import { Clock, MapPin, Coffee, Camera, Sun, Moon, NavigationArrow, Calendar, Users, CurrencyInr, DownloadSimple, Check, Info } from "@phosphor-icons/react";
 import { DESTINATION_DETAILS } from "@/lib/destinations";
 
 interface ItineraryDay {
@@ -41,6 +41,11 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
   const [activeDay, setActiveDay] = useState<number>(1);
   const [viewMode, setViewMode] = useState<"timeline" | "map">("timeline");
   const timelineRef = useRef<HTMLDivElement>(null);
+  const [expandedTips, setExpandedTips] = useState<string[]>([]);
+
+  const toggleTip = (id: string) => {
+    setExpandedTips((prev) => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  };
 
   const destData = DESTINATION_DETAILS[tripData.destination] || DESTINATION_DETAILS.default;
 
@@ -345,10 +350,30 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
                           <NavigationArrow size={12} className="text-amber-400" />
                           Directions
                         </button>
-                        <button className="text-[11px] bg-slate-950 hover:bg-slate-800 text-white/60 hover:text-white font-medium py-1.5 px-3 rounded-lg border border-white/[0.08] transition-colors">
-                          Local Guide Tips
+                        <button
+                          onClick={() => toggleTip(`${activeDayData.day}-${index}`)}
+                          className={`text-[11px] font-medium py-1.5 px-3 rounded-lg border transition-colors flex items-center gap-1.5 ${
+                            expandedTips.includes(`${activeDayData.day}-${index}`)
+                              ? "bg-amber-400/20 text-amber-400 border-amber-400/30"
+                              : "bg-slate-950 hover:bg-slate-800 text-white/60 hover:text-white border-white/[0.08]"
+                          }`}
+                        >
+                          <Info size={12} weight="bold" className={expandedTips.includes(`${activeDayData.day}-${index}`) ? "text-amber-400" : ""} />
+                          {expandedTips.includes(`${activeDayData.day}-${index}`) ? "Hide Tip" : "Local Guide Tip"}
                         </button>
                       </div>
+                      
+                      {expandedTips.includes(`${activeDayData.day}-${index}`) && slot.localGuideTip && (
+                        <div className="mt-4 bg-amber-400/10 border border-amber-400/20 rounded-xl p-3.5 transition-all">
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                            <span className="text-amber-400 font-bold text-[10px] uppercase tracking-[0.15em]">Elder's Secret</span>
+                          </div>
+                          <p className="text-xs text-amber-100/90 leading-relaxed italic">
+                            "{slot.localGuideTip}"
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -412,15 +437,31 @@ export default function ItineraryView({ tripData }: ItineraryViewProps) {
 
         {/* Map View */}
         {viewMode === "map" && (
-          <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-8 text-center">
-            <div className="w-full h-80 bg-slate-900 border border-white/[0.08] rounded-xl flex flex-col items-center justify-center mb-4 p-6">
-              <MapPin size={40} className="text-amber-400 mb-3" />
-              <h3 className="text-base font-bold text-white mb-1">Spatial Radar for {tripData.destination}</h3>
-              <p className="text-xs text-white/50 max-w-md">
-                Connecting to Ministry of Tourism GIS mapping layers for real-time crowd densities, certified guides, and heritage stops.
-              </p>
+          <div className="bg-slate-950 border border-white/[0.08] rounded-xl p-6 md:p-8 text-center">
+            <h3 className="text-lg font-bold text-white mb-2">Spatial Radar: {tripData.destination}</h3>
+            <p className="text-xs text-white/50 mb-6">
+              Interactive local telemetry and mapped checkpoints via Google Maps.
+            </p>
+            <div className="w-full h-[400px] bg-slate-900 border border-white/[0.08] rounded-xl flex flex-col items-center justify-center relative overflow-hidden shadow-inner">
+              {tripData.destination ? (
+                <iframe
+                  title={`Map of ${tripData.destination}`}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                    tripData.destination + (tripData.state ? ", " + tripData.state : ", India")
+                  )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                ></iframe>
+              ) : (
+                <div className="p-6">
+                  <MapPin size={40} className="text-amber-400 mb-3 mx-auto" />
+                  <p className="text-white">Connecting to Map Services...</p>
+                </div>
+              )}
             </div>
-            <p className="text-xs text-white/40">Real-time geospatial telemetry enabled for all licensed checkpoints.</p>
           </div>
         )}
       </div>
